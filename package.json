@@ -1,0 +1,17 @@
+{
+  "name": "discord-donuts",
+  "version": "1.0.0",
+  "description": "Website: http://www.phpliteadmin.org/",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "sequelize": "^4.38.0",
+    "sqlite3": "^4.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
