@@ -132,7 +132,7 @@ url: ${order.get('url')}`, { code: true })
     }
     message.channel.send('Your donut will take 3 minutes to cook')
 
-    await timeout(18000)
+    await timeout(180000)
 
     message.reply('Your donut has finished cooking')
 
