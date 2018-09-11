@@ -7,6 +7,7 @@ const { token, employeeRole, kitchenChannel, ticketChannel, dbPassword, botOwner
 
 const client = new Discord.Client()
 const prefix = '!'
+const embedColor = parseInt('0x' + Math.floor(Math.random() * 16777215).toString(16))
 
 const generateTicket = order => {
   const user = client.users.get(order.get('user'))
@@ -110,7 +111,7 @@ Orders.afterUpdate(async (order, options) => {
 
 client.once('ready', () => {
   console.log('ready')
-  Orders.sync({ force: true })
+  Orders.sync()
 })
 
 client.on('message', async message => {
@@ -140,9 +141,9 @@ client.on('message', async message => {
 
     console.log(args.join(' '))
 
-    channel.send(createEmbed(
-      embedColor, null, "Ticket Created",
-      `:ticket: Ticket Placed! Your ticket ID: \`${oid}\``
+    message.channel.send(createEmbed(
+      embedColor, null, 'Ticket Created',
+      `:ticket: Ticket Placed! Your ticket ID: \`${generatedID}\``
     ))
   } else if (command === 'list') {
     const ordersList = await Orders.findAll({ where: { status: { [Op.lt]: 5 } }, attributes: ['id'] })
@@ -164,12 +165,12 @@ ticketMessageID: ${order.get('ticketMessageID')}`, { code: true })
   } else if (command === 'claim') {
     if (!canCook(message.member)) return
 
-    const order = await Orders.findOne( { where: id: args.shift(), claimer: null })
+    const order = await Orders.findOne({ where: { id: args.shift(), claimer: null } })
     if (!order) message.reply('Couldn\'t find that order or it has already been claimed')
 
     await order.update({ status: 1, claimer: message.author.id })
 
-    await client.users.get(order.get('user')).send(`Guess what? Your ticket has now been claimed by **${message.author.id}**! It should be cooked shortly.`
+    await client.users.get(order.get('user')).send(`Guess what? Your ticket has now been claimed by **${message.author.username}**! It should be cooked shortly.`)
 
     message.reply('You have claimed the order')
   } else if (command === 'delticket') {
