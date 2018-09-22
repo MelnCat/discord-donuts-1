@@ -179,7 +179,7 @@ ticketMessageID: ${order.get('ticketMessageID')}`, { code: true })
     message.reply('You have claimed the order')
   } else if (command === 'delticket') {
     if (!canCook(message.member)) return
-    const deletedOrdersCount = await Orders.destroy({ where: { id: args.shift() } })
+    const deletedOrdersCount = await Orders.update({ status: 6 }, { where: { id: args.shift(), status: { [Op.lt]: 5 } }, individualHooks: true })
     if (!deletedOrdersCount) message.reply('Couldn\'t find that order')
     else message.reply('Order deleted')
   } else if (command === 'cook') {
@@ -215,8 +215,6 @@ ticketMessageID: ${order.get('ticketMessageID')}`, { code: true })
 
     channel.send(`${user}, here's your order! I know you love this bot. In case you didn't know, upkeeping a bot takes money. You can help keep us operating and our gears running smooth by being a patron over at https://patreon.com/discorddonuts. If you want to provide feedback, please use d!feedback. If you want to leave a tip, use d!tip.
 ${url}`)
-
-    await Orders.destroy({ where: { id: id } })
   } else if (command === 'clear') {
     if (!botOwners.includes(message.author.id)) return
     const deletedOrders = await Orders.destroy({ where: {} })
