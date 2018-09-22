@@ -232,7 +232,7 @@ ${url}`)
   } else if (command === 'sql') {
     try {
       const result = await sequelize.query(args.join(' '))
-      await message.channel.send(JSON.stringify(result))
+      await message.channel.send(JSON.stringify(result[0]))
     } catch (e) {
       await message.channel.send(e.message)
     }
