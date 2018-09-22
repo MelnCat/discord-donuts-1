@@ -99,8 +99,17 @@ const Orders = sequelize.define('orders', {
   ticketMessageID: Sequelize.TEXT
 })
 
-Orders.beforeCreate(async (order, options) => {
-  const ticket = await client.channels.get(ticketChannel).send(generateTicket(order))
+Orders.beforeCreate(order => {
+  client.shard.broadcastEval(`
+      const channel = this.channels.get('294620411721940993');
+      if (channel) {
+        channel.send(JSON.parse('${JSON.stringify(generateTicket(order))}'));
+        true;
+      } else {
+        false;
+      }
+`).then(console.log)
+})
 
 Orders.afterCreate((order, options) => {
   timeout(20 * 60 * 1000).then(async () => {
