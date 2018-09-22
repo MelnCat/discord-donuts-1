@@ -145,8 +145,6 @@ client.on('message', async message => {
       if (e.name === 'SequelizeValidationError') return message.reply('Invalid order, did you actually type a description?')
     }))
 
-    console.log(args.join(' '))
-
     message.channel.send(createEmbed(
       embedColor, null, 'Ticket Created',
       `:ticket: Ticket Placed! Your ticket ID: \`${generatedID}\``
@@ -191,7 +189,6 @@ ticketMessageID: ${order.get('ticketMessageID')}`, { code: true })
     if (!order) return message.reply('Either this order doesn\'t exist, or you haven\'t claimed it')
     await message.channel.send('The next message you send will be set as the order\'s image Only URLs are supported atm :cry')
     const response = await message.channel.awaitMessages(m => m.author.id === order.get('claimer'), { max: 1, time: 30000 })
-    console.log(response)
     if (!response.size) return message.reply('You didn\'t respond in time')
     try {
       await Orders.update({ status: 2, url: response.first().content }, { where: { id: id }, individualHooks: true })
