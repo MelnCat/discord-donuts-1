@@ -132,7 +132,7 @@ client.on('message', async message => {
     const generatedID = generateID(6) // Note that this is actually a 7 char id
     console.log(generatedID)
 
-    const order = await (Orders.create({
+    await (Orders.create({
       id: generatedID,
       user: message.author.id,
       description: args.join(' '),
