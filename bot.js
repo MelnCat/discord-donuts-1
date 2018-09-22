@@ -45,6 +45,8 @@ const status = code => {
   else if (code === 3) return 'Cooked'
   else if (code === 4) return 'Delivered'
   else if (code === 5) return 'Deleted'
+  else if (code === 6) return 'Expired'
+  else if (code === 7) return 'Cancelled'
   else return code
 }
 
@@ -100,7 +102,11 @@ const Orders = sequelize.define('orders', {
 Orders.beforeCreate(async (order, options) => {
   const ticket = await client.channels.get(ticketChannel).send(generateTicket(order))
 
-  order.ticketMessageID = ticket.id
+Orders.afterCreate((order, options) => {
+  timeout(20 * 60 * 1000).then(async () => {
+    await order.update({ status: 6 })
+    await client.users.get(order.get('user')).send('It has been 20 minutes, and therefore your order has been deleted')
+  })
 })
 
 Orders.afterUpdate(async (order, options) => {
