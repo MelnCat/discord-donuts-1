@@ -1,4 +1,4 @@
-const { RichEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
 const { Blacklist, Orders, Op } = require('../sequelize')
 
@@ -31,7 +31,7 @@ module.exports = {
       throw e
     }))
 
-    const embed = new RichEmbed()
+    const embed = new MessageEmbed()
                      .setTitle('Ticket Created')
                      .setDescription(`:ticket: Ticket Placed! Your ticketID: \`${generatedID}\``)
                      .setColor(0xFFFFFF)

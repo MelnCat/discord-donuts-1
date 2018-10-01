@@ -1,4 +1,4 @@
-const { RichEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
 const { botOwners, employeeRole } = require('./auth.json')
 
@@ -36,7 +36,7 @@ else return code
 const generateTicket = (client, order) => {
   const user = client.users.get(order.get('user'))
   const channel = client.channels.get(order.get('channel'))
-  return new RichEmbed()
+  return new MessageEmbed()
     .setColor(3447003)
     .setAuthor(user.username, user.avatarURL)
     .setTitle('\u1F3AB New Ticket')
