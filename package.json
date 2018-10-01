@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "discord.js": "^11.4.2",
+    "discord.js": "git+https://github.com/discordjs/discord.js.git",
     "embed-creator": "^1.2.4",
     "mysql2": "^1.6.1",
     "sequelize": "^4.38.0"
