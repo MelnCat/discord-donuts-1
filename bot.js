@@ -99,6 +99,22 @@ const Orders = sequelize.define('orders', {
   ticketMessageID: Sequelize.TEXT
 })
 
+const Blacklist = sequelize.define('blacklist', {
+  id: {
+    type: Sequelize.CHAR(18),
+    unique: true,
+    primaryKey: true,
+    allowNull: false,
+    validate: {
+      not: /^\s*$/
+    }
+  },
+  reason: {
+    type: Sequelize.TEXT,
+    allowNull: false
+  }
+})
+
 Orders.beforeCreate(order => {
   client.shard.broadcastEval(`
       const channel = this.channels.get('294620411721940993');
@@ -127,6 +143,7 @@ Orders.afterUpdate(async (order, options) => {
 client.once('ready', () => {
   console.log('ready')
   Orders.sync()
+  Blacklist.sync()
 })
 
 client.on('message', async message => {
@@ -137,7 +154,7 @@ client.on('message', async message => {
 
   if (command === 'order') {
     if (!args) return
-
+    if (await Blacklist.findOne( { where: { [Op.or]: [ { id: message.author.id }, { id: message.guild.id } ] } } )) return message.reply('Either you or your guild have been blacklisted')
     const generatedID = generateID(6) // Note that this is actually a 7 char id
     console.log(generatedID)
 
@@ -243,6 +260,21 @@ ${url}`)
     } catch (e) {
       await message.channel.send(e.message)
     }
+  } else if (command === 'blacklist') {
+    try {
+      await Blacklist.create({ id: args.shift(), reason: args.shift() })
+    } catch (e) {
+      console.log(e)
+      message.reply('Error: Did you run the command properly?')
+    }
+  } else if (command === 'unblacklist') {
+    try {
+      await Blacklist.destroy( { where: { id: args.shift() } } )
+    } catch (e) {
+      console.log(e)
+      return message.reply('Error')
+    }
+    message.reply('Blacklist removed')
   }
 })
 
