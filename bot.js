@@ -22,6 +22,7 @@ commandFiles.forEach(file => {
 })
 
 Orders.beforeCreate(order => {
+  // All that i need to do here, is to run `generateTicket(client,order) and send it to the orders channel, no matter which shard
   client.shard.broadcastEval(`
       const channel = this.channels.get('294620411721940993');
       if (channel) {
