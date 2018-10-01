@@ -1,12 +1,11 @@
-const { ShardingManager } = require('discord.js')
+const { ShardingManager } = require("discord.js");
 
-const { token } = require('./auth.json')
+const manager = new ShardingManager("./DiscordDonuts.js", {
+	token: require("./auth.json").token,
+	totalShards: require("./Configuration/config.js").totalShards,
+	respawn: true,
+});
 
-const manager = new ShardingManager('./bot.js', { token: token, totalShards: 2 })
+manager.spawn();
 
-manager.respawn = false
-
-manager.spawn()
-manager.on('launch', shard => console.log(`Launched shard ${shard.id}`))
-
-manager.on('message', console.log)
+manager.on("shardCreate", shard => console.log(`[Sharder] Launched shard ${shard.id}`));
