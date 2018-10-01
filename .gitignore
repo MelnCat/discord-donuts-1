@@ -1,4 +1,6 @@
 auth.json
 database.sqlite
 node_modules
-*.swp
+.*.swp
+.*.swo
+.vscode
