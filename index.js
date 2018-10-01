@@ -4,7 +4,9 @@ const { token } = require('./auth.json')
 
 const manager = new ShardingManager('./bot.js', { token: token, totalShards: 2 })
 
-process.on('unhandledException', e => console.error(e.stack))
+manager.respawn = false
 
 manager.spawn()
 manager.on('launch', shard => console.log(`Launched shard ${shard.id}`))
+
+manager.on('message', console.log)
