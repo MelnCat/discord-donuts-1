@@ -1,6 +1,8 @@
 const Discord = require('discord.js')
 
-const Sequelize = require('sequelize')
+const fs = require('fs')
+
+const { Sequelize, sequelize, Orders, Blacklist, Op } = require('./sequelize')
 const createEmbed = require('embed-creator')
 
 const { token, employeeRole, kitchenChannel, ticketChannel, dbPassword, botOwners } = require('./auth.json')
@@ -55,65 +57,6 @@ const status = code => {
 const timeout = delay => new Promise(resolve => setTimeout(resolve, delay))
 
 const canCook = member => member.roles.has(employeeRole)
-
-const Op = Sequelize.Op
-
-const sequelize = new Sequelize('donuts', 'pi', dbPassword, {
-  dialect: 'mysql',
-  logging: false,
-  operatorsAliases: false
-})
-
-const Orders = sequelize.define('orders', {
-  id: {
-    type: Sequelize.CHAR(7),
-    unique: true,
-    primaryKey: true,
-    allowNull: false
-  },
-  user: {
-    type: Sequelize.CHAR(18),
-    allowNull: false
-  },
-  description: {
-    type: Sequelize.TEXT,
-    validate: {
-      not: /^\s*$/
-    }
-  },
-  channel: {
-    type: Sequelize.CHAR(18),
-    allowNull: false
-  },
-  status: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
-  claimer: Sequelize.CHAR(18),
-  url: {
-    type: Sequelize.TEXT,
-    validate: {
-      isUrl: true
-    }
-  },
-  ticketMessageID: Sequelize.TEXT
-})
-
-const Blacklist = sequelize.define('blacklist', {
-  id: {
-    type: Sequelize.CHAR(18),
-    unique: true,
-    primaryKey: true,
-    allowNull: false,
-    validate: {
-      not: /^\s*$/
-    }
-  },
-  reason: {
-    type: Sequelize.TEXT,
-    allowNull: false
-  }
-})
 
 Orders.beforeCreate(order => {
   client.shard.broadcastEval(`
