@@ -5,10 +5,9 @@ const fs = require('fs')
 const { Sequelize, sequelize, Orders, Blacklist, Op } = require('./sequelize')
 const createEmbed = require('embed-creator')
 
-const { token, employeeRole, kitchenChannel, ticketChannel, dbPassword, botOwners } = require('./auth.json')
+const { token, employeeRole, kitchenChannel, ticketChannel, dbPassword, botOwners, prefix } = require('./auth.json')
 
 const client = new Discord.Client()
-const prefix = '!'
 const embedColor = parseInt('0x' + Math.floor(Math.random() * 16777215).toString(16))
 
 const generateTicket = order => {
