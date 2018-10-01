@@ -8,7 +8,6 @@ const createEmbed = require('embed-creator')
 const { token, employeeRole, kitchenChannel, ticketChannel, dbPassword, botOwners, prefix } = require('./auth.json')
 
 const client = new Discord.Client()
-const embedColor = parseInt('0x' + Math.floor(Math.random() * 16777215).toString(16))
 
 const generateTicket = order => {
   const user = client.users.get(order.get('user'))
