@@ -1,12 +1,8 @@
 const { MessageEmbed } = require('discord.js')
 
-const { botOwners, employeeRole } = require('./auth.json')
+const { Orders } = require('./sequelize')
 
 const timeout = delay => new Promise(resolve => setTimeout(resolve, delay))
-
-const isBotOwner = member => botOwners.includes(member.id)
-
-const canCook = member => member.roles.has(employeeRole) || isBotOwner(member)
 
 const generateID = length => {
   let pos = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234567890'
@@ -63,7 +59,5 @@ module.exports = {
   status,
   generateTicket,
   timeout,
-  isBotOwner,
-  canCook,
   autoDeliver
 }
