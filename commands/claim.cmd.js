@@ -1,14 +1,12 @@
-const { RichEmbed } = require('discord.js')
+const { Orders } = require('../sequelize')
 
-const { Blacklist, Orders, Op } = require('../sequelize')
-
-const { generateID, canCook } = require('../helpers')
+const { canCook } = require('../permissions')
 
 module.exports = {
   name: 'claim',
   permissions: canCook,
   description: 'Use this to claim cooked donuts',
-  async execute (message,args,client) {
+  async execute (message, args, client) {
     if (!canCook(message.member)) return
 
     const order = await Orders.findOne({ where: { id: args.shift(), claimer: null } })

@@ -4,9 +4,11 @@ const { Blacklist, Orders, Op } = require('../sequelize')
 
 const { generateID } = require('../helpers')
 
+const { everyone } = require('../permissions')
+
 module.exports = {
   name: 'order',
-  permissions: _ => true,
+  permissions: everyone,
   description: 'Order your donuts here',
   async execute (message, args) {
     if (!args) return

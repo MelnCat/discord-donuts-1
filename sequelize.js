@@ -9,42 +9,42 @@ const sequelize = new Sequelize(dbName, dbUsername, dbPassword, {
   logging: false,
   operatorsAliases: false
 })
-  
+
 const Orders = sequelize.define('orders', {
   id: {
-      type: Sequelize.CHAR(7),
-      unique: true,
-      primaryKey: true,
-      allowNull: false
+    type: Sequelize.CHAR(7),
+    unique: true,
+    primaryKey: true,
+    allowNull: false
   },
   user: {
-      type: Sequelize.CHAR(18),
-      allowNull: false
+    type: Sequelize.CHAR(18),
+    allowNull: false
   },
   description: {
-      type: Sequelize.TEXT,
-      validate: {
+    type: Sequelize.TEXT,
+    validate: {
       not: /^\s*$/
-      }
+    }
   },
   channel: {
-      type: Sequelize.CHAR(18),
-      allowNull: false
+    type: Sequelize.CHAR(18),
+    allowNull: false
   },
   status: {
-      type: Sequelize.INTEGER,
-      allowNull: false
+    type: Sequelize.INTEGER,
+    allowNull: false
   },
   claimer: Sequelize.CHAR(18),
   url: {
-      type: Sequelize.TEXT,
-      validate: {
+    type: Sequelize.TEXT,
+    validate: {
       isUrl: true
-      }
+    }
   },
   ticketMessageID: Sequelize.TEXT
 })
-  
+
 const Blacklist = sequelize.define('blacklist', {
   id: {
     type: Sequelize.CHAR(18),

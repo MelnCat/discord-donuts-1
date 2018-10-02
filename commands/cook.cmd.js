@@ -1,14 +1,15 @@
 const { Orders } = require('../sequelize')
 
-const { canCook } = require('../helpers')
+const { timeout, autoDeliver } = require('../helpers')
+
+const { canCook } = require('../permissions')
 
 module.exports = {
   name: 'cook',
   permissions: canCook,
   description: 'Use this to cook donuts',
-  async execute (message,args,client) {
+  async execute (message, args, client) {
     const id = args.shift()
-    if (!canCook(message.member) || message.channel.id !== kitchenChannel) return
     const order = await Orders.findOne({ where: { id: id, claimer: message.author.id } })
     if (!order) return message.reply('Either this order doesn\'t exist, or you haven\'t claimed it')
     await message.channel.send('The next message you send will be set as the order\'s image Only URLs are supported atm :cry')
@@ -29,8 +30,7 @@ module.exports = {
 
     await Orders.update({ status: 3 }, { where: { id: id }, individualHooks: true })
 
-    if (true) { //will add an actual expression here
-      autoDeliver(client,id)
-    }    
+    // TODO: Add check for auto deliver or manual deliver
+    autoDeliver(client, id)
   }
 }

@@ -1,6 +1,6 @@
 const { sequelize } = require('../sequelize')
 
-const { isBotOwner } = require('../helpers')
+const { isBotOwner } = require('../permissions')
 
 module.exports = {
   name: 'sql',
