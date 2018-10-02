@@ -1,10 +1,10 @@
 const { MessageEmbed } = require('discord.js')
 
-const { Blacklist, Orders, Op } = require('../sequelize')
+const { Blacklist, Orders, Op } = require('../../sequelize')
 
-const { generateID } = require('../helpers')
+const { generateID } = require('../../helpers')
 
-const { everyone } = require('../permissions')
+const { everyone } = require('../../permissions')
 
 module.exports = {
   name: 'order',

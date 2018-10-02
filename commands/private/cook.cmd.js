@@ -1,8 +1,8 @@
-const { Orders } = require('../sequelize')
+const { Orders } = require('../../sequelize')
 
-const { timeout, autoDeliver } = require('../helpers')
+const { timeout, autoDeliver } = require('../../helpers')
 
-const { canCook } = require('../permissions')
+const { canCook } = require('../../permissions')
 
 module.exports = {
   name: 'cook',

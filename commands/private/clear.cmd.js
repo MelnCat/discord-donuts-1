@@ -1,6 +1,6 @@
-const { Orders } = require('../sequelize')
+const { Orders } = require('../../sequelize')
 
-const { isBotOwner } = require('../permissions')
+const { isBotOwner } = require('../../permissions')
 
 module.exports = {
   name: 'clear',

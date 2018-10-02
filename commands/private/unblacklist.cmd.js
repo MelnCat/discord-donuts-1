@@ -1,6 +1,6 @@
-const { Blacklist } = require('../sequelize')
+const { Blacklist } = require('../../sequelize')
 
-const { isBotOwner } = require('../permissions')
+const { isBotOwner } = require('../../permissions')
 
 module.exports = {
   name: 'unblacklist',

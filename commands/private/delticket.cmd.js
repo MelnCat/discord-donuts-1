@@ -1,6 +1,6 @@
-const { Orders, Op } = require('../sequelize')
+const { Orders, Op } = require('../../sequelize')
 
-const { canCook } = require('../permissions')
+const { canCook } = require('../../permissions')
 
 module.exports = {
   name: 'delticket',

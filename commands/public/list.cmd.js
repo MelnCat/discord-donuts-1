@@ -1,6 +1,6 @@
-const { Orders, Op } = require('../sequelize')
+const { Orders, Op } = require('../../sequelize')
 
-const { canCook } = require('../helpers')
+const { canCook } = require('../../helpers')
 
 module.exports = {
   name: 'list',

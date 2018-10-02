@@ -1,6 +1,6 @@
-const { Orders } = require('../sequelize')
+const { Orders } = require('../../sequelize')
 
-const { canCook } = require('../permissions')
+const { canCook } = require('../../permissions')
 
 module.exports = {
   name: 'claim',

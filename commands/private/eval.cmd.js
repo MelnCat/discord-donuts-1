@@ -1,6 +1,6 @@
-const { token } = require('../auth.json')
+const { token } = require('../../auth.json')
 
-const { isBotOwner } = require('../permissions')
+const { isBotOwner } = require('../../permissions')
 
 module.exports = {
   name: 'eval',

@@ -1,6 +1,6 @@
 const Discord = require('discord.js')
 
-const fs = require('fs')
+const glob = require('glob')
 
 const { Orders, Blacklist } = require('./sequelize')
 
@@ -11,10 +11,12 @@ const { generateTicket, timeout } = require('./helpers')
 const client = new Discord.Client()
 
 client.commands = new Discord.Collection()
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('cmd.js'))
+const commandFiles = glob.sync('./commands/**/*.cmd.js')
+
+console.log(commandFiles)
 
 commandFiles.forEach(file => {
-  const command = require(`./commands/${file}`)
+  const command = require(file)
 
   client.commands.set(command.name, command)
 })
