@@ -8,7 +8,7 @@ module.exports = {
   name: 'ostatus',
   permissions: canCook,
   description: 'Lists info about a specific order',
-  async execute (message, args) {
+  async execute (message, args, client) {
     const order = await Orders.findOne({ where: { id: args.shift() } })
     if (!order) message.reply('Couldn\'t find that order')
     else {

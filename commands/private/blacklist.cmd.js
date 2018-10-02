@@ -6,7 +6,7 @@ module.exports = {
   name: 'blacklist',
   permissions: isBotOwner,
   description: 'Blacklist a user or a guild, with a reason',
-  async execute (message, args) {
+  async execute (message, args, client) {
     try {
       await Blacklist.create({ id: args.shift(), reason: args.shift() })
     } catch (e) {
