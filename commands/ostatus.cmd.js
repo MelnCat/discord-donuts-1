@@ -1,12 +1,12 @@
 const { Orders } = require('../sequelize')
 
-const { canCook } = require('../helpers')
+const { status, canCook } = require('../helpers')
 
 module.exports = {
   name: 'ostatus',
   permissions: canCook,
   description: 'Lists info about a specific order',
-  async execute (message,args) {
+  async execute (message, args) {
     const order = await Orders.findOne({ where: { id: args.shift() } })
     if (!order) message.reply('Couldn\'t find that order')
     else {

@@ -10,8 +10,6 @@ const { generateTicket, timeout } = require('./helpers')
 
 const client = new Discord.Client()
 
-client
-
 client.commands = new Discord.Collection()
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('cmd.js'))
 
@@ -24,7 +22,7 @@ commandFiles.forEach(file => {
 Orders.beforeCreate(order => {
   // All that i need to do here, is to run `generateTicket(client,order) and send it to the orders channel, no matter which shard
   client.api.channels('294620411721940993').messages.post({
-    data: { 
+    data: {
       embed: generateTicket(client, order)
     }
   })
@@ -58,7 +56,7 @@ client.on('message', async message => {
   if (!client.commands.has(command)) return
 
   try {
-    client.commands.get(command).execute(message,args)
+    client.commands.get(command).execute(message, args, client)
   } catch (e) {
     console.log(e)
     message.reply('An error occured')

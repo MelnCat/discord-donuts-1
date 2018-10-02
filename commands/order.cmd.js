@@ -2,15 +2,15 @@ const { MessageEmbed } = require('discord.js')
 
 const { Blacklist, Orders, Op } = require('../sequelize')
 
-const { generateID, generateTicket, canCook } = require('../helpers')
+const { generateID } = require('../helpers')
 
 module.exports = {
   name: 'order',
   permissions: _ => true,
   description: 'Order your donuts here',
-  async execute (message,args) {
+  async execute (message, args) {
     if (!args) return
-    if (await Blacklist.findOne( { where: { [Op.or]: [ { id: message.author.id }, { id: message.guild.id } ] } } )) {
+    if (await Blacklist.findOne({ where: { [Op.or]: [ { id: message.author.id }, { id: message.guild.id } ] } })) {
       return message.reply('Either you or your guild have been blacklisted')
     }
 
@@ -31,11 +31,12 @@ module.exports = {
       throw e
     }))
 
-    const embed = new MessageEmbed()
-                     .setTitle('Ticket Created')
-                     .setDescription(`:ticket: Ticket Placed! Your ticketID: \`${generatedID}\``)
-                     .setColor(0xFFFFFF)
-                     
+    const embed =
+      new MessageEmbed()
+        .setTitle('Ticket Created')
+        .setDescription(`:ticket: Ticket Placed! Your ticketID: \`${generatedID}\``)
+        .setColor(0xFFFFFF)
+
     message.channel.send(embed)
   }
 }
