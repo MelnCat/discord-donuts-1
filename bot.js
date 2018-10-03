@@ -21,6 +21,8 @@ commandFiles.forEach(file => {
   client.commands.set(command.name, command)
 })
 
+// TODO: Find a way to get hooks to only load once
+
 Orders.beforeCreate(async order => {
   if (order.get('ticketMessageID')) return
 
