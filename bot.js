@@ -38,7 +38,7 @@ Orders.beforeCreate(async order => {
 Orders.afterCreate((order, options) => {
   timeout(20 * 60 * 1000).then(async () => {
     await order.update({ status: 6 })
-    await client.users.get(order.get('user')).send('It has been 20 minutes, and therefore your order has been deleted')
+    await client.users.get(order.get('user')).send('It has been 20 minutes, and therefore your order has been deleted.')
   })
 })
 
@@ -56,7 +56,7 @@ Orders.afterUpdate(async (order, options) => {
 })
 
 client.once('ready', () => {
-  console.log('ready')
+  console.log('Ready!')
   Orders.sync()
   Blacklist.sync()
 })
@@ -73,7 +73,7 @@ client.on('message', async message => {
     client.commands.get(command).execute(message, args, client)
   } catch (e) {
     console.log(e)
-    message.reply('An error occured')
+    message.reply('An error occured!')
   }
 })
 
