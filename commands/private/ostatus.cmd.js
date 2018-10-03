@@ -7,10 +7,10 @@ const { canCook } = require('../../permissions')
 module.exports = {
   name: 'ostatus',
   permissions: canCook,
-  description: 'Lists info about a specific order',
+  description: 'Lists info about a specific order.',
   async execute (message, args, client) {
     const order = await Orders.findOne({ where: { id: args.shift() } })
-    if (!order) message.reply('Couldn\'t find that order')
+    if (!order) message.reply('Couldn\'t find that order.')
     else {
       message.channel.send(`
         id: ${order.get('id')}

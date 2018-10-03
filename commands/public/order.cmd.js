@@ -9,11 +9,11 @@ const { everyone } = require('../../permissions')
 module.exports = {
   name: 'order',
   permissions: everyone,
-  description: 'Order your donuts here',
+  description: 'Order your donuts here.',
   async execute (message, args) {
     if (!args) return
     if (await Blacklist.findOne({ where: { [Op.or]: [ { id: message.author.id }, { id: message.guild.id } ] } })) {
-      return message.reply('Either you or your guild have been blacklisted')
+      return message.reply('Either you or your guild have been blacklisted.')
     }
 
     const generatedID = generateID(6) // Note that this is actually a 7 char id

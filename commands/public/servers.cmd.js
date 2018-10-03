@@ -17,7 +17,7 @@ module.exports = {
     const embed =
       new Discord.MessageEmbed()
         .setTitle('Number of servers')
-        .setDescription('Information on the number of servers / shards of this bot')
+        .setDescription('Information on the number of servers / shards of this bot.')
         .addField('Total servers', await (client.shard.broadcastEval('this.guilds.size')
           .then(arr => arr.reduce((acc, x) => acc + x))
           .catch(console.log)))
