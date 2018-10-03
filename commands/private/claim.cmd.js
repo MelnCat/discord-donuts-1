@@ -10,7 +10,7 @@ module.exports = {
     if (!canCook(message.member)) return
 
     const order = await Orders.findOne({ where: { id: args.shift(), claimer: null } })
-    if (!order) message.reply('Couldn\'t find that order or it has already been claimed')
+    if (!order) return message.reply('Couldn\'t find that order or it has already been claimed')
 
     await order.update({ status: 1, claimer: message.author.id })
 
