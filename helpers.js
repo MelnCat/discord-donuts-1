@@ -16,15 +16,15 @@ const generateID = length => {
 /* eslint-disable indent */
 
 const status = code => {
-  if (code === 0) return 'Not cooked'
-else if (code === 1) return 'Claimed'
-else if (code === 2) return 'Cooking'
-else if (code === 3) return 'Cooked'
-else if (code === 4) return 'Delivered'
-else if (code === 5) return 'Deleted'
-else if (code === 6) return 'Expired'
-else if (code === 7) return 'Cancelled'
-else return code
+      if (code === 0) return 'Not cooked'
+  else if (code === 1) return 'Claimed'
+  else if (code === 2) return 'Cooking'
+  else if (code === 3) return 'Cooked'
+  else if (code === 4) return 'Delivered'
+  else if (code === 5) return 'Deleted'
+  else if (code === 6) return 'Expired'
+  else if (code === 7) return 'Cancelled'
+  else return code
 }
 
 /* eslint-enable indent */
