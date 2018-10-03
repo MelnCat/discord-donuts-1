@@ -23,6 +23,7 @@ module.exports = {
           .catch(console.log)))
         .addField('Current shard', `Shard ${client.shard.id}`)
         .addField('Servers on current shard', client.guilds.size)
+        .addTimestamp()
 
     message.channel.send(embed)
   }
