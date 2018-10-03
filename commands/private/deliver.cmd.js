@@ -7,7 +7,6 @@ module.exports = {
   permissions: canCook,
   description: 'Use this to deliver cooked donuts',
   async execute (message, args, client) {
-    if (!canCook(message.member)) return
 
     const order = await Orders.findOne({ where: { id: args.shift() } })
     if (!order) return message.reply('Couldn\'t find that order!')
@@ -16,7 +15,7 @@ module.exports = {
 
     message.reply('Order information send to the DMs!')
 
-    let invite = client.channels.get(order.get('channel')).createInvite({
+    const invite = client.channels.get(order.get('channel')).createInvite({
       maxAge: 86400,
       maxUses: 1,
       unique: true
