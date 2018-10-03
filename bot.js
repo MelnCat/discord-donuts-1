@@ -21,13 +21,16 @@ commandFiles.forEach(file => {
   client.commands.set(command.name, command)
 })
 
-Orders.beforeCreate(order => {
-  // All that i need to do here, is to run `generateTicket(client,order) and send it to the orders channel, no matter which shard
-  client.api.channels('294620411721940993').messages.post({
+Orders.beforeCreate(async order => {
+  if (order.get('ticketMessageID')) return
+
+  const orderMsg = await client.api.channels('294620411721940993').messages.post({
     data: {
       embed: generateTicket(client, order)
     }
   })
+
+  order.update({ ticketMessageID: orderMsg.id })
 })
 
 Orders.afterCreate((order, options) => {
@@ -39,8 +42,15 @@ Orders.afterCreate((order, options) => {
 
 Orders.afterUpdate(async (order, options) => {
   if (!order.get('ticketMessageID')) return
-  const message = await client.channels.get(ticketChannel).fetchMessage(order.get('ticketMessageID'))
-  message.edit(generateTicket(order))
+  // const message = await client.channels.get(ticketChannel).messages.fetch(order.get('ticketMessageID'))
+  // message.edit(generateTicket(order))
+
+  // FIXME: This might be running for every shard
+  client.api.channels(ticketChannel).messages(order.get('ticketMessageID')).patch({
+    data: {
+      embed: generateTicket(client, order)
+    }
+  })
 })
 
 client.once('ready', () => {
