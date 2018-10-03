@@ -14,11 +14,11 @@ module.exports = {
     else {
       message.channel.send(`
         id: ${order.get('id')}
-        user: ${order.get('user')}
+        user: ${client.users.get(order.get('user')).username} (${order.get('user')}).
         description: ${order.get('description')}
-        channel: ${order.get('channel')}
+        channel: ${client.channels.get(order.get('channel')).name} (${order.get('channel')})
         status: ${status(order.get('status'))}
-        claimer: ${order.get('claimer')}
+        claimer: ${client.users.get(order.get('claimer')).username} (${order.get('claimer')})
         url: ${order.get('url')}
         ticketMessageID: ${order.get('ticketMessageID')}`, { code: true }
       )
