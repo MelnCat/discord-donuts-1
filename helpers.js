@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js')
 
-const { Orders } = require('./sequelize')
+const { Orders, Op } = require('./sequelize')
 
 const timeout = delay => new Promise(resolve => setTimeout(resolve, delay))
 
@@ -16,7 +16,7 @@ const generateID = length => {
 /* eslint-disable indent */
 
 const status = code => {
-      if (code === 0) return 'Not cooked'
+       if (code === 0) return 'Not cooked'
   else if (code === 1) return 'Claimed'
   else if (code === 2) return 'Cooking'
   else if (code === 3) return 'Cooked'
@@ -44,14 +44,14 @@ const generateTicket = (client, order) => {
 }
 
 const autoDeliver = async (client, id) => {
-  const finalOrder = await Orders.findOne({ where: { id: id } })
+  const finalOrder = await Orders.findOne({ where: { id: id, status: 3 } })
+  if (!finalOrder) return
 
   const channel = client.channels.get(finalOrder.get('channel'))
   const user = channel.guild.members.get(finalOrder.get('user'))
   const url = finalOrder.get('url')
 
-  channel.send(`${user}, here's your order! I know you love this bot. In case you didn't know, upkeeping a bot takes money. You can help keep us operating and our gears running smooth by being a patron over at https://patreon.com/discorddonuts. If you want to provide feedback, please use d!feedback. If you want to leave a tip, use d!tip.
-${url}`)
+  channel.send(`${user}, here's your order! I know you love this bot. In case you didn't know, upkeeping a bot takes money. You can help keep us operating and our gears running smooth by being a patron over at https://patreon.com/discorddonuts. If you want to provide feedback, please use d!feedback. If you want to leave a tip, use d!tip. ${url}`)
 }
 
 module.exports = {
