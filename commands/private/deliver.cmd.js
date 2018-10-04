@@ -20,7 +20,7 @@ module.exports = {
       unique: true,
     });
 
-    msg.author.send({ embed: {
+    message.author.send({ embed: {
       title: 'Delivery Info',
       description: 'The ticket has been deleted, it\'s all on you now.',
       fields: [{
