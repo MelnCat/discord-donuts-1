@@ -1,18 +1,18 @@
-module.exports = {
-  extends: "eslint:recommended",
-  parserOptions: {
-    ecmaVersion: 2017,
+{
+  "extends": "eslint:recommended",
+  "parserOptions": {
+   "ecmaVersion": 2017
   },
-  env: {
-    es6: true,
-    node: true,
+  "env": {
+    "es6": true,
+    "node": true
   },
-  globals: {
-    reload: true,
-    config: true,
-    winston: true,
+  "globals": {
+    "reload": true,
+    "config": true,
+    "winston": true
   },
-  rules: {
+  "rules": {
     "no-compare-neg-zero": "error",
     "no-extra-parens": ["warn", "all", { "nestedBinaryExpressions": false }],
     "no-template-curly-in-string": "error",
@@ -101,7 +101,6 @@ module.exports = {
     "unicode-bom": "error",
     "arrow-body-style": "error",
     "arrow-parens": ["error", "as-needed"],
-    // ^^^ Was causing issues in config.js
     "arrow-spacing": "error",
     "no-duplicate-imports": "error",
     "no-useless-computed-key": "error",
@@ -115,6 +114,6 @@ module.exports = {
     "template-curly-spacing": "error",
     "no-console": "off",
     "no-irregular-whitespace": ["error", { "skipStrings": true, "skipComments": true, "skipTemplates": true }],
-    "no-unused-vars": "off",
-  },
-};
+    "no-unused-vars": "off"
+  }
+}

@@ -1,49 +1,49 @@
-const { dbUsername, dbPassword, dbName } = require('./auth.json')
+const { dbUsername, dbPassword, dbName } = require('./auth.json');
 
-const Sequelize = require('sequelize')
+const Sequelize = require('sequelize');
 
-const Op = Sequelize.Op
+const Op = Sequelize.Op;
 
 const sequelize = new Sequelize(dbName, dbUsername, dbPassword, {
   dialect: 'mysql',
   logging: false,
-  operatorsAliases: false
-})
+  operatorsAliases: false,
+});
 
 const Orders = sequelize.define('orders', {
   id: {
     type: Sequelize.CHAR(7),
     unique: true,
     primaryKey: true,
-    allowNull: false
+    allowNull: false,
   },
   user: {
     type: Sequelize.CHAR(18),
-    allowNull: false
+    allowNull: false,
   },
   description: {
     type: Sequelize.TEXT,
     validate: {
-      not: /^\s*$/
-    }
+      not: /^\s*$/,
+    },
   },
   channel: {
     type: Sequelize.CHAR(18),
-    allowNull: false
+    allowNull: false,
   },
   status: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
   },
   claimer: Sequelize.CHAR(18),
   url: {
     type: Sequelize.TEXT,
     validate: {
-      isUrl: true
-    }
+      isUrl: true,
+    },
   },
-  ticketMessageID: Sequelize.TEXT
-})
+  ticketMessageID: Sequelize.TEXT,
+});
 
 const Blacklist = sequelize.define('blacklist', {
   id: {
@@ -52,19 +52,19 @@ const Blacklist = sequelize.define('blacklist', {
     primaryKey: true,
     allowNull: false,
     validate: {
-      not: /^\s*$/
-    }
+      not: /^\s*$/,
+    },
   },
   reason: {
     type: Sequelize.TEXT,
-    allowNull: false
-  }
-})
+    allowNull: false,
+  },
+});
 
 module.exports = {
   Sequelize,
   Op,
   sequelize,
   Orders,
-  Blacklist
-}
+  Blacklist,
+};
