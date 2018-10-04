@@ -1,3 +1,7 @@
-rewrite TM
+# Yam's Rewrite
+Yamboy1's rewrite of [Discord Donuts](https://github.com/mastercraft852/discord-donuts).
 
-opensource when
+## What's Better
+- Commands are now multiple files.
+- **THE DATABASE ISN'T A JSON!!!**
+- Keeps persistant data for orders.
