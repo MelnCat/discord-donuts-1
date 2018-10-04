@@ -27,7 +27,7 @@ module.exports = {
           name: ':computer: Guild Information',
           value: `This ticket came from ${client.channels.get(order.get('channel')).guild.name} (${client.channels.get(order.get('channel')).guild.id}) in #${client.channels.get(order.get('chanel')).name} (${order.get('chanel')}).`,
         }],
-      } })
+      } });
     }
   },
 };
