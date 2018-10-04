@@ -1,15 +1,15 @@
-const { Orders, Op } = require('../../sequelize')
+const { Orders, Op } = require('../../sequelize');
 
-const { canCook } = require('../../permissions')
+const { canCook } = require('../../permissions');
 
 module.exports = {
   name: 'delticket',
   permissions: canCook,
   description: 'Delete unworthy tickets, with a reason.',
-  async execute (message, args, client) {
-    if (!args) return message.reply('Please enter an order id.')
-    const deletedOrdersCount = await Orders.update({ status: 5 }, { where: { id: args.shift(), status: { [Op.lt]: 5 } }, individualHooks: true })
-    if (deletedOrdersCount[0] < 1) return message.reply('Couldn\'t find that order!')
-    message.reply('Order deleted!')
-  }
-}
+  async execute(message, args, client) {
+    if (!args) return message.reply('Please enter an order id.');
+    const deletedOrdersCount = await Orders.update({ status: 5 }, { where: { id: args.shift(), status: { [Op.lt]: 5 } }, individualHooks: true });
+    if (deletedOrdersCount[0] < 1) return message.reply('Couldn\'t find that order!');
+    message.reply('Order deleted!');
+  },
+};
