@@ -12,16 +12,23 @@ module.exports = {
     const order = await Orders.findOne({ where: { id: args.shift() } })
     if (!order) message.reply('Couldn\'t find that order.')
     else {
-      message.channel.send(`
-        id: ${order.get('id')}
-        user: ${client.users.get(order.get('user')).username} (${order.get('user')}).
-        description: ${order.get('description')}
-        channel: ${client.channels.get(order.get('channel')).name} (${order.get('channel')})
-        status: ${status(order.get('status'))}
-        claimer: ${client.users.get(order.get('claimer')).username} (${order.get('claimer')})
-        url: ${order.get('url')}
-        ticketMessageID: ${order.get('ticketMessageID')}`, { code: true }
-      )
+      msg.author.send({embed: {
+        title: 'Ticket Status',
+        description: 'The status of this ticket.',
+        fields: [{
+          name: ':hash: Ticket ID',
+          value: order.get('id')
+        }, {
+          name: 'Donut Description',
+          value: order.get('description')
+        }, {
+          name: ':white_check_mark: Ticket Status',
+          value: status(order.get('status'))
+        }, {
+          name: ':computer: Guild Information',
+          value: `This ticket came from ${client.channels.get(orders.get('channel')).guild.name} (${client.channels.get(orders.get('channel')).guild.id}) in #${client.channels.get(orders.get('chanel')).name} (${orders.get('chanel')}).`
+        }]
+      }})
     }
   }
 }
