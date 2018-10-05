@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const DDEmbed = require("../../structures/DDEmbed.struct");
 
 const { Blacklist, Orders, Op } = require("../../sequelize");
 
@@ -10,7 +10,7 @@ module.exports = {
 	name: "order",
 	permissions: everyone,
 	description: "Order your donuts here.",
-	async execute(message, args) {
+	async execute(message, args, client) {
 		if (!args) return;
 		if (await Blacklist.findOne({ where: { [Op.or]: [{ id: message.author.id }, { id: message.guild.id }] } })) {
 			return message.reply("Either you or your guild have been blacklisted.");
@@ -34,10 +34,10 @@ module.exports = {
 		});
 
 		const embed =
-			new MessageEmbed()
+			new DDEmbed(client)
+				.setStyle("white")
 				.setTitle("Ticket Created")
-				.setDescription(`:ticket: Ticket Placed! Your ticketID: \`${generatedID}\``)
-				.setColor(0xFFFFFF);
+				.setDescription(`:ticket: Ticket Placed! Your ticketID: \`${generatedID}\``);
 
 		message.channel.send(embed);
 	},

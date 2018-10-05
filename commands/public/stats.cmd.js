@@ -1,5 +1,7 @@
 const Discord = require("discord.js");
 
+const DDEmbed = require("../../structures/DDEmbed.struct");
+
 const { everyone } = require("../../permissions");
 
 module.exports = {
@@ -15,7 +17,8 @@ module.exports = {
 	async execute(message, args, client) {
 		// FIXME: Need better wording
 		const embed =
-			new Discord.MessageEmbed()
+			new DDEmbed(client)
+				.setStyle("colorful")
 				.setTitle("Stats")
 				.setDescription("Statistics of Discord Donuts")
 				.addField("Servers", await client.shard.broadcastEval("this.guilds.size")
@@ -31,10 +34,7 @@ module.exports = {
 					.then(arr => arr.reduce((acc, x) => acc + x))
 					.then(x => `${x.toFixed(2)} MB`)
 					.catch(console.log))
-				.addField("Discord.js Version", Discord.version)
-				.setFooter("Discord Donuts", client.user.avatarURL)
-				.setAuthor(client.user.username, client.user.avatarURL)
-				.setTimestamp();
+				.addField("Discord.js Version", Discord.version);
 
 		message.channel.send(embed);
 	},

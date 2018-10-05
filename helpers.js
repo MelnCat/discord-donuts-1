@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const DDEmbed = require("./structures/DDEmbed.struct");
 
 const { Orders, Op } = require("./sequelize");
 
@@ -32,9 +32,8 @@ const status = code => {
 const generateTicket = (client, order) => {
 	const user = client.users.get(order.get("user"));
 	const channel = client.channels.get(order.get("channel"));
-	return new MessageEmbed()
-		.setColor(3447003)
-		.setAuthor(user.username, user.avatarURL)
+	return new DDEmbed(client)
+		.setStyle("white")
 		.setTitle("\u1F3AB New Ticket")
 		.setDescription(`${user.username}#${user.discriminator} (${user.id}) would like a donut!`)
 		.addField("Donut Description", order.get("description"))
