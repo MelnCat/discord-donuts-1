@@ -28,7 +28,7 @@ Orders.beforeCreate(async order => {
 
 	const orderMsg = await client.api.channels("294620411721940993").messages.post({
 		data: {
-			embed: generateTicket(client, order),
+			embed: generateTicket(client, order)._apiTransform(),
 		},
 	});
 
@@ -50,7 +50,7 @@ Orders.afterUpdate(async(order, options) => {
 	// FIXME: This might be running for every shard
 	client.api.channels(ticketChannel).messages(order.get("ticketMessageID")).patch({
 		data: {
-			embed: generateTicket(client, order),
+			embed: generateTicket(client, order)._apiTransform(),
 		},
 	});
 });
