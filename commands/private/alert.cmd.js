@@ -4,10 +4,7 @@ module.exports = {
 	permissions: isBotOwner,
 	description: "Use this to send an alert to kitchen.",
 	async execute(message, args, client) {
-		let text = args;
-		text.shift();
-		text = text.join(" ");
-		if (!args[1]) {
+		if (!args.join(" ")) {
 			message.channel.send("You did not provide anything for me to send!");
 			return;
 		}
@@ -15,7 +12,7 @@ module.exports = {
 			embed: {
 				timestamp: new Date(),
 				color: Math.floor(Math.random() * 16777216),
-				description: text,
+				description: args.join(" "),
 			},
 		});
 	},
