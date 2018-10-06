@@ -61,10 +61,39 @@ const Blacklist = sequelize.define("blacklist", {
 	},
 });
 
+const WorkerInfo = sequelize.define("workerInfo", {
+	id: {
+		type: Sequelize.NUMBER,
+		unique: true,
+		allowNull: false,
+	},
+	cooks: {
+		type: Sequelize.NUMBER,
+		unique: true,
+		allowNull: false,
+	},
+	delivers: {
+		type: Sequelize.NUMBER,
+		unique: true,
+		allowNull: false,
+	},
+	lastCook: {
+		type: Sequelize.NUMBER,
+		unique: true,
+		allowNull: false,
+	},
+	lastDeliver: {
+		type: Sequelize.NUMBER,
+		unique: true,
+		allowNull: false,
+	},
+});
+
 module.exports = {
 	Sequelize,
 	Op,
 	sequelize,
 	Orders,
 	Blacklist,
+	WorkerInfo,
 };
