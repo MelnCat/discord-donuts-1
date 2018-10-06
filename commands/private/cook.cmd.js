@@ -1,4 +1,4 @@
-const { Orders } = require("../../sequelize");
+const { Orders, WorkerInfo } = require("../../sequelize");
 
 const { timeout, autoDeliver } = require("../../helpers");
 
@@ -11,6 +11,8 @@ module.exports = {
 	async execute(message, args, client) {
 		const id = args.shift();
 		const order = await Orders.findOne({ where: { id: id, claimer: message.author.id } });
+		const worker = await WorkerInfo.findOne({ where: { id: message.author.id } });
+
 		if (!order) return message.reply("Either this order doesn't exist, or you haven't claimed it.");
 		// TODO: Support non URL image
 		await message.channel.send("The next message you send will be set as the order's image Only URLs are supported atm :cry:.");
@@ -25,6 +27,18 @@ module.exports = {
 			}
 		}
 		message.channel.send("Your donut will take 3 minutes to cook.");
+
+		if (!worker) {
+			await WorkerInfo.create({
+				id: message.author.id,
+				cooks: 1,
+				delivers: 0,
+				lastCook: Date.now(),
+				lastDeliver: 0,
+			});
+		} else {
+			worker.update({ cooks: worker.cooks + 1, lastCook: Date.now() });
+		}
 
 		await timeout(180000);
 
