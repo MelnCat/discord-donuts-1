@@ -63,7 +63,7 @@ const Blacklist = sequelize.define("blacklist", {
 
 const WorkerInfo = sequelize.define("workerInfo", {
 	id: {
-		type: Sequelize.NUMBER,
+		type: Sequelize.CHAR(18),
 		unique: true,
 		allowNull: false,
 	},

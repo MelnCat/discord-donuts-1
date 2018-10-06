@@ -21,10 +21,7 @@ module.exports = {
 
 			message.channel.send(embed);
 		} else {
-			let workerID = args[0].replace("<", "");
-			workerID = workerID.replace("!", "");
-			workerID = workerID.replace("@", "");
-			workerID = workerID.replace(">", "");
+			let workerID = message.mentions.users.first().id;
 
 			let worker = await WorkerInfo.findOne({ where: { id: workerID } });
 
