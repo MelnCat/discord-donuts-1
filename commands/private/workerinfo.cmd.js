@@ -21,10 +21,12 @@ module.exports = {
 
 			message.channel.send(embed);
 		} else {
-			let worker = args[0].replace("<", "");
-			worker = worker.replace("!", "");
-			worker = worker.replace("@", "");
-			worker = worker.replace(">", "");
+			let workerID = args[0].replace("<", "");
+			workerID = workerID.replace("!", "");
+			workerID = workerID.replace("@", "");
+			workerID = workerID.replace(">", "");
+
+			let worker = await WorkerInfo.findOne({ where: { id: workerID } });
 
 			const embed = new DDEmbed(client)
 				.setStyle("white")
@@ -41,9 +43,9 @@ module.exports = {
 
 function timeAgoToString(timestamp) {
 	let timeAgo = Date.now() - timestamp;
-	let minutes = parseInt((timeAgo / (1000 * 60)));
-	let hours = parseInt((timeAgo / (1000 * 60 * 60)));
-	let days = parseInt((timeAgo / (1000 * 60 * 60 * 24)));
+	let minutes = parseInt(timeAgo / (1000 * 60));
+	let hours = parseInt(timeAgo / (1000 * 60 * 60));
+	let days = parseInt(timeAgo / (1000 * 60 * 60 * 24));
 
 	return `${days} Days, ${hours} Hours, and ${minutes} Minutes Ago.`;
 }
