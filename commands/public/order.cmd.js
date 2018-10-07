@@ -28,10 +28,10 @@ module.exports = {
 				status: 0,
 				claimer: null,
 				url: null,
-				ticketMessageID: null,
+				ticketMessageID: null
 			});
 		} catch (e) {
-			message.reply(e);
+			message.reply(e)
 		}
 
 		const embed =
