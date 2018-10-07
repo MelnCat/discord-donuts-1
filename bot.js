@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 const glob = require("glob");
 
-const { Orders, Blacklist } = require("./sequelize");
+const { Orders, Blacklist, WorkerInfo } = require("./sequelize");
 
 const { token, ticketChannel, prefix } = require("./auth.json");
 
@@ -59,6 +59,7 @@ client.once("ready", () => {
 	console.log("Ready!");
 	Orders.sync();
 	Blacklist.sync();
+	WorkerInfo.sync();
 });
 
 client.on("message", async message => {
