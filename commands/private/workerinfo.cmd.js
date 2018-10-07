@@ -8,16 +8,25 @@ module.exports = {
 	permissions: canCook,
 	description: "View a worker's stats.",
 	async execute(message, args, client) {
-		if (!args.shift()) {
-			let worker = await WorkerInfo.findOne({ where: { id: message.author.id } });
+		if (args) {
+			const [ worker ] = await WorkerInfo.findOrCreate({ // eslint-disable-line array-bracket-spacing
+				where: { id: message.author.id },
+				defaults: {
+					id: message.author.id,
+					cooks: 0,
+					delivers: 0,
+					lastCook: 0,
+					lastDeliver: 0
+				}
+			});
 
 			const embed = new DDEmbed(client)
 				.setStyle("white")
 				.setTitle(`Worker Info for ${message.author.username}+${message.author.discriminator}`)
-				.addField("Orders Cooked", worker.cooks)
-				.addField("Orders Delivered", worker.delivers)
-				.addField("Last Cook", timeAgoToString(worker.lastCook))
-				.addField("Last Deliver", timeAgoToString(worker.lastDeliver));
+				.addField("Orders Cooked", worker.get("cooks"))
+				.addField("Orders Delivered", worker.get("delivers"))
+				.addField("Last Cook", timeAgoToString(worker.get("lastcook")))
+				.addField("Last Deliver", timeAgoToString(worker.get("lastdeliver")));
 
 			message.channel.send(embed);
 		} else {
@@ -27,7 +36,7 @@ module.exports = {
 
 			const embed = new DDEmbed(client)
 				.setStyle("white")
-				.setTitle(`Worker Info for ${client.users.get(worker).username}+${client.users.get(worker).discriminator}`)
+				.setTitle(`Worker Info for ${client.users.get(worker.get("id")).username}+${client.users.get(worker.get("id")).discriminator}`)
 				.addField("Orders Cooked", worker.cooks)
 				.addField("Orders Delivered", worker.delivers)
 				.addField("Last Cook", timeAgoToString(worker.lastCook))
