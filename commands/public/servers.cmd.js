@@ -1,5 +1,3 @@
-const Discord = require("discord.js");
-
 const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 
@@ -8,10 +6,9 @@ const { everyone } = require("../../permissions");
 module.exports =
 	new DDCommand()
 		.setName("servers")
-		.setDescription("Info about the bots servers and shards")
+		.setDescription("Info about the bots servers and shards.")
 		.setDescription(everyone)
 		.setFunction(async(message, args, client) => {
-			// FIXME: Need better wording
 			const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")
@@ -21,6 +18,7 @@ module.exports =
 						.then(arr => arr.reduce((acc, x) => acc + x))
 						.catch(console.log))
 					.addField("Current shard", `Shard ${client.shard.id}`)
-					.addField("Servers on current shard", client.guilds.size);
+					.addField("Servers on current shard", client.guilds.size)
+					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f4ca.png");
 			message.channel.send(embed);
 		});

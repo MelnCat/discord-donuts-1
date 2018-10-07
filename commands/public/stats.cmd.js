@@ -34,7 +34,8 @@ module.exports = {
 					.then(arr => arr.reduce((acc, x) => acc + x))
 					.then(x => `${x.toFixed(2)} MB`)
 					.catch(console.log))
-				.addField("Discord.js Version", Discord.version);
+				.addField("Discord.js Version", Discord.version)
+				.setThumbnail("https://images.emojiterra.com/twitter/512px/1f4ca.png");
 
 		message.channel.send(embed);
 	},

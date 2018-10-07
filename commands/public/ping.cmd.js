@@ -1,9 +1,32 @@
-module.exports = {
-	name: "ping",
-	description: "ping...",
-	async execute(message, args, client) {
-		const startTime = Date.now();
-		const pingMsg = await message.channel.send("Pinging...");
-		pingMsg.edit(`:ping_pong: Pong! Took \`${Math.round(Date.now() - startTime)}ms\`!`);
-	},
-};
+const DDEmbed = require("../../structures/DDEmbed.struct");
+const DDCommand = require("../../structures/DDCommand.struct");
+
+const { everyone } = require("../../permissions");
+
+module.exports =
+	new DDCommand()
+		.setName("ping")
+		.setDescription("The bot ping.")
+		.setDescription(everyone)
+		.setFunction(async(message, args, client) => {
+			const startTime = Date.now();
+
+			const firstEmbed =
+				new DDEmbed(client)
+					.setStyle("colorful")
+					.setTitle("Ping")
+					.setDescription("The bot ping.")
+					.addField("Ping", "Pinging...")
+					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
+			const pingMessage = await message.channel.send(firstEmbed);
+
+			const secondEmbed =
+				new DDEmbed(client)
+					.setStyle("colorful")
+					.setTitle("Ping")
+					.setDescription("The bot ping.")
+					.addField("Ping", `:ping_pong: Pong! Took \`${Math.round(Date.now() - startTime)}ms\`!`)
+					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
+
+			pingMessage.edit(secondEmbed);
+		});
