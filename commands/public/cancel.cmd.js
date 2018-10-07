@@ -30,9 +30,9 @@ module.exports =
 			const embed =
 				new DDEmbed(client)
 					.setStyle("white")
-					.setTitle("Ticket Created")
+					.setTitle("Cancel")
 					.setDescription(`Order cancelled!`)
-					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3ab.png");
+					.setThumbnail("https://mbtskoudsalg.com/images/trash-can-emoji-png-5.png");
 
 			message.channel.send(embed);
 		});
