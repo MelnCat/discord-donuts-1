@@ -26,13 +26,12 @@ commandFiles.forEach(file => {
 Orders.beforeCreate(async order => {
 	if (order.get("ticketMessageID")) return;
 
-	const orderMsg = await client.api.channels("294620411721940993").messages.post({
+	const orderMsg = await client.api.channels(ticketChannel).messages.post({
 		data: {
 			embed: generateTicket(client, order)._apiTransform(),
 		},
 	});
-
-	order.update({ ticketMessageID: orderMsg.id });
+	order.ticketMessageID = orderMsg.id;
 });
 
 Orders.afterCreate((order, options) => {
