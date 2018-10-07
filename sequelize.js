@@ -65,26 +65,23 @@ const WorkerInfo = sequelize.define("workerInfo", {
 	id: {
 		type: Sequelize.CHAR(18),
 		unique: true,
-		allowNull: false,
+		primaryKey: true,
+		allowNull: false
 	},
 	cooks: {
-		type: Sequelize.NUMBER,
-		unique: true,
+		type: Sequelize.INTEGER,
 		allowNull: false,
 	},
 	delivers: {
-		type: Sequelize.NUMBER,
-		unique: true,
+		type: Sequelize.INTEGER,
 		allowNull: false,
 	},
 	lastCook: {
-		type: Sequelize.NUMBER,
-		unique: true,
+		type: Sequelize.INTEGER,
 		allowNull: false,
 	},
 	lastDeliver: {
-		type: Sequelize.NUMBER,
-		unique: true,
+		type: Sequelize.INTEGER,
 		allowNull: false,
 	},
 });
