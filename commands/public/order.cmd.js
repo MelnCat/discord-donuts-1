@@ -19,19 +19,20 @@ module.exports = {
 		const generatedID = generateID(6); // Note that this is actually a 7 char id
 		console.log(generatedID);
 
-		await Orders.create({
-			id: generatedID,
-			user: message.author.id,
-			description: args.join(" "),
-			channel: message.channel.id,
-			status: 0,
-			claimer: null,
-			url: null,
-			ticketMessageID: null,
-		}).catch(e => {
-			if (e.name === "SequelizeValidationError") return message.reply("Invalid order, did you actually type a description?");
-			throw e;
-		});
+		try {
+			await Orders.create({
+				id: generatedID,
+				user: message.author.id,
+				description: args.join(" "),
+				channel: message.channel.id,
+				status: 0,
+				claimer: null,
+				url: null,
+				ticketMessageID: null,
+			});
+		} catch (e) {
+			message.reply(e);
+		}
 
 		const embed =
 			new DDEmbed(client)
