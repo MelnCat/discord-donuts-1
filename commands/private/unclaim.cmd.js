@@ -8,10 +8,10 @@ module.exports = {
 	description: "Use this to unclaim donut orders.",
 	async execute(message, args, client) {
 		if (!canCook(message.member)) return;
-    
+
 		const order = await Orders.findOne({ where: { id: args.shift(), claimer: message.author.id } });
-    
-		if (!order) return message.reply("Couldn't find that order or you don\'t have it claimed.");
+
+		if (!order) return message.reply("Couldn't find that order or you don't have it claimed.");
 
 		await order.update({ status: 0, claimer: null });
 

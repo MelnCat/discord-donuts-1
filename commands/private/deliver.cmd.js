@@ -1,4 +1,4 @@
-const { Orders } = require("../../sequelize");
+const { Orders, WorkerInfo } = require("../../sequelize");
 
 const { canCook } = require("../../permissions");
 
@@ -8,6 +8,8 @@ module.exports = {
 	description: "Use this to deliver cooked donuts",
 	async execute(message, args, client) {
 		const order = await Orders.findOne({ where: { id: args.shift() } });
+		const worker = await WorkerInfo.findOne({ where: { id: message.author.id } });
+
 		if (!order) return message.reply("Couldn't find that order!");
 
 		await order.update({ status: 4 });
@@ -34,5 +36,17 @@ module.exports = {
 				value: order.get("url"),
 			}],
 		} } + invite.url);
+
+		if (!worker) {
+			await WorkerInfo.create({
+				id: message.author.id,
+				cooks: 0,
+				delivers: 1,
+				lastCook: 0,
+				lastDeliver: Date.now(),
+			});
+		} else {
+			worker.update({ delivers: worker.delivers + 1, lastDeliver: Date.now() });
+		}
 	},
 };
