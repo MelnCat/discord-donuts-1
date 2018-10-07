@@ -23,7 +23,7 @@ module.exports =
 					.addField("Reason", "Either you or your guild have been blacklisted.")
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
 
-				message.channel.send(embed);
+				return message.channel.send(embed);
 			}
 
 			const generatedID = generateID(6); // Note that this is actually a 7 char id
