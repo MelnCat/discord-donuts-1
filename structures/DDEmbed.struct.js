@@ -2,8 +2,8 @@ const Discord = require("discord.js");
 
 /**
  * Class representing a Discord Donuts embed.
- * This type of embed has the author, footer, timestamps and the random embed color as well
- *  @extends Discord.MessageEmbed
+ * This type of embed has the Discord Donuts style in it.
+ * @extends Discord.MessageEmbed
  */
 class DDEmbed extends Discord.MessageEmbed {
 	/**
@@ -18,9 +18,15 @@ class DDEmbed extends Discord.MessageEmbed {
 
 		this.client = client;
 
-		this.setTimestamp(new Date());
+		this.setTimestamp();
 	}
 
+	/**
+	 * Sets the style of the embed.
+	 * @param { String } style The style of embed. Either "colorful" or "white".
+	 * @returns { DDEmbed } The embed after being modified
+	 * @throws { TypeError } If you provide an unrecognised style
+	 */
 	setStyle(style) {
 		if (style === "colorful") {
 			this.setColor(Math.floor(Math.random() * 16777216));
@@ -29,7 +35,7 @@ class DDEmbed extends Discord.MessageEmbed {
 		} else if (style === "white") {
 			this.setColor(0xFFFFFF);
 		} else {
-			throw new TypeError(`Unrecognised style: ${style}`);
+			return new TypeError(`Unrecognised style: ${style}`);
 		}
 		return this;
 	}
