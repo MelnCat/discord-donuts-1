@@ -88,14 +88,9 @@ module.exports =
 
 			await timeout(180000);
 
-			const doneEmbed =
-				new DDEmbed(client)
-					.setStyle("white")
-					.setTitle("Cook")
-					.setDescription("Your donut has finished cooking and will be delivered shortly.")
-					.setThumbnail("https://images.emojiterra.com/twitter/512px/2705.png");
+			client.users.get(order.user).send("Your donut has finished cooking and will be delivered shortly.");
 
-			message.channel.send(doneEmbed);
+			client.channels.get("347355829223161867").send(`<@${client.users.get(order.claimer)}>, ticket \`${order.id}\` has completed cooking and is ready to be delivered!`);
 
 			await Orders.update({ status: 3 }, { where: { id: id }, individualHooks: true });
 
