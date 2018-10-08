@@ -34,7 +34,7 @@ const generateTicket = (client, order) => {
 	const channel = client.channels.get(order.get("channel"));
 	return new DDEmbed(client)
 		.setStyle("white")
-		.setTitle("\u1F3AB New Ticket")
+		.setTitle("🎫 New Ticket")
 		.setDescription(`${user.username}#${user.discriminator} (${user.id}) would like a donut!`)
 		.addField("Donut Description", order.get("description"))
 		.addField(":hash: Ticket ID", order.get("id"))
