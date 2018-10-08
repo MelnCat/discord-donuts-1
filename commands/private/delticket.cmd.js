@@ -8,7 +8,7 @@ module.exports =
 	new DDCommand()
 		.setName("delticket")
 		.setDescription("Delete unworthy tickets, with a reason.")
-		.setPermission(canCook)
+		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
 			if (!args) {
 				const embed =
