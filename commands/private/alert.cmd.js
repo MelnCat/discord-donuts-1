@@ -9,7 +9,7 @@ module.exports =
 		.setDescription("Use this to send an alert to kitchen.")
 		.setPermissions(isBotOwner)
 		.setFunction(async(message, args, client) => {
-			if (!args.join(" ")) {
+			if (!args) {
 				const embed =
 					new DDEmbed(client)
 						.setStyle("colorful")
