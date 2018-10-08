@@ -77,11 +77,11 @@ const WorkerInfo = sequelize.define("workerInfo", {
 		allowNull: false,
 	},
 	lastCook: {
-		type: Sequelize.INTEGER,
+		type: Sequelize.BIGINT,
 		allowNull: false,
 	},
 	lastDeliver: {
-		type: Sequelize.INTEGER,
+		type: Sequelize.BIGINT,
 		allowNull: false,
 	},
 });
