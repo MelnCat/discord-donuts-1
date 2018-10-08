@@ -25,8 +25,6 @@ module.exports =
 				return message.channel.send(embed);
 			}
 
-			console.log(deletedOrdersCount);
-
 			const embed =
 				new DDEmbed(client)
 					.setStyle("white")
