@@ -41,9 +41,8 @@ module.exports =
 					ticketMessageID: null
 				});
 			} catch (e) {
-				message.reply(e);
+				return message.reply(e);
 			}
-
 			const embed =
 				new DDEmbed(client)
 					.setStyle("white")
@@ -51,5 +50,5 @@ module.exports =
 					.setDescription(`:ticket: Ticket Placed! Your ticketID: \`${generatedID}\``)
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3ab.png");
 
-			message.channel.send(embed);
+			return message.channel.send(embed);
 		});
