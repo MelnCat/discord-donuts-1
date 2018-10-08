@@ -39,7 +39,7 @@ module.exports =
 
 				const embed = new DDEmbed(client)
 					.setStyle("colorful")
-					.setTitle(`Worker Info for ${client.users.get(worker.get("id")).username}+${client.users.get(worker.get("id")).discriminator}`)
+					.setTitle(`Worker Info for ${client.users.get(worker.get("id")).username}#${client.users.get(worker.get("id")).discriminator}`)
 					.addField("Orders Cooked", worker.cooks)
 					.addField("Orders Delivered", worker.delivers)
 					.addField("Last Cook", timeAgoToString(worker.get("lastCook")))
