@@ -42,17 +42,15 @@ module.exports =
 					.setTitle(`Worker Info for ${client.users.get(worker.get("id")).username}+${client.users.get(worker.get("id")).discriminator}`)
 					.addField("Orders Cooked", worker.cooks)
 					.addField("Orders Delivered", worker.delivers)
-					.addField("Last Cook", timeAgoToString(worker.get('lastCook')))
-					.addField("Last Deliver", timeAgoToString(worker.get('lastDeliver')))
+					.addField("Last Cook", timeAgoToString(worker.get("lastCook")))
+					.addField("Last Deliver", timeAgoToString(worker.get("lastDeliver")))
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f4ca.png");
 
 				message.channel.send(embed);
 			}
 		});
-/**
- * 
- * @param { number } timestamp 
- */
+
+
 function timeAgoToString(timestamp) {
 	if (timestamp === 0) return "Never";
 	let timeAgo = Date.now() - timestamp;
