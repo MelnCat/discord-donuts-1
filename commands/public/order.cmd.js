@@ -31,7 +31,7 @@ module.exports = {
 				ticketMessageID: null
 			});
 		} catch (e) {
-			message.reply(e)
+			message.reply(e);
 		}
 
 		const embed =
