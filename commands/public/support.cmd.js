@@ -7,7 +7,7 @@ module.exports =
 	new DDCommand()
 		.setName("support")
 		.setDescription("The invite for the support server.")
-		.setDescription(everyone)
+		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
 			const embed =
 				new DDEmbed(client)

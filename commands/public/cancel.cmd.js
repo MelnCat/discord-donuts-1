@@ -9,7 +9,7 @@ module.exports =
 	new DDCommand()
 		.setName("cancel")
 		.setDescription("Cancel an order.")
-		.setDescription(everyone)
+		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
 			const deletedOrdersCount = await Orders.update({ status: 6 }, { where: { user: message.author.id, status: { [Op.lt]: 5 } }, individualHooks: true });
 

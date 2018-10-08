@@ -7,7 +7,7 @@ const { everyone } = require("../../permissions");
 
 module.exports =
 	new DDCommand()
-		.setName("servers")
+		.setName("stats")
 		.setDescription("Info about the bots servers and shards.")
 		.setDescription(everyone)
 		.setFunction(async(message, args, client) => {

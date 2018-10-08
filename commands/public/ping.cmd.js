@@ -7,7 +7,7 @@ module.exports =
 	new DDCommand()
 		.setName("ping")
 		.setDescription("The bot ping.")
-		.setDescription(everyone)
+		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
 			const startTime = Date.now();
 

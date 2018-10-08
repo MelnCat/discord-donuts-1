@@ -23,9 +23,24 @@ class DDCommand {
 		this.description = description;
 		return this;
 	}
+
+	/**
+	 * @callback PermissionFunction
+	 * @param { Discord.GuildMember } member The guild member object of the person running the command
+	 * @returns { Boolean }
+ 	 */
+
+	/**
+	 * Sets the required permissions for running the command
+	 * @param { PermissionFunction } permissionFunction
+	 */
+	setPermissions(permissionFunction) {
+		this.permissions = permissionFunction;
+		return this;
+	}
 	/**
 	 *
-	 * @callback execFunction
+	 * @callback ExecFunction
 	 * @param { Discord.Message } message The full message
 	 * @param { [String] } args The arguments to the command as a space seperated array
 	 * @param { Discord.Client } client The bot's client
@@ -33,7 +48,7 @@ class DDCommand {
 
 	/**
 	 * Sets the executed function for the command
-	 * @param { execFunction } execFunction The code to be run for the command
+	 * @param { ExecFunction } execFunction The code to be run for the command
 	 * @returns { DDCommand } The command with the function added
 	 */
 	setFunction(execFunction) {
@@ -58,6 +73,14 @@ class DDCommand {
 	}
 
 	/**
+	 * Gets the permissions required to run the command
+	 * @returns { PermissionFunction | TypeError }
+	 */
+	getPermissions() {
+		return this.permissions || new TypeError("No permissions have been set for this command");
+	}
+
+	/**
 	 * Gets the executable function of the command
 	 * @param { Discord.Message } message The full message
 	 * @param { [String] } args A space seperated array of the arguments
@@ -65,7 +88,7 @@ class DDCommand {
 	 * @returns { execFunction | TypeError } Either the command, or a TypeError
 	 */
 	runFunction(message, args, client) {
-		return this.execFunction() || new TypeError("A function has not been specified for this command");
+		return this.execFunction(message, args, client) || new TypeError("A function has not been specified for this command");
 	}
 }
 

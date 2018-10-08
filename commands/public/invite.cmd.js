@@ -7,7 +7,7 @@ module.exports =
 	new DDCommand()
 		.setName("invite")
 		.setDescription("The invite link for the bot.")
-		.setDescription(everyone)
+		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
 			const embed =
 				new DDEmbed(client)
