@@ -18,7 +18,7 @@ module.exports =
 					new DDEmbed(client)
 						.setStyle("white")
 						.setTitle("Couldn't Cancel Your Order")
-						.setDescription(`Your order couldn't be canceled.`)
+						.setDescription("Your order couldn't be canceled.")
 						.addField("Reason", "You don't have any orders to cancel.")
 						.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
 
@@ -26,12 +26,12 @@ module.exports =
 			}
 
 			console.log(deletedOrdersCount);
-			message.reply("Order cancelled!");
+
 			const embed =
 				new DDEmbed(client)
 					.setStyle("white")
 					.setTitle("Cancel")
-					.setDescription(`Order cancelled!`)
+					.setDescription("Order cancelled!")
 					.setThumbnail("https://mbtskoudsalg.com/images/trash-can-emoji-png-5.png");
 
 			message.channel.send(embed);

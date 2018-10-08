@@ -1,53 +1,105 @@
+const DDEmbed = require("../../structures/DDEmbed.struct");
+const DDCommand = require("../../structures/DDCommand.struct");
+
 const { Orders, WorkerInfo } = require("../../sequelize");
-
 const { timeout, autoDeliver } = require("../../helpers");
-
 const { canCook } = require("../../permissions");
 
-module.exports = {
-	name: "cook",
-	permissions: canCook,
-	description: "Use this to cook donuts.",
-	async execute(message, args, client) {
-		const id = args.shift();
-		const order = await Orders.findOne({ where: { id: id, claimer: message.author.id } });
-		const worker = await WorkerInfo.findOne({ where: { id: message.author.id } });
+module.exports =
+	new DDCommand()
+		.setName("cook")
+		.setDescription("Use this to cook donuts.")
+		.setPermissions(canCook)
+		.setFunction(async(message, args, client) => {
+			const id = args.shift();
+			const order = await Orders.findOne({ where: { id: id, claimer: message.author.id } });
+			const worker = await WorkerInfo.findOne({ where: { id: message.author.id } });
 
-		if (!order) return message.reply("Either this order doesn't exist, or you haven't claimed it.");
-		// TODO: Support non URL image
-		await message.channel.send("The next message you send will be set as the order's image Only URLs are supported atm :cry:.");
-		const response = await message.channel.awaitMessages(m => m.author.id === order.get("claimer"), { max: 1, time: 30000 });
-		if (!response.size) return message.reply("You didn't respond in time.");
-		try {
-			await Orders.update({ status: 2, url: response.first().content }, { where: { id: id }, individualHooks: true });
-		} catch (e) {
-			if (e.name === "SequelizeValidationError") {
-				// TODO: Add better error detection
-				return message.channel.send("That doesn't look like a URL to me.");
+			if (!order) {
+				const embed =
+					new DDEmbed(client)
+						.setStyle("white")
+						.setTitle("Cook")
+						.setDescription("Either this order doesn't exist, or you haven't claimed it.")
+						.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
+
+				return message.channel.send(embed);
 			}
-		}
-		message.channel.send("Your donut will take 3 minutes to cook.");
 
-		if (!worker) {
-			await WorkerInfo.create({
-				id: message.author.id,
-				cooks: 1,
-				delivers: 0,
-				lastCook: Date.now(),
-				lastDeliver: 0,
-			});
-		} else {
-			worker.update({ cooks: worker.cooks + 1, lastCook: Date.now() });
-		}
+			// TODO: Support non URL image
+			const urlEmbed =
+				new DDEmbed(client)
+					.setStyle("white")
+					.setTitle("Cook")
+					.setDescription("The next message you send will be set as the order's image Only URLs are supported atm :cry:.");
 
-		await timeout(180000);
+			message.channel.send(urlEmbed);
 
-		message.reply("Your donut has finished cooking and will be delivered shortly.");
+			const response = await message.channel.awaitMessages(m => m.author.id === order.get("claimer"), { max: 1, time: 30000 });
 
-		await Orders.update({ status: 3 }, { where: { id: id }, individualHooks: true });
+			if (!response.size) {
+				// TODO: Support non URL image
+				const notInTimeEmbed =
+					new DDEmbed(client)
+						.setStyle("white")
+						.setTitle("Cook")
+						.setDescription("You didn't respond in time.")
+						.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
 
-		await timeout(180000);
+				return message.channel.send(notInTimeEmbed);
+			}
 
-		autoDeliver(client, id);
-	},
-};
+			try {
+				await Orders.update({ status: 2, url: response.first().content }, { where: { id: id }, individualHooks: true });
+			} catch (e) {
+				if (e.name === "SequelizeValidationError") {
+					// TODO: Add better error detection
+					const embed =
+						new DDEmbed(client)
+							.setStyle("white")
+							.setTitle("Cook")
+							.setDescription("That doesn't look like a URL to me.")
+							.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
+
+					return message.channel.send(embed);
+				}
+			}
+
+			const cookEmbed =
+				new DDEmbed(client)
+					.setStyle("white")
+					.setTitle("Cook")
+					.setDescription("Your donut will take 3 minutes to cook.")
+					.setThumbnail("https://images.emojiterra.com/twitter/512px/2705.png");
+
+			message.channel.send(cookEmbed);
+
+			if (!worker) {
+				await WorkerInfo.create({
+					id: message.author.id,
+					cooks: 1,
+					delivers: 0,
+					lastCook: Date.now(),
+					lastDeliver: 0,
+				});
+			} else {
+				worker.update({ cooks: worker.cooks + 1, lastCook: Date.now() });
+			}
+
+			await timeout(180000);
+
+			const doneEmbed =
+				new DDEmbed(client)
+					.setStyle("white")
+					.setTitle("Cook")
+					.setDescription("Your donut has finished cooking and will be delivered shortly.")
+					.setThumbnail("https://images.emojiterra.com/twitter/512px/2705.png");
+
+			message.channel.send(doneEmbed);
+
+			await Orders.update({ status: 3 }, { where: { id: id }, individualHooks: true });
+
+			await timeout(180000);
+
+			autoDeliver(client, id);
+		});

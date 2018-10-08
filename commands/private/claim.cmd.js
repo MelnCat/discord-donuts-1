@@ -1,21 +1,40 @@
-const { Orders } = require("../../sequelize");
+const DDEmbed = require("../../structures/DDEmbed.struct");
+const DDCommand = require("../../structures/DDCommand.struct");
 
+const { Orders } = require("../../sequelize");
 const { canCook } = require("../../permissions");
 
-module.exports = {
-	name: "claim",
-	permissions: canCook,
-	description: "Use this to claim donut orders.",
-	async execute(message, args, client) {
-		if (!canCook(message.member)) return;
+module.exports =
+	new DDCommand()
+		.setName("claim")
+		.setDescription("Use this to claim donut orders.")
+		.setPermissions(canCook)
+		.setFunction(async(message, args, client) => {
+			if (!canCook(message.member)) return;
 
-		const order = await Orders.findOne({ where: { id: args.shift(), claimer: null } });
-		if (!order) return message.reply("Couldn't find that order or it has already been claimed.");
+			const order = await Orders.findOne({ where: { id: args.shift(), claimer: null } });
+			if (!order) {
+				const embed =
+					new DDEmbed(client)
+						.setStyle("white")
+						.setTitle("Claim")
+						.setDescription("Couldn't find that order or it has already been claimed.")
+						.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
 
-		await order.update({ status: 1, claimer: message.author.id });
+				return message.channel.send(embed);
+			}
 
-		await client.users.get(order.get("user")).send(`Guess what? Your ticket has now been claimed by **${message.author.username}**! It should be cooked shortly.`);
+			await order.update({ status: 1, claimer: message.author.id });
 
-		message.reply("You have claimed the order.");
-	},
-};
+			await client.users.get(order.get("user")).send(`Guess what? Your ticket has now been claimed by **${message.author.username}**! It should be cooked shortly.`);
+
+			const embed =
+				new DDEmbed(client)
+					.setStyle("white")
+					.setTitle("Claim")
+					.setDescription("You have claimed the order.")
+					.setThumbnail("https://images.emojiterra.com/twitter/512px/2705.png");
+
+			message.channel.send(embed);
+		});
+
