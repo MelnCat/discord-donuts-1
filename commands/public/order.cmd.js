@@ -11,7 +11,7 @@ module.exports =
 	new DDCommand()
 		.setName("order")
 		.setDescription("Order your donuts here.")
-		.setDescription(everyone)
+		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
 			if (!args) return;
 			if (await Blacklist.findOne({ where: { [Op.or]: [{ id: message.author.id }, { id: message.guild.id }] } })) {

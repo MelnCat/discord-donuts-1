@@ -7,7 +7,7 @@ module.exports =
 	new DDCommand()
 		.setName("servers")
 		.setDescription("Info about the bots servers and shards.")
-		.setDescription(everyone)
+		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
 			const embed =
 				new DDEmbed(client)
