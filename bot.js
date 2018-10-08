@@ -68,9 +68,10 @@ client.on("message", async message => {
 	const command = args.shift().toLowerCase();
 
 	if (!client.commands.has(command)) return;
+	if (!client.commands.get(command).getPermissions(message.member)) return;
 
 	try {
-		client.commands.get(command).execute(message, args, client);
+		client.commands.get(command).runFunction(message, args, client);
 	} catch (e) {
 		console.log(e);
 		message.reply("An error occured!");

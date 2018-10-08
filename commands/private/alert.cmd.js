@@ -1,19 +1,32 @@
+const DDEmbed = require("../../structures/DDEmbed.struct");
+const DDCommand = require("../../structures/DDCommand.struct");
+
 const { isBotOwner } = require("../../permissions");
-module.exports = {
-	name: "alert",
-	permissions: isBotOwner,
-	description: "Use this to send an alert to kitchen.",
-	async execute(message, args, client) {
-		if (!args.join(" ")) {
-			message.channel.send("You did not provide anything for me to send!");
-			return;
-		}
-		message.guild.channels.get("295652105400614922").send({
-			embed: {
-				timestamp: new Date(),
-				color: Math.floor(Math.random() * 16777216),
-				description: args.join(" "),
-			},
+
+module.exports =
+	new DDCommand()
+		.setName("alert")
+		.setDescription("Use this to send an alert to kitchen.")
+		.setPermissions(isBotOwner)
+		.setFunction(async(message, args, client) => {
+			if (!args.join(" ")) {
+				const embed =
+					new DDEmbed(client)
+						.setStyle("colorful")
+						.setTitle("Alert")
+						.setDescription("You did not provide anything for me to send!")
+						.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
+
+				message.channel.send(embed);
+				return;
+			}
+
+			const embed =
+				new DDEmbed(client)
+					.setStyle("colorful")
+					.setTitle("Alert")
+					.setDescription(args.join(" "))
+					.setThumbnail("https://images.emojiterra.com/twitter/512px/2757.png");
+
+			message.guild.channels.get("295652105400614922").send(embed);
 		});
-	},
-};

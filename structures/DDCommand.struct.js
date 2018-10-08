@@ -88,7 +88,7 @@ class DDCommand {
 	 * @returns { execFunction | TypeError } Either the command, or a TypeError
 	 */
 	runFunction(message, args, client) {
-		return this.execFunction() || new TypeError("A function has not been specified for this command");
+		return this.execFunction(message, args, client) || new TypeError("A function has not been specified for this command");
 	}
 }
 
