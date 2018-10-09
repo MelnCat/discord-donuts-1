@@ -88,9 +88,9 @@ module.exports =
 
 			await timeout(180000);
 
-			client.users.get(order.user).send("Your donut has finished cooking and will be delivered shortly.");
+			await client.users.get(order.user).send("Your donut has finished cooking and will be delivered shortly.");
 
-			client.channels.get("347355829223161867").send(`<@${client.users.get(order.claimer)}>, ticket \`${order.id}\` has completed cooking and is ready to be delivered!`);
+			await client.channels.get("347355829223161867").send(`${client.users.get(order.claimer)}, ticket \`${order.id}\` has completed cooking and is ready to be delivered!`);
 
 			await Orders.update({ status: 3 }, { where: { id: id }, individualHooks: true });
 
