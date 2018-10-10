@@ -43,10 +43,15 @@ Orders.afterCreate((order, options) => {
 
 Orders.afterUpdate(async(order, options) => {
 	if (!order.get("ticketMessageID")) return;
+
+	if (!await client.channels.get(ticketChannel)) return;
 	// const message = await client.channels.get(ticketChannel).messages.fetch(order.get('ticketMessageID'))
 	// message.edit(generateTicket(order))
 
 	// FIXME: This might be running for every shard
+
+	if (order.status > 4) return client.channels.get(ticketChannel).messages.get(order.ticketMessageID).delete();
+
 	client.api.channels(ticketChannel).messages(order.get("ticketMessageID")).patch({
 		data: {
 			embed: generateTicket(client, order)._apiTransform(),
