@@ -1,3 +1,6 @@
+process.on("uncaughtException", console.log);
+process.on("unhandledRejection", console.log);
+
 const Discord = require("discord.js");
 
 const glob = require("glob");
@@ -85,5 +88,3 @@ client.on("message", async message => {
 
 client.login(token);
 
-process.on("uncaughtException", console.log);
-process.on("unhandledRejection", console.log);
