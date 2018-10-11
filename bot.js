@@ -1,15 +1,18 @@
 process.on("uncaughtException", console.log);
 process.on("unhandledRejection", console.log);
 
-const Discord = require("discord.js");
+const TEST = process.env.TEST;
 
+console.log(TEST);
+
+const Discord = require("discord.js");
 const glob = require("glob");
 
 const { Orders, Blacklist, WorkerInfo } = require("./sequelize");
-
 const { token, ticketChannel, prefix } = require("./auth.json");
-
 const { generateTicket, timeout } = require("./helpers");
+
+const test = TEST ? require("./test.js") : undefined;
 
 const client = new Discord.Client();
 
@@ -20,7 +23,6 @@ console.log(commandFiles);
 
 commandFiles.forEach(file => {
 	const command = require(file);
-
 	client.commands.set(command.name, command);
 });
 
@@ -63,6 +65,7 @@ Orders.afterUpdate(async(order, options) => {
 });
 
 client.once("ready", () => {
+	if (TEST && client.channels.get("491045091801300992")) test(client);
 	console.log("Ready!");
 	Orders.sync();
 	Blacklist.sync();
@@ -70,7 +73,11 @@ client.once("ready", () => {
 });
 
 client.on("message", async message => {
-	if (!message.content.startsWith(prefix) || message.author.bot) return;
+	if (!TEST) {
+		if (!message.content.startsWith(prefix) || message.author.bot) return;
+	} else {
+		if (!message.author.id === client.user.id) return; // eslint-disable-line no-lonely-if
+	}
 
 	const args = message.content.slice(prefix.length).split(/ +/);
 	const command = args.shift().toLowerCase();
