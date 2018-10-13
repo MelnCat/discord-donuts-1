@@ -4,6 +4,7 @@ const DDCommand = require("../../structures/DDCommand.struct");
 const { Orders, WorkerInfo } = require("../../sequelize");
 const { timeout, autoDeliver } = require("../../helpers");
 const { canCook } = require("../../permissions");
+const { deliveryChannel } = require("../../auth.json");
 
 module.exports =
 	new DDCommand()
@@ -90,7 +91,7 @@ module.exports =
 
 			await client.users.get(order.user).send("Your donut has finished cooking and will be delivered shortly.");
 
-			await client.channels.get("347355829223161867").send(`${client.users.get(order.claimer)}, ticket \`${order.id}\` has completed cooking and is ready to be delivered!`);
+			await client.channels.get(deliveryChannel).send(`${client.users.get(order.claimer)}, ticket \`${order.id}\` has completed cooking and is ready to be delivered!`);
 
 			await Orders.update({ status: 3 }, { where: { id: id }, individualHooks: true });
 
