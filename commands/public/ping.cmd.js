@@ -11,22 +11,12 @@ module.exports =
 		.setFunction(async(message, args, client) => {
 			const startTime = Date.now();
 
-			const firstEmbed =
-				new DDEmbed(client)
-					.setStyle("colorful")
-					.setTitle("Ping")
-					.setDescription("The bot ping.")
-					.addField("Ping", "Pinging...")
-					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
-			const pingMessage = await message.channel.send(firstEmbed);
+			const loadingEmbed = client.getEmbed("pingLoading")
+				.setStyle("colorful");
+			const pingMessage = await message.channel.send(loadingEmbed);
 
-			const secondEmbed =
-				new DDEmbed(client)
-					.setStyle("colorful")
-					.setTitle("Ping")
-					.setDescription("The bot ping.")
-					.addField("Ping", `:ping_pong: Pong! Took \`${Math.round(Date.now() - startTime)}ms\`!`)
-					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
-
-			pingMessage.edit(secondEmbed);
+			const finishedEmbed =
+				client.getEmbed("pingFinished", Math.round(Date.now() - startTime))
+					.setStyle("colorful");
+			pingMessage.edit(finishedEmbed);
 		});
