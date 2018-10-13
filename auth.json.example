@@ -1,0 +1,11 @@
+{
+ 	"token":"",
+	"dbUsername":"",
+	"dbPassword":"",
+	"dbName":"",
+	"employeeRole":"",
+	"botOwners":[""],
+	"ticketChannel":"",
+	"deliveryChannel":"",
+	"prefix":"d!"
+}
