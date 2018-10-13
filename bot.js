@@ -8,23 +8,15 @@ console.log(TEST);
 const Discord = require("discord.js");
 const glob = require("glob");
 
+const DDClient = require("./structures/DDClient.struct");
+
 const { Orders, Blacklist, WorkerInfo } = require("./sequelize");
 const { token, ticketChannel, prefix } = require("./auth.json");
 const { generateTicket, timeout } = require("./helpers");
 
 const test = TEST ? require("./test.js") : undefined;
 
-const client = new Discord.Client();
-
-client.commands = new Discord.Collection();
-const commandFiles = glob.sync("./commands/**/*.cmd.js");
-
-console.log(commandFiles);
-
-commandFiles.forEach(file => {
-	const command = require(file);
-	client.commands.set(command.name, command);
-});
+const client = new DDClient();
 
 // TODO: Find a way to get hooks to only load once
 
@@ -83,10 +75,10 @@ client.on("message", async message => {
 	const command = args.shift().toLowerCase();
 
 	if (!client.commands.has(command)) return;
-	if (!client.commands.get(command).getPermissions(message.member)) return;
+	if (!client.getCommand(command).getPermissions(message.member)) return;
 
 	try {
-		client.commands.get(command).runFunction(message, args, client);
+		client.getCommand(command).runFunction(message, args, client);
 	} catch (e) {
 		console.log(e);
 		message.reply("An error occured!");
