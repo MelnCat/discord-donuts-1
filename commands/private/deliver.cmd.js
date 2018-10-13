@@ -50,7 +50,7 @@ module.exports =
 					.addField("Cook's Image", order.get("url"));
 
 			message.author.send(orderEmbed);
-			message.author.send(invite.url)
+			message.author.send(invite.url);
 
 			if (!worker) {
 				await WorkerInfo.create({
