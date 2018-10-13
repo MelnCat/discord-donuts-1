@@ -68,7 +68,7 @@ client.on("message", async message => {
 	if (!TEST) {
 		if (!message.content.startsWith(prefix) || message.author.bot) return;
 	} else {
-		if (!message.author.id === client.user.id) return; // eslint-disable-line no-lonely-if
+		if (message.author.id !== client.user.id) return; // eslint-disable-line no-lonely-if
 	}
 
 	const args = message.content.slice(prefix.length).split(/ +/);
