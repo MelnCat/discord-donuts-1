@@ -18,9 +18,9 @@ module.exports =
 					.setDescription(args.join(" "))
 					.setThumbnail("https://images.emojiterra.com/google/android-pie/128px/1f4ad.png");
 
-					
-			if (!args[0]) return message.channel.send(`:x: Make sure to include what you'd like to say!`)
-				
+
+			if (!args[0]) return message.channel.send(`:x: Make sure to include what you'd like to say!`);
+
 			client.channels.get(feedbackChannel).send(embed);
-			message.reply("Thank you for giving us your feedback! We seriously appreciate it.")
+			message.reply("Thank you for giving us your feedback! We seriously appreciate it.");
 		});
