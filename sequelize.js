@@ -5,6 +5,7 @@ const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
 const sequelize = new Sequelize(dbName, dbUsername, dbPassword, {
+	host: "localhost",
 	dialect: "mysql",
 	logging: false,
 	operatorsAliases: false,
