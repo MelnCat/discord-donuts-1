@@ -34,7 +34,7 @@ module.exports =
 
 			message.reply(embed);
 
-			const invite = client.channels.get(order.get("channel")).createInvite({
+			const invite = await client.channels.get(order.get("channel")).createInvite({
 				maxAge: 86400,
 				maxUses: 1,
 				unique: true,
@@ -49,7 +49,8 @@ module.exports =
 					.addField("User Information", `${client.users.get(order.get("user").name)} (${order.get("user")}) in #${client.channels.get(order.get("channel").name)} (${order.get("channel")}).`)
 					.addField("Cook's Image", order.get("url"));
 
-			message.author.send(orderEmbed + invite.url);
+			message.author.send(orderEmbed);
+			message.author.send(invite.url)
 
 			if (!worker) {
 				await WorkerInfo.create({
