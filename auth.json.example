@@ -7,5 +7,7 @@
 	"botOwners":[""],
 	"ticketChannel":"",
 	"deliveryChannel":"",
+	"feedbackChannel":"",
+	"tipChannel":"",
 	"prefix":"d!"
 }
