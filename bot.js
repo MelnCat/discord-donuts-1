@@ -1,7 +1,7 @@
+const TEST = process.env.TEST;
+
 process.on("uncaughtException", console.log);
 process.on("unhandledRejection", console.log);
-
-const TEST = process.env.TEST;
 
 console.log(TEST);
 
@@ -11,10 +11,10 @@ const glob = require("glob");
 const DDClient = require("./structures/DDClient.struct");
 
 const { Orders, Blacklist, WorkerInfo } = require("./sequelize");
-const { token, ticketChannel, prefix } = require("./auth.json");
+const { token, ticketChannel, prefix, testChannel } = require("./auth.json");
 const { generateTicket, timeout } = require("./helpers");
 
-const test = TEST ? require("./test.js") : undefined;
+const test = TEST ? require("../working/test.js") : undefined;
 
 const client = new DDClient();
 
@@ -57,7 +57,7 @@ Orders.afterUpdate(async(order, options) => {
 });
 
 client.once("ready", () => {
-	if (TEST && client.channels.get("491045091801300992")) test(client);
+	if (TEST && client.channels.get(testChannel)) test(client);
 	console.log("Ready!");
 	Orders.sync();
 	Blacklist.sync();
