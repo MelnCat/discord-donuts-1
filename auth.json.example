@@ -1,11 +1,15 @@
 {
-  "token": "",
-  "employeeRole": "",
-  "kitchenChannel": "",
-  "ticketChannel": "",
+	"token": "",
+	"dbHostname": "",
+	"dbUsername": "",
+	"dbPassword": "",
   "dbName": "",
-  "dbUsername": "",
-  "dbPassword": "",
-  "botOwners": [""],
-  "prefix": ""
+	"employeeRole": "",
+	"botOwners": [""],
+	"ticketChannel": "",
+	"deliveryChannel": "",
+	"feedbackChannel": "",
+	"tipChannel": "",
+	"testChannel": "",
+	"prefix": "!"
 }
