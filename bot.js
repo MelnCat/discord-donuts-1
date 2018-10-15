@@ -81,7 +81,7 @@ client.on("message", async message => {
 		client.getCommand(command).runFunction(message, args, client);
 	} catch (e) {
 		console.log(e);
-		message.reply("An error occured!");
+		message.reply("An error occurred!\n```\n"+e.toString()+"\n```");
 	}
 });
 
