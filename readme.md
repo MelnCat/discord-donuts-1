@@ -7,11 +7,10 @@ Yamboy1's rewrite of [Discord Donuts](https://github.com/mastercraft852/discord-
 ## What's Better
 - Commands are now multiple files.
 - **THE DATABASE ISN'T A JSON!!!**
-- Keeps persistant data for orders.
+- Keeps persistent data for orders.
 
-## Compiling Instructions
-1. Rename **auth.json.example** to **auth.json**
+## Selfhosting Instructions
+1. Rename `auth.json.example` to `auth.json`
 2. Edit auth.json accordingly.
->If the database server isn't localhost, edit sequelize.js's host section to the server.
-3. Open a command prompt in the main directory, and run **node bot.js**
->If you can't run that, you need to install node. Google it up.
+3. Open a command prompt in the main directory, and run `node bot.js`
+>If you can't run that, you need to install node. Search it up.
