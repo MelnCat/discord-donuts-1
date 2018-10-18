@@ -27,8 +27,8 @@ module.exports =
             if (days == 1) {
               dayText = " Days, ";
             }
-            const upText = "" + days + dayText + hrs + " hours" + ", " + min + " minutes, " + sec + " seconds ";
+            const upText = `${days}${dayText}${hrs} hours` + `, ${min} minutes, ${sec} seconds `;
             return upText;
           }
-        message.channel.send(calcUptime())
+        message.channel.send(calcUptime());
 		});
