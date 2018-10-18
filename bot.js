@@ -14,7 +14,7 @@ const { Orders, Blacklist, WorkerInfo } = require("./sequelize");
 const { token, ticketChannel, prefix, testChannel } = require("./auth.json");
 const { generateTicket, timeout } = require("./helpers");
 
-const test = TEST ? require("../working/test.js") : undefined;
+const test = TEST ? require("./test.js") : undefined;
 
 const client = new DDClient({ shardCount: 2 });
 
@@ -81,7 +81,7 @@ client.on("message", async message => {
 		client.getCommand(command).runFunction(message, args, client);
 	} catch (e) {
 		console.log(e);
-		message.reply("An error occurred!\n```\n"+e.toString()+"\n```");
+		message.reply(`An error occurred!\n\`\`\`\n${e.toString()}\n\`\`\``);
 	}
 });
 
