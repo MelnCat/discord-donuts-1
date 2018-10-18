@@ -4,9 +4,10 @@ const TSR = require("tap-mocha-reporter");
 
 const { feedbackChannel, testChannel } = require("./auth.json");
 
-tap.Test.prototype.addAssert("awaitMessage", 2, async(channel, predicate, message, extra) =>
-	channel.awaitMessages(predicate, { max: 1, time: 10000, errors: ["time"] })
-);
+tap.Test.prototype.addAssert("awaitMessage", 2, async function(channel, predicate, message, extra) { // eslint-disable-line func-names
+	const msg = await channel.awaitMessages(predicate, { max: 1, time: 10000, errors: ["time"] });
+	return this.ok(msg.size, message, extra);
+});
 
 module.exports = client => {
 	tap.pipe(TSR("spec"));
@@ -18,7 +19,7 @@ module.exports = client => {
 
 	tap.test("ping command", async test => {
 		await tChannel.send("!ping");
-		test.awaitMessage(
+		await test.awaitMessage(
 			tChannel, message => message.embeds[0].title === "Ping",
 			"the title should be ping"
 		);
@@ -26,24 +27,24 @@ module.exports = client => {
 
 	tap.test("feedback command", async test => {
 		await tChannel.send("!feedback");
-		test.awaitMessage(
+		await test.awaitMessage(
 			tChannel, message => message.content === ":x: Make sure to include what you'd like to say!",
 			"should reply knowing theres no feedback"
 		);
 
 		await tChannel.send("!feedback ");
-		test.awaitMessage(
+		await test.awaitMessage(
 			tChannel, message => message.content === ":x: Make sure to include what you'd like to say!",
 			"should also reply knowing theres no feedback"
 		);
 
 		await tChannel.send("!feedback actual feedback");
-		test.awaitMessage(
+		await test.awaitMessage(
 			fbChannel, message => message.embeds[0].description === "actual feedback",
 			"should send the feedback embed"
 		);
 
-		test.awaitMessage(
+		await test.awaitMessage(
 			tChannel, message => message.content.includes("Thank you for giving us your feedback!"),
 			"should reply knowing there is feedback"
 		);
