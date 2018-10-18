@@ -7,10 +7,8 @@ class DDClient extends Discord.Client {
 		super(options);
 
 		this.commands = new Discord.Collection();
-		this.embeds = new Discord.Collection();
 
 		this.loadCommands();
-		this.loadEmbeds();
 	}
 
 	loadCommands() {
@@ -25,25 +23,8 @@ class DDClient extends Discord.Client {
 		});
 	}
 
-	loadEmbeds() {
-		this.embeds = new Discord.Collection();
-		const embedFiles = glob.sync("./embeds/*.embed.js");
-
-		console.log(embedFiles);
-
-		embedFiles.forEach(file => {
-			const embedGen = require(`.${file}`);
-			this.embeds.set(file.split("/").pop().replace(".embed.js", ""), embedGen);
-		});
-		console.log(this.embeds.keys());
-	}
-
 	getCommand(command) {
 		return this.commands.get(command);
-	}
-
-	getEmbed(name, ...args) {
-		return this.embeds.get(name)(this, args);
 	}
 }
 
