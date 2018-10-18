@@ -3,13 +3,15 @@ const DDCommand = require("../../structures/DDCommand.struct");
 
 const { isBotOwner } = require("../../permissions");
 
+const { kitchenChannel } = require("../../auth.json");
+
 module.exports =
 	new DDCommand()
 		.setName("alert")
 		.setDescription("Use this to send an alert to kitchen.")
 		.setPermissions(isBotOwner)
 		.setFunction(async(message, args, client) => {
-			if (!args) {
+			if (args.length < 1) {
 				const embed =
 					new DDEmbed(client)
 						.setStyle("colorful")
@@ -28,5 +30,5 @@ module.exports =
 					.setDescription(args.join(" "))
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/2757.png");
 
-			message.guild.channels.get("295652105400614922").send(embed);
+			message.guild.channels.get(kitchenChannel).send(embed);
 		});
