@@ -16,7 +16,7 @@ const { generateTicket, timeout } = require("./helpers");
 
 const test = TEST ? require("../working/test.js") : undefined;
 
-const client = new DDClient();
+const client = new DDClient({ shardCount: 2 });
 
 // TODO: Find a way to get hooks to only load once
 

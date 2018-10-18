@@ -13,12 +13,9 @@ module.exports =
 				new DDEmbed(client)
 					.setStyle("colorful")
 					.setTitle("Number of servers")
-					.setDescription("Information on the number of servers / shards of this bot.")
-					.addField("Total servers", await client.shard.broadcastEval("this.guilds.size")
-						.then(arr => arr.reduce((acc, x) => acc + x))
-						.catch(console.log))
-					.addField("Current shard", `Shard ${client.shard.id}`)
-					.addField("Servers on current shard", client.guilds.size)
+					.setDescription("Information on the number of servers of this bot.")
+					.addField("Total servers", client.guilds.size)
+					// TODO: maybe add shard stuff :shrug:
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f4ca.png");
 			message.channel.send(embed);
 		});
