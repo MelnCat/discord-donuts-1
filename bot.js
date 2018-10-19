@@ -65,7 +65,7 @@ client.once("ready", () => {
 	Blacklist.sync();
 	WorkerInfo.sync();
 
-	// Activities  
+	// Activities
 	const activitiesList = ["Cooking Donuts...", "Donuts!", "Cookin' Donuts", "d!order Donuts", "<3 Donuts", "with Donuts"];
 
 	setInterval(() => {
