@@ -76,7 +76,7 @@ module.exports =
 						.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
 
 				return message.channel.send(embed);
-				}
+			}
 			const cookEmbed =
 				new DDEmbed(client)
 					.setStyle("white")
