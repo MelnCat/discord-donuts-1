@@ -62,6 +62,14 @@ client.once("ready", () => {
 	Orders.sync();
 	Blacklist.sync();
 	WorkerInfo.sync();
+
+	// Activities  
+	const activitiesList = ["Cooking Donuts...", "Donuts!", "Cookin' Donuts", "d!order Donuts", "<3 Donuts", "with Donuts"];
+
+	setInterval(() => {
+		let index = Math.floor((Math.random() * (activitiesList.length - 1)) + 1);
+		client.user.setActivity(activitiesList[index]);
+	}, 300000);
 });
 
 client.on("message", async message => {
