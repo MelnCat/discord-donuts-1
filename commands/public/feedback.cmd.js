@@ -20,11 +20,7 @@ module.exports =
 					.setDescription(args.join(" "))
 					.setThumbnail("https://images.emojiterra.com/google/android-pie/128px/1f4ad.png");
 
-			client.api.channels(feedbackChannel).messages.post({
-				data: {
-					embed: embed._apiTransform()
-				}
-			});
+			client.channels.get(feedbackChannel).send(embed);
 
 			return message.reply("Thank you for giving us your feedback! We seriously appreciate it.");
 		});
