@@ -11,8 +11,10 @@ const glob = require("glob");
 const DDClient = require("./structures/DDClient.struct");
 
 const { Orders, Blacklist, WorkerInfo } = require("./sequelize");
-const { token, ticketChannel, prefix, testChannel } = require("./auth.json");
+const { token, ticketChannel, prefix, testChannel, guildLogChannel } = require("./auth.json");
 const { generateTicket, timeout } = require("./helpers");
+
+const DDEmbed = require("structures/DDEmbed.struct");
 
 const test = TEST ? require("./test.js") : undefined;
 
@@ -91,6 +93,17 @@ client.on("message", async message => {
 		console.log(e);
 		message.reply(`An error occurred!\n\`\`\`\n${e.toString()}\n\`\`\``);
 	}
+});
+
+client.on("guildCreate", guild => {
+	const embed =
+		new DDEmbed(client)
+			.setStyle("colorful")
+			.setTitle("New Guild")
+			.setDescription("New Guild Joined!")
+			.addField("Guild Name", `${guild.name} (${guild.id})`);
+
+	client.channels.get(guildLogChannel).send(embed);
 });
 
 client.login(token);
