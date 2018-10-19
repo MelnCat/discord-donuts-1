@@ -106,5 +106,16 @@ client.on("guildCreate", guild => {
 	client.channels.get(guildLogChannel).send(embed);
 });
 
+client.on("guildDelete", guild => {
+	const embed =
+		new DDEmbed(client)
+			.setStyle("colorful")
+			.setTitle("Left Guild")
+			.setDescription("Left a Guild!")
+			.addField("Guild Name", `${guild.name} (${guild.id})`);
+
+	client.channels.get(guildLogChannel).send(embed);
+});
+
 client.login(token);
 
