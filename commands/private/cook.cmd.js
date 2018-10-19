@@ -49,7 +49,7 @@ module.exports =
 
 				return message.channel.send(notInTimeEmbed);
 			}
-
+			if (!response.first().attachments.array()) {
 			try {
 				await Orders.update({ status: 2, url: response.first().content }, { where: { id: id }, individualHooks: true });
 			} catch (e) {
@@ -65,7 +65,18 @@ module.exports =
 					return message.channel.send(embed);
 				}
 			}
+			} else if (response.first().attachments.url.endsWith("png") || response.first().attachments.url.endsWith("jpg") || response.first().attachments.url.endsWith("jpeg") || response.first().attachments.url.endsWith("webp")) {
+				await Orders.update({ status: 2, url: response.first().attachments.first().url }, { where: { id: id }, individualHooks: true });
+			} else {
+				const embed =
+						new DDEmbed(client)
+							.setStyle("white")
+							.setTitle("Cook")
+							.setDescription("That doesn't look like a image file to me.")
+							.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
 
+					return message.channel.send(embed);
+			}
 			const cookEmbed =
 				new DDEmbed(client)
 					.setStyle("white")
