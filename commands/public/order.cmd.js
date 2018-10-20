@@ -39,7 +39,7 @@ module.exports =
 				url: null,
 				ticketMessageID: null
 			}).catch(console.log);
-	
+
 			const embed =
 				new DDEmbed(client)
 					.setStyle("white")
