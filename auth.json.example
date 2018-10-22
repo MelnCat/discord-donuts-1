@@ -11,5 +11,6 @@
 	"feedbackChannel": "",
 	"tipChannel": "",
 	"testChannel": "",
+	"guildLogChannel": "",
 	"prefix": "!"
 }
