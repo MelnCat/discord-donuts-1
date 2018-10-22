@@ -9,7 +9,7 @@ module.exports =
 	new DDCommand()
 		.setName("away")
 		.setDescription("Request absence.")
-		.setPermissions(everyone)
+		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
 			if (args[0] == "end") {
 				message.channel.send("Absence Ended!");
