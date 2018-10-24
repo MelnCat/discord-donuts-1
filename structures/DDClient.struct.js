@@ -1,3 +1,5 @@
+const path = require("path");
+
 const Discord = require("discord.js");
 
 const glob = require("glob");
@@ -19,6 +21,11 @@ class DDClient extends Discord.Client {
 
 		commandFiles.forEach(file => {
 			const command = require(`.${file}`);
+
+			console.log(command);
+
+			command.setCategory(path.basename(path.dirname(`.${file}`)));
+
 			this.commands.set(command.name, command);
 		});
 	}

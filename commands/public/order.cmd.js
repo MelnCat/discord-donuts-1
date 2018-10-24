@@ -13,7 +13,7 @@ module.exports =
 		.setDescription("Order your donuts here.")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
-			if (!args) return;
+			if (!args) return messsage.send("Please enter a description");
 			if (await Blacklist.findOne({ where: { [Op.or]: [{ id: message.author.id }, { id: message.guild.id }] } })) {
 				const embed =
 				new DDEmbed(client)
