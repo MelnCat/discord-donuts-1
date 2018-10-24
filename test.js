@@ -53,19 +53,19 @@ module.exports = client => {
 	});
 
 	tap.test("order comand", async test => {
-		await tChannel.send("!order");
+		await tChannel.send(`${prefix}order`);
 		await test.awaitMessage(
 			tChannel, message => message.content === "Please enter a message",
 			"should not allow an empty order"
 		);
 
-		await tChannel.send("!order ");
+		await tChannel.send(`${prefix}order `);
 		await test.awaitMessage(
 			tChannel, message => message.content === "Please enter a message",
 			"should also not allow an empty order with a space"
 		);
 
-		await tChannel.send("!order an order");
+		await tChannel.send(`${prefix}order an order`);
 		await test.awaitMessage(
 			tChannel, message => message.embeds[0].title === "Ticket Created",
 			"should respond with a confirmation"
@@ -75,6 +75,8 @@ module.exports = client => {
 			tChannel, message => message.embeds[0].fields.some(field => field.value.match(/0\w{6}/)) && message.embeds[0].description.includes(client.user.id),
 			"sends a valid ticket"
 		);
+
+		test.end();
 	});
 
 	tap.end();
