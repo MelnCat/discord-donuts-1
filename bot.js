@@ -14,13 +14,11 @@ const { Orders, Blacklist, WorkerInfo } = require("./sequelize");
 const { token, ticketChannel, prefix, testChannel, guildLogChannel } = require("./auth.json");
 const { generateTicket, timeout } = require("./helpers");
 
-const DDEmbed = require("structures/DDEmbed.struct");
+const DDEmbed = require("./structures/DDEmbed.struct");
 
 const test = TEST ? require("./test.js") : undefined;
 
 const client = new DDClient({ shardCount: 2 });
-
-// TODO: Find a way to get hooks to only load once
 
 Orders.beforeCreate(async order => {
 	if (order.get("ticketMessageID")) return;
@@ -44,10 +42,6 @@ Orders.afterUpdate(async(order, options) => {
 	if (!order.get("ticketMessageID")) return;
 
 	if (!await client.channels.get(ticketChannel)) return;
-	// const message = await client.channels.get(ticketChannel).messages.fetch(order.get('ticketMessageID'))
-	// message.edit(generateTicket(order))
-
-	// FIXME: This might be running for every shard
 
 	if (order.status > 4) return client.channels.get(ticketChannel).messages.get(order.ticketMessageID).delete();
 
@@ -85,7 +79,7 @@ client.on("message", async message => {
 	const command = args.shift().toLowerCase();
 
 	if (!client.commands.has(command)) return;
-	if (!client.getCommand(command).getPermissions(message.member)) return;
+	if (!client.getCommand(command).getPermissions(message.member)) return message.reply("You do not have permission to run this command");
 
 	try {
 		client.getCommand(command).runFunction(message, args, client);
