@@ -55,13 +55,13 @@ module.exports = client => {
 	tap.test("order comand", async test => {
 		await tChannel.send(`${prefix}order`);
 		await test.awaitMessage(
-			tChannel, message => message.content === "Please enter a message",
+			tChannel, message => message.content.includes("Please enter a description"),
 			"should not allow an empty order"
 		);
 
 		await tChannel.send(`${prefix}order `);
 		await test.awaitMessage(
-			tChannel, message => message.content === "Please enter a message",
+			tChannel, message => message.content.includes("Please enter a description"),
 			"should also not allow an empty order with a space"
 		);
 
