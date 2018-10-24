@@ -9,7 +9,7 @@ module.exports =
 	new DDCommand()
 		.setName("ostatus")
 		.setDescription("Lists info about a specific order.")
-		.setDescription(canCook)
+		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
 			const order = await Orders.findOne({ where: { id: args.shift() } });
 

@@ -1,14 +1,16 @@
 const { Orders, Op } = require("../../sequelize");
 
-const { canCook } = require("../../helpers");
+const { canCook } = require("../../permissions");
 
-module.exports = {
-	name: "list",
-	permissions: canCook,
-	description: "Lists all available donuts.",
-	async execute(message) {
-		const ordersList = await Orders.findAll({ where: { status: { [Op.lt]: 5 } }, attributes: ["id"] });
-		const ordersFormatted = ordersList.map(t => `\n\`${t.id}\``).join("") || "";
-		message.channel.send(`Current orders: ${ordersFormatted}`);
-	},
-};
+const DDCommand = require("../../structures/DDCommand.struct");
+
+module.exports =
+	new DDCommand()
+		.setName("list")
+		.setPermissions(canCook)
+		.setDescription("Lists all available donuts.")
+		.setFunction(async(client, args, message) => {
+			const ordersList = await Orders.findAll({ where: { status: { [Op.lt]: 5 } }, attributes: ["id"] });
+			const ordersFormatted = ordersList.map(t => `\n\`${t.id}\``).join("") || "";
+			message.channel.send(`Current orders: ${ordersFormatted}`);
+		});
