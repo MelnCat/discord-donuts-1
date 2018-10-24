@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const tap = require("tap");
 const TSR = require("tap-mocha-reporter");
 
-const { feedbackChannel, testChannel } = require("./auth.json");
+const { feedbackChannel, testChannel, prefix } = require("./auth.json");
 
 tap.Test.prototype.addAssert("awaitMessage", 2, async function(channel, predicate, message, extra) { // eslint-disable-line func-names
 	const msg = await channel.awaitMessages(predicate, { max: 1, time: 10000, errors: ["time"] });
@@ -18,7 +18,7 @@ module.exports = client => {
 	tap.type(client, Discord.Client, "the client is a valid client");
 
 	tap.test("ping command", async test => {
-		await tChannel.send("!ping");
+		await tChannel.send(`${prefix}ping`);
 		await test.awaitMessage(
 			tChannel, message => message.embeds[0].title === "Ping",
 			"the title should be ping"
@@ -26,21 +26,21 @@ module.exports = client => {
 	});
 
 	tap.test("feedback command", async test => {
-		await tChannel.send("!feedback");
+		await tChannel.send(`${prefix}feedback`);
 		await test.awaitMessage(
 			tChannel, message => message.content === ":x: Make sure to include what you'd like to say!",
 			"should reply knowing theres no feedback"
 		);
 
-		await tChannel.send("!feedback ");
+		await tChannel.send(`${prefix}feedback `);
 		await test.awaitMessage(
 			tChannel, message => message.content === ":x: Make sure to include what you'd like to say!",
 			"should also reply knowing theres no feedback"
 		);
 
-		await tChannel.send("!feedback actual feedback");
+		await tChannel.send(`${prefix}feedback actual feedback`);
 		await test.awaitMessage(
-			fbChannel, message => message.embeds[0].description === "actual feedback",
+			fbChannel, message => message.embeds[0] && message.embeds[0].description === "actual feedback",
 			"should send the feedback embed"
 		);
 
