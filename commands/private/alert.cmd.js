@@ -3,7 +3,7 @@ const DDCommand = require("../../structures/DDCommand.struct");
 
 const { isBotOwner } = require("../../permissions");
 
-const { kitchenChannel } = require("../../auth.json");
+const { messageAlert } = require("../../helpers.js");
 
 module.exports =
 	new DDCommand()
@@ -23,12 +23,5 @@ module.exports =
 				return;
 			}
 
-			const embed =
-				new DDEmbed(client)
-					.setStyle("colorful")
-					.setTitle("Alert")
-					.setDescription(args.join(" "))
-					.setThumbnail("https://images.emojiterra.com/twitter/512px/2757.png");
-
-			message.guild.channels.get(kitchenChannel).send(embed);
+			messageAlert(client, args.join(" "));
 		});

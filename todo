@@ -1,23 +1,11 @@
-messageAlert function
-updateWebsites function
-role reaction thing (maybe not needed)
-leave guild when join and blacklisted
-discord connected in log
-discord disconnected in log
-message with number of orders every 300 seconds
-milestone check?
-leave guild when message and blacklisted
-custom prefixes
-prefix mentions
-order command should add " donut" to the end of the ticket
-order command should log to kitchen
-need status command
-cancel command should log to kitchen
-can only claim in the kitchen
-order and claim commands should distinguish between no order, and claimed/cooking order.
-generateTicket function should specify the claimer
-add support for preloaded donuts
-message to user from cook command doesn't show discriminator
-cook command should log to the kitchen
-list command should show order stati
-connecting log.
+More important:
+  cancel command should log the number of orders to the kitchen
+  cook command should log the number of orders to the kitchen
+  add support for preloaded donuts
+  add support for preloaded donuts
+
+Less important:
+  order and claim commands should distinguish between no order, and claimed/cooking order.
+  generateTicket function should specify the claimer
+  message to user from cook command doesn't show discriminator
+  list command should show order statuses

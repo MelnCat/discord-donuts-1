@@ -4,7 +4,7 @@ const DDCommand = require("../../structures/DDCommand.struct");
 const { Orders, WorkerInfo } = require("../../sequelize");
 const { timeout, autoDeliver } = require("../../helpers");
 const { canCook } = require("../../permissions");
-const { deliveryChannel } = require("../../auth.json");
+const { channels: { kitchenChannel, deliveryChannel } } = require("../../auth.json");
 
 module.exports =
 	new DDCommand()
@@ -13,7 +13,7 @@ module.exports =
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
 			if (message.channel.id !== kitchenChannel) return message.channel.send(":x: You can only do this command in the kitchen!");
-			if (!args[0]) return message.channel.send("Make sure to include the Ticket ID!")
+			if (!args[0]) return message.channel.send("Make sure to include the Ticket ID!");
 
 			const id = args.shift();
 			const order = await Orders.findOne({ where: { id: id, claimer: message.author.id } });
@@ -101,9 +101,9 @@ module.exports =
 				worker.update({ cooks: worker.cooks + 1, lastCook: Date.now() });
 			}
 
-			client.users.get(order.user).send(":thumbsup: Your cook, "+client.users.get(order.claimer).username + ", just put your ticket in the oven! It should take **3 minutes** to cook!");
+			client.users.get(order.user).send(`:thumbsup: Your cook, ${client.users.get(order.claimer).username}, just put your ticket in the oven! It should take **3 minutes** to cook!`);
 
-			channel.send(":thumbsup: Alright, you've put `" + orders[i].id + "` into the oven. It'll take **3 minutes** to cook.");
+			message.channel.send(`:thumbsup: Alright, you've put \`${order.id}\` into the oven. It'll take **3 minutes** to cook.`);
 
 			await timeout(180000);
 

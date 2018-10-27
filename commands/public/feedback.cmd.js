@@ -1,7 +1,7 @@
 const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 
-const { feedbackChannel } = require("../../auth.json");
+const { channels: { feedbackChannel } } = require("../../auth.json");
 
 const { everyone } = require("../../permissions");
 

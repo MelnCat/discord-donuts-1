@@ -1,22 +1,16 @@
-const TEST = process.env.TEST;
-
 process.on("uncaughtException", console.log);
 process.on("unhandledRejection", console.log);
-
-console.log(TEST);
 
 const Discord = require("discord.js");
 const glob = require("glob");
 
 const DDClient = require("./structures/DDClient.struct");
 
-const { Orders, Blacklist, WorkerInfo } = require("./sequelize");
-const { token, ticketChannel, prefix, testChannel, guildLogChannel } = require("./auth.json");
-const { generateTicket, timeout } = require("./helpers");
+const { Orders, Blacklist, WorkerInfo, Op } = require("./sequelize");
+const { token, prefix, channels: { ticketChannel, guildLogChannel } } = require("./auth.json");
+const { generateTicket, timeout, updateWebsites, messageAlert } = require("./helpers");
 
 const DDEmbed = require("./structures/DDEmbed.struct");
-
-const test = TEST ? require("./test.js") : undefined;
 
 const client = new DDClient({ shardCount: 2 });
 
@@ -53,8 +47,8 @@ Orders.afterUpdate(async(order, options) => {
 });
 
 client.once("ready", () => {
-	if (TEST && client.channels.get(testChannel)) test(client);
-	console.log("Ready!");
+	console.log(`[Discord] Connected! (ID: ${client.user.id})`);
+	updateWebsites(client);
 	Orders.sync();
 	Blacklist.sync();
 	WorkerInfo.sync();
@@ -62,17 +56,23 @@ client.once("ready", () => {
 	// Activities
 	const activitiesList = ["Cooking Donuts...", "Donuts!", "Cookin' Donuts", "d!order Donuts", "<3 Donuts", "with Donuts"];
 
-	setInterval(() => {
+	setInterval(async() => {
 		let index = Math.floor((Math.random() * (activitiesList.length - 1)) + 1);
 		client.user.setActivity(activitiesList[index]);
+
+		if (await Orders.count({ where: { status: { [Op.lt]: 2 } } }) > 1) {
+			messageAlert(client, "There are [orderCount] order(s) left to claim");
+		}
 	}, 300000);
 });
 
 client.on("message", async message => {
-	if (!TEST) {
-		if (!message.content.startsWith(prefix) || message.author.bot) return;
-	} else {
-		if (message.author.id !== client.user.id) return; // eslint-disable-line no-lonely-if
+	if (![prefix, `<@${client.id}>`].some(message.content.startsWith) || message.author.bot) return;
+
+	if (await Blacklist.findById(message.author.id)) return message.channel.send("I apologize, but you've been blacklisted from this bot!");
+	if (await Blacklist.findById(message.guild.id)) {
+		message.channel.send.send("I apologize, but your server has been blacklisted from Discord Donuts.");
+		return message.guild.leave();
 	}
 
 	const args = message.content.slice(prefix.length).split(/ +/);
@@ -89,7 +89,12 @@ client.on("message", async message => {
 	}
 });
 
-client.on("guildCreate", guild => {
+client.on("guildCreate", async guild => {
+	if (await Blacklist.findById(guild.id)) {
+		guild.owner.send("I apologze, but your server has been blacklisted from Discord Donuts.");
+		return guild.leave();
+	}
+
 	const embed =
 		new DDEmbed(client)
 			.setStyle("colorful")
@@ -98,6 +103,7 @@ client.on("guildCreate", guild => {
 			.addField("Guild Name", `${guild.name} (${guild.id})`);
 
 	client.channels.get(guildLogChannel).send(embed);
+	updateWebsites(client);
 });
 
 client.on("guildDelete", guild => {
@@ -109,7 +115,13 @@ client.on("guildDelete", guild => {
 			.addField("Guild Name", `${guild.name} (${guild.id})`);
 
 	client.channels.get(guildLogChannel).send(embed);
+	updateWebsites(client);
+});
+
+client.on("disconnect", () => {
+	console.error(`[Discord] Disconnected! Attempting to reconnect...`);
+	process.exit();
 });
 
 client.login(token);
-
+console.log("[Discord] Connecting...");

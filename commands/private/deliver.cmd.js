@@ -3,6 +3,7 @@ const DDCommand = require("../../structures/DDCommand.struct");
 
 const { Orders, WorkerInfo } = require("../../sequelize");
 const { canCook } = require("../../permissions");
+const { channels: { deliveryChannel } } = require("../../auth.json");
 
 module.exports =
 	new DDCommand()
@@ -11,7 +12,7 @@ module.exports =
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
 			if (message.channel.id !== deliveryChannel) return message.channel.send("You can only use this command in the delivery channel");
-			if (!args[1]) message.channel.send("You need to specify an order")
+			if (!args[1]) message.channel.send("You need to specify an order");
 
 			const order = await Orders.findOne({ where: { id: args.shift() } });
 			const worker = await WorkerInfo.findOne({ where: { id: message.author.id } });
@@ -27,8 +28,8 @@ module.exports =
 				return message.channel.send(embed);
 			}
 
-			if (order.status > 3) return channel.send("Whoops, this order is finished, maybe someone else delivered it? :wink:")
-			if (order.status !== 3) return channel.send("This order has not been cooked yet")
+			if (order.status > 3) return message.channel.send("Whoops, this order is finished, maybe someone else delivered it? :wink:");
+			if (order.status !== 3) return message.channel.send("This order has not been cooked yet");
 
 			await order.update({ status: 4 });
 
