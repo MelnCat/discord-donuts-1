@@ -3,6 +3,7 @@ More important:
   cook command should log the number of orders to the kitchen
   add support for preloaded donuts
   stop people from ordering multiple donuts at once
+alert command doesn't work
 
 Less important:
   order and claim commands should distinguish between no order, and claimed/cooking order.
