@@ -19,7 +19,7 @@ module.exports =
 			console.log(generatedID);
 
 			let description = args.join(" ").trim();
-			if (!description.toLowerCase.endsWith("donut")) description += " donut";
+			if (!description.toLowerCase().endsWith("donut")) description += " donut";
 
 			Orders.create({
 				id: generatedID,
