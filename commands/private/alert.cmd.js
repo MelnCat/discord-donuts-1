@@ -4,7 +4,6 @@ const DDCommand = require("../../structures/DDCommand.struct");
 const { isBotOwner } = require("../../permissions");
 
 const { messageAlert } = require("../../helpers.js");
-
 module.exports =
 	new DDCommand()
 		.setName("alert")
@@ -22,6 +21,6 @@ module.exports =
 				message.channel.send(embed);
 				return;
 			}
-
+			message.channel.send("Success!")
 			messageAlert(client, args.join(" "));
 		});
