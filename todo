@@ -4,6 +4,7 @@ More important:
   add support for preloaded donuts
   stop people from ordering multiple donuts at once
 alert command doesn't work
+the bot is unresponsive in a blacklisted guild, it should send a message saying it's blacklisted, and leave 
 
 Less important:
   order and claim commands should distinguish between no order, and claimed/cooking order.
