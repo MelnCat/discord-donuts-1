@@ -82,7 +82,7 @@ client.on("message", async message => {
 	if (!client.getCommand(command).getPermissions(message.member)) return message.reply("You do not have permission to run this command");
 
 	try {
-		client.getCommand(command).runFunction(message, args, client);
+		await client.getCommand(command).runFunction(message, args, client);
 	} catch (e) {
 		console.log(e);
 		message.reply(`An error occurred!\n\`\`\`\n${e.toString()}\n\`\`\``);

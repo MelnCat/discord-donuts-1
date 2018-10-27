@@ -98,7 +98,7 @@ class DDCommand {
 	 * @param { Discord.Client} client The bot's client
 	 * @returns { execFunction | TypeError } Either the command, or a TypeError
 	 */
-	runFunction(message, args, client) {
+	async runFunction(message, args, client) {
 		return this.execFunction(message, args, client) || new TypeError("A function has not been specified for this command");
 	}
 }
