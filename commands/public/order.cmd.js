@@ -16,7 +16,7 @@ module.exports =
 			if (!args.length) return message.channel.send(":x: Please enter a description");
 
 			let generatedID;
-			do generatedID = genereateID(6);
+			do generatedID = generateID(6);
 			while (await Orders.findById(generatedID));
 
 			console.log(generatedID);
