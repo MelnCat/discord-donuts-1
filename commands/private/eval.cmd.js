@@ -3,6 +3,9 @@ const DDCommand = require("../../structures/DDCommand.struct");
 
 const { token } = require("../../auth.json");
 const { isBotOwner } = require("../../permissions");
+const permissions = require("../../permissions");
+const sequelize = require("../../sequelize");
+const helpers = require("../../helpers");
 
 module.exports =
 	new DDCommand()
