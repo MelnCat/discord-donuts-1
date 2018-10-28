@@ -17,7 +17,7 @@ module.exports =
 				let toEval = args.join(" ");
 				if (toEval.includes("token")) return message.channel.send("Nice try with our tokens there :wink:");
 				if (!toEval) return message.channel.send(":x: Include some code? o_O");
-				let com = eval(toEval); // eslint-disable-line no-eval
+				let com = eval(`(async () => {${to Eval}})()`); // eslint-disable-line no-eval
 				if (typeof com !== "string") com = require("util").inspect(com, false, 1);
 				const escapeRegex = input => {
 					const matchOperators = /[|\\{}()[\]^$+*?.]/g;
