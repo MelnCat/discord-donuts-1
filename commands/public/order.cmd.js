@@ -15,13 +15,9 @@ module.exports =
 		.setFunction(async(message, args, client) => {
 			if (!args.length) return message.channel.send(":x: Please enter a description");
 
-			var generatedID = generateID(6); // Note that this is actually a 7 char id
-
-			var id = await Orders.findOne({ where: { id: generatedID } });
-			while (id) {
-				generatedID = generateID(6);
-				id = await Orders.findOne({ where: { id: generatedID } });
-			}
+			let generatedID;
+			do generatedID = genereateID(6)
+			while (await Orders.findById(generatedID));
 
 			console.log(generatedID);
 
