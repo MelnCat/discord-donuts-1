@@ -1,6 +1,18 @@
+const snekfetch = require("node-superfetch");
+
 const DDEmbed = require("./structures/DDEmbed.struct");
 
 const { Orders, Op } = require("./sequelize");
+
+const {
+	channels: { kitchenChannel },
+	botlists: {
+		discordbotsToken,
+		discordpwToken,
+		discordlistToken,
+		listcordToken
+	}
+} = require("./auth.json");
 
 const timeout = delay => new Promise(resolve => setTimeout(resolve, delay));
 
@@ -13,21 +25,21 @@ const generateID = length => {
 	return str;
 };
 
-/* eslint-disable indent */
+/* eslint-disable indent, no-mixed-spaces-and-tabs */
 
 const status = code => {
-       if (code === 0) return "Not cooked";
-  else if (code === 1) return "Claimed";
-  else if (code === 2) return "Cooking";
-  else if (code === 3) return "Cooked";
-  else if (code === 4) return "Delivered";
-  else if (code === 5) return "Deleted";
-  else if (code === 6) return "Expired";
-  else if (code === 7) return "Cancelled";
-  else return code;
+			 if (code === 0) return "Unclaimed";
+	else if (code === 1) return "Claimed";
+	else if (code === 2) return "Cooking";
+	else if (code === 3) return "Cooked";
+	else if (code === 4) return "Delivered";
+	else if (code === 5) return "Deleted";
+	else if (code === 6) return "Expired";
+	else if (code === 7) return "Cancelled";
+	else throw TypeError("That isn't a valid code");
 };
 
-/* eslint-enable indent */
+/* eslint-enable indent, no-mixed-spaces-and-tabs */
 
 const generateTicket = (client, order) => {
 	const user = client.users.get(order.get("user"));
@@ -55,10 +67,49 @@ const autoDeliver = async(client, id) => {
 	await finalOrder.update({ status: 4 });
 };
 
+const messageAlert = (client, text, channel = kitchenChannel) => {
+	text = text.replace("[orderCount]", Orders.count({ where: { status: { [Op.lt]: 3 } } }));
+	const embed =
+		new DDEmbed(client)
+			.setStyle("colorful")
+			.setTitle("Alert")
+			.setDescription(text)
+			.setThumbnail("https://images.emojiterra.com/twitter/512px/2757.png");
+	client.channels.get(channel).send(embed);
+};
+
+const updateWebsites = client => {
+	const serverCount = client.guilds.size;
+	console.log("[Discord] Updating websites...");
+	snekfetch.post(`https://discordbots.org/api/bots/335637950044045314/stats`)
+		.set("Authorization", discordbotsToken)
+		.send({ server_count: serverCount })
+		.then(console.log("[Discord] Updated discordbots.org stats."))
+		.catch(e => console.log("[Discord] ", e.body));
+	snekfetch.post(`https://bots.discord.pw/api/bots/335637950044045314/stats`)
+		.set("Authorization", discordpwToken)
+		.send({ server_count: serverCount })
+		.then(console.log("[Discord] Updated bots.discord.pw stats."))
+		.catch(e => console.log("[Discord] ", e.body));
+	snekfetch.post(`https://bots.discordlist.net/api`)
+		.set("Authorization", discordlistToken)
+		.send({ server_count: serverCount })
+		.then(console.log("[Discord] Updated bots.discordlist.net stats."))
+		.catch(e => console.log("[Discord] ", e.body));
+	snekfetch.post(`https://listcord.com/api/bot/335637950044045314/guilds`)
+		.set("Content-Type", "application/json")
+		.set("token", listcordToken)
+		.send({ guilds: serverCount })
+		.then(console.log("[Discord] Updated Listcord stats."))
+		.catch(e => console.log("[Discord] ", e.body));
+};
+
 module.exports = {
 	generateID,
 	status,
 	generateTicket,
 	timeout,
 	autoDeliver,
+	updateWebsites,
+	messageAlert
 };

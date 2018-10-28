@@ -3,6 +3,7 @@ const DDCommand = require("../../structures/DDCommand.struct");
 
 const { Orders, WorkerInfo } = require("../../sequelize");
 const { canCook } = require("../../permissions");
+const { channels: { deliveryChannel } } = require("../../auth.json");
 
 module.exports =
 	new DDCommand()
@@ -10,6 +11,9 @@ module.exports =
 		.setDescription("Use this to deliver cooked donuts.")
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
+			if (message.channel.id !== deliveryChannel) return message.channel.send("You can only use this command in the delivery channel");
+			if (!args[1]) message.channel.send("You need to specify an order");
+
 			const order = await Orders.findOne({ where: { id: args.shift() } });
 			const worker = await WorkerInfo.findOne({ where: { id: message.author.id } });
 
@@ -23,13 +27,17 @@ module.exports =
 
 				return message.channel.send(embed);
 			}
+
+			if (order.status > 3) return message.channel.send("Whoops, this order is finished, maybe someone else delivered it? :wink:");
+			if (order.status !== 3) return message.channel.send("This order has not been cooked yet");
+
 			await order.update({ status: 4 });
 
 			const embed =
 				new DDEmbed(client)
 					.setStyle("white")
 					.setTitle("Deliver")
-					.setDescription("Order information send to the DMs!")
+					.setDescription("Order information sent to the DMs!")
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f4e9.png");
 
 			message.reply(embed);
@@ -44,13 +52,12 @@ module.exports =
 				new DDEmbed(client)
 					.setStyle("white")
 					.setTitle("Delivery Info")
-					.setDescription("The ticket has been deleted, it's all on you now.")
 					.addField("Ticket Description", order.get("description"))
 					.addField("User Information", `${client.users.get(order.get("user").name)} (${order.get("user")}) in #${client.channels.get(order.get("channel").name)} (${order.get("channel")}).`)
 					.addField("Cook's Image", order.get("url"));
 
-			message.author.send(orderEmbed);
-			message.author.send(invite.url);
+			await message.author.send(orderEmbed);
+			await message.author.send(invite.url);
 
 			if (!worker) {
 				await WorkerInfo.create({

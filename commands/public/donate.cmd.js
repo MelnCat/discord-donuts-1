@@ -14,7 +14,8 @@ module.exports =
 					.setStyle("colorful")
 					.setTitle("Donate")
 					.setDescription("Want to help us stay running and cook donuts? Support us by donating!")
-					.addField("Donation Link", "https://patreon.com/discorddonuts")
+					.addField("Patreon", "https://patreon.com/discorddonuts")
+					.addField("PayPal", "https://www.paypal.com/discorddonuts")
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f517.png");
 
 			message.channel.send(embed);

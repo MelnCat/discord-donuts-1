@@ -13,6 +13,7 @@ module.exports =
 
 			const loadingEmbed =
 				new DDEmbed(client)
+					.setStyle("colorful")
 					.setTitle("Ping")
 					.setDescription("The bot ping.")
 					.addField("Ping", `Pinging...`)
@@ -21,6 +22,7 @@ module.exports =
 
 			const finishedEmbed =
 				new DDEmbed(client)
+					.setStyle("colorful")
 					.setTitle("Ping")
 					.setDescription("The bot ping.")
 					.addField("Ping", `:ping_pong: Pong! Took \`${Math.round(Date.now() - startTime)} ms\`!`)

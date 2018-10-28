@@ -1,16 +1,26 @@
 {
 	"token": "",
-	"dbHostname": "",
-	"dbUsername": "",
-	"dbPassword": "",
-  "dbName": "",
+	"prefix": "",
 	"employeeRole": "",
 	"botOwners": [""],
-	"ticketChannel": "",
-	"deliveryChannel": "",
-	"feedbackChannel": "",
-	"tipChannel": "",
-	"testChannel": "",
-	"guildLogChannel": "",
-	"prefix": "!"
+	"channels": {
+		"ticketChannel": "",
+		"deliveryChannel": "",
+		"feedbackChannel": "",
+		"tipChannel": "",
+		"testChannel": "",
+		"guildLogChannel": ""
+	},
+	"db": {
+		"dbHostname": "",
+		"dbUsername": "",
+		"dbPassword": "",
+		"dbName": ""
+	},
+	"botlists": {
+		"discordbotsToken": "",
+		"discordpwToken": "",
+		"discordlistToken": "",
+		"listcordToken": ""
+	}
 }

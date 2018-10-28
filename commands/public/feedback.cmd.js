@@ -1,7 +1,7 @@
 const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 
-const { feedbackChannel } = require("../../auth.json");
+const { channels: { feedbackChannel } } = require("../../auth.json");
 
 const { everyone } = require("../../permissions");
 
@@ -20,7 +20,7 @@ module.exports =
 					.setDescription(args.join(" "))
 					.setThumbnail("https://images.emojiterra.com/google/android-pie/128px/1f4ad.png");
 
-			client.channels.get(feedbackChannel).send(embed);
+			await client.channels.get(feedbackChannel).send(embed);
 
 			return message.reply("Thank you for giving us your feedback! We seriously appreciate it.");
 		});
