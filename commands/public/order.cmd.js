@@ -3,7 +3,7 @@ const DDCommand = require("../../structures/DDCommand.struct");
 
 const { Blacklist, Orders, Op } = require("../../sequelize");
 
-const { generateID } = require("../../helpers");
+const { generateID, messageAlert } = require("../../helpers");
 
 const { everyone } = require("../../permissions");
 
@@ -13,26 +13,18 @@ module.exports =
 		.setDescription("Order your donuts here.")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
-			if (!args) return;
-			if (await Blacklist.findOne({ where: { [Op.or]: [{ id: message.author.id }, { id: message.guild.id }] } })) {
-				const embed =
-				new DDEmbed(client)
-					.setStyle("white")
-					.setTitle("Couldn't Place Your Order")
-					.setDescription(`Your order couldn't be placed.`)
-					.addField("Reason", "Either you or your guild have been blacklisted.")
-					.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
-
-				return message.channel.send(embed);
-			}
+			if (!args.length) return message.channel.send(":x: Please enter a description");
 
 			const generatedID = generateID(6); // Note that this is actually a 7 char id
 			console.log(generatedID);
 
+			let description = args.join(" ").trim();
+			if (!description.toLowerCase().endsWith("donut")) description += " donut";
+
 			Orders.create({
 				id: generatedID,
 				user: message.author.id,
-				description: args.join(" "),
+				description: description,
 				channel: message.channel.id,
 				status: 0,
 				claimer: null,
@@ -47,5 +39,7 @@ module.exports =
 					.setDescription(`:ticket: Ticket Placed! Your ticketID: \`${generatedID}\``)
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3ab.png");
 
-			return message.channel.send(embed);
+			message.channel.send(embed);
+
+			return messageAlert("An order has been placed, there are now [orderCount] order(s) to claim");
 		});

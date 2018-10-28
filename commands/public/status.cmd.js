@@ -3,22 +3,22 @@ const DDCommand = require("../../structures/DDCommand.struct");
 
 const { Orders } = require("../../sequelize");
 const { status } = require("../../helpers");
-const { canCook } = require("../../permissions");
+const { everyone } = require("../../permissions");
 
 module.exports =
 	new DDCommand()
-		.setName("ostatus")
-		.setDescription("Lists info about a specific order.")
-		.setPermissions(canCook)
+		.setName("status")
+		.setDescription("Lists info about your current order.")
+		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
-			const order = await Orders.findOne({ where: { id: args.shift() } });
+			const order = await Orders.findOne({ where: { user: message.author.id } });
 
 			if (!order) {
 				const embed =
 					new DDEmbed(client)
 						.setStyle("white")
 						.setTitle("Order Status")
-						.setDescription("Couldn't find that order.")
+						.setDescription("You do not have an order currently")
 						.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
 
 				return message.channel.send(embed);

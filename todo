@@ -1,0 +1,13 @@
+More important:
+  cancel command should log the number of orders to the kitchen
+  cook command should log the number of orders to the kitchen
+  add support for preloaded donuts
+  stop people from ordering multiple donuts at once
+alert command doesn't work
+both blacklist commands should check that the ID being blacklisted is a valid id
+
+Less important:
+  order and claim commands should distinguish between no order, and claimed/cooking order.
+  generateTicket function should specify the claimer
+  message to user from cook command doesn't show discriminator
+  list command should show order statuses

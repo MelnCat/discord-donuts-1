@@ -4,7 +4,7 @@ const DDCommand = require("../../structures/DDCommand.struct");
 const { Orders, WorkerInfo } = require("../../sequelize");
 const { timeout, autoDeliver } = require("../../helpers");
 const { canCook } = require("../../permissions");
-const { deliveryChannel } = require("../../auth.json");
+const { channels: { kitchenChannel, deliveryChannel } } = require("../../auth.json");
 
 module.exports =
 	new DDCommand()
@@ -12,6 +12,9 @@ module.exports =
 		.setDescription("Use this to cook donuts.")
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
+			if (message.channel.id !== kitchenChannel) return message.channel.send(":x: You can only do this command in the kitchen!");
+			if (!args[0]) return message.channel.send("Make sure to include the Ticket ID!");
+
 			const id = args.shift();
 			const order = await Orders.findOne({ where: { id: id, claimer: message.author.id } });
 			const worker = await WorkerInfo.findOne({ where: { id: message.author.id } });
@@ -21,25 +24,25 @@ module.exports =
 					new DDEmbed(client)
 						.setStyle("white")
 						.setTitle("Cook")
-						.setDescription("Either this order doesn't exist, or you haven't claimed it.")
+						.setDescription("That order doesn't exist")
 						.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
 
 				return message.channel.send(embed);
 			}
 
-			// TODO: Support non URL image
+			if (order.status > 1) return message.channel.send("That order is already cooking");
+
 			const urlEmbed =
 				new DDEmbed(client)
 					.setStyle("white")
 					.setTitle("Cook")
-					.setDescription("The next message you send will be set as the order's image Only URLs are supported atm :cry:.");
+					.setDescription("The next message you send will be set as the order's image");
 
 			message.channel.send(urlEmbed);
 
 			const response = await message.channel.awaitMessages(m => m.author.id === order.get("claimer"), { max: 1, time: 30000 });
 
 			if (!response.size) {
-				// TODO: Support non URL image
 				const notInTimeEmbed =
 					new DDEmbed(client)
 						.setStyle("white")
@@ -49,23 +52,34 @@ module.exports =
 
 				return message.channel.send(notInTimeEmbed);
 			}
+			if (!response.first().attachments.array()) {
+				try {
+					await Orders.update({ status: 2, url: response.first().content }, { where: { id: id }, individualHooks: true });
+				} catch (e) {
+					if (e.name === "SequelizeValidationError") {
+						// TODO: Add better error detection
+						const embed =
+							new DDEmbed(client)
+								.setStyle("white")
+								.setTitle("Cook")
+								.setDescription("That doesn't look like a URL to me.")
+								.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
 
-			try {
-				await Orders.update({ status: 2, url: response.first().content }, { where: { id: id }, individualHooks: true });
-			} catch (e) {
-				if (e.name === "SequelizeValidationError") {
-					// TODO: Add better error detection
-					const embed =
-						new DDEmbed(client)
-							.setStyle("white")
-							.setTitle("Cook")
-							.setDescription("That doesn't look like a URL to me.")
-							.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
-
-					return message.channel.send(embed);
+						return message.channel.send(embed);
+					}
 				}
-			}
+			} else if (["png", "jpeg", "jpg", "webp"].some(value => response.first().attachments.url.endsWith(value))) {
+				await Orders.update({ status: 2, url: response.first().attachments.first().url }, { where: { id: id }, individualHooks: true });
+			} else {
+				const embed =
+					new DDEmbed(client)
+						.setStyle("white")
+						.setTitle("Cook")
+						.setDescription("That doesn't look like a image file to me.")
+						.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
 
+				return message.channel.send(embed);
+			}
 			const cookEmbed =
 				new DDEmbed(client)
 					.setStyle("white")
@@ -86,6 +100,10 @@ module.exports =
 			} else {
 				worker.update({ cooks: worker.cooks + 1, lastCook: Date.now() });
 			}
+
+			client.users.get(order.user).send(`:thumbsup: Your cook, ${client.users.get(order.claimer).username}, just put your ticket in the oven! It should take **3 minutes** to cook!`);
+
+			message.channel.send(`:thumbsup: Alright, you've put \`${order.id}\` into the oven. It'll take **3 minutes** to cook.`);
 
 			await timeout(180000);
 

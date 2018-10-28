@@ -1,11 +1,11 @@
-const { dbUsername, dbPassword, dbName } = require("./auth.json");
+const { db: { dbUsername, dbPassword, dbName, dbHostname } } = require("./auth.json");
 
 const Sequelize = require("sequelize");
 
 const Op = Sequelize.Op;
 
 const sequelize = new Sequelize(dbName, dbUsername, dbPassword, {
-	host: "localhost",
+	host: dbHostname,
 	dialect: "mysql",
 	logging: false,
 	operatorsAliases: false,

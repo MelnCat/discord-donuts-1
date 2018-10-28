@@ -38,6 +38,12 @@ class DDCommand {
 		this.permissions = permissionFunction;
 		return this;
 	}
+
+	setCategory(category) {
+		this.category = category;
+		return this;
+	}
+
 	/**
 	 *
 	 * @callback ExecFunction
@@ -74,10 +80,15 @@ class DDCommand {
 
 	/**
 	 * Gets the permissions required to run the command
+	 * @param { Discord.GuildMember } member The member to test the permissions on
 	 * @returns { PermissionFunction | TypeError }
 	 */
-	getPermissions() {
-		return this.permissions || new TypeError("No permissions have been set for this command");
+	getPermissions(member) {
+		return this.permissions(member) || new TypeError("No permissions have been set for this command");
+	}
+
+	getCategory() {
+		return this.description || new TypeError("A category has not been specified for this command");
 	}
 
 	/**
@@ -87,7 +98,7 @@ class DDCommand {
 	 * @param { Discord.Client} client The bot's client
 	 * @returns { execFunction | TypeError } Either the command, or a TypeError
 	 */
-	runFunction(message, args, client) {
+	async runFunction(message, args, client) {
 		return this.execFunction(message, args, client) || new TypeError("A function has not been specified for this command");
 	}
 }
