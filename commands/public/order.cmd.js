@@ -1,6 +1,6 @@
 const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
-
+const { sequelize } = require("../../sequelize");
 const { Blacklist, Orders, Op } = require("../../sequelize");
 
 const { generateID, messageAlert } = require("../../helpers");
@@ -13,13 +13,15 @@ module.exports =
 		.setDescription("Order your donuts here.")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
+			const ordersList = await Orders.findAll({ where: { status: { [Op.lt]: 4 }, user: message.author.id }, attributes: ["id", "status", "claimer"] });
+			if (ordersList.length > 0) return message.channel.send("You have an order already!")
 			if (!args.length) return message.channel.send(":x: Please enter a description");
 
 			const generatedID = generateID(6); // Note that this is actually a 7 char id
 			console.log(generatedID);
 
 			let description = args.join(" ").trim();
-			if (!description.toLowerCase().endsWith("donut")) description += " donut";
+			if (!description.toLowerCase().includes("donut")) description += " donut";
 
 			Orders.create({
 				id: generatedID,

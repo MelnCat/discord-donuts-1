@@ -6,7 +6,7 @@ const glob = require("glob");
 
 const DDClient = require("./structures/DDClient.struct");
 
-const { Orders, Blacklist, WorkerInfo, Op } = require("./sequelize");
+const { ratings,Orders, Blacklist, WorkerInfo, Op, overall } = require("./sequelize");
 const { token, prefix, channels: { ticketChannel, guildLogChannel } } = require("./auth.json");
 const { generateTicket, timeout, updateWebsites, messageAlert } = require("./helpers");
 
@@ -52,7 +52,8 @@ client.once("ready", () => {
 	Orders.sync();
 	Blacklist.sync();
 	WorkerInfo.sync();
-
+	overall.sync();
+	ratings.sync()
 	// Activities
 	const activitiesList = ["Cooking Donuts...", "Donuts!", "Cookin' Donuts", "d!order Donuts", "<3 Donuts", "with Donuts"];
 
@@ -77,15 +78,16 @@ client.on("message", async message => {
 
 	const args = message.content.slice(prefix.length).split(/ +/);
 	const command = args.shift().toLowerCase();
+	
 
 	if (!client.commands.has(command)) return;
 	if (!client.getCommand(command).getPermissions(message.member)) return message.reply("You do not have permission to run this command");
 
 	try {
-		await client.getCommand(command).runFunction(message, args, client);
+		client.getCommand(command).runFunction(message, args, client);
 	} catch (e) {
 		console.log(e);
-		message.reply(`An error occurred!\n\`\`\`\n${e.toString()}\n\`\`\``);
+		message.reply(`An error occurred!\n\`\`\`\n${e}\n\`\`\``);
 	}
 });
 
@@ -125,3 +127,11 @@ client.on("disconnect", () => {
 
 client.login(token);
 console.log("[Discord] Connecting...");
+String.prototype.replaceLast = function (toReplace, replacement){
+	var a = this.split("");
+	a[this.lastIndexOf(toReplace)] = replacement;
+  for (let i = 0; i<toReplace.length-1;i++) {
+  a[this.lastIndexOf(toReplace)+i+1] = "";
+  }
+	return a.join("");
+  }

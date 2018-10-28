@@ -8,12 +8,12 @@ const { channels: { kitchenChannel } } = require("../../auth.json");
 module.exports =
 	new DDCommand()
 		.setName("claim")
-		.setDescription("Use this to claim donut orders.")
+		.setDescription("Use this to claim orders.")
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
 			if (!canCook(message.member)) return;
 			if (message.channel.id !== kitchenChannel) return message.channel.send("You can only run this command in the kitchen");
-			if (!args[0]) return "Make sure to include the Ticket ID!";
+			if (!args[0]) return message.channel.send("Make sure to include the Ticket ID!");
 
 			const order = await Orders.findOne({ where: { id: args.shift(), claimer: null } });
 			if (!order) {

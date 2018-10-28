@@ -1,7 +1,7 @@
 const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 
-const { Orders, WorkerInfo } = require("../../sequelize");
+const { Orders, WorkerInfo, overall } = require("../../sequelize");
 const { timeout, autoDeliver } = require("../../helpers");
 const { canCook } = require("../../permissions");
 const { channels: { kitchenChannel, deliveryChannel } } = require("../../auth.json");
@@ -18,7 +18,7 @@ module.exports =
 			const id = args.shift();
 			const order = await Orders.findOne({ where: { id: id, claimer: message.author.id } });
 			const worker = await WorkerInfo.findOne({ where: { id: message.author.id } });
-
+			const oworker = await overall.findOne({ where: { id: message.author.id } });
 			if (!order) {
 				const embed =
 					new DDEmbed(client)
@@ -52,7 +52,7 @@ module.exports =
 
 				return message.channel.send(notInTimeEmbed);
 			}
-			if (!response.first().attachments.array()) {
+			if (!response.first().attachments.array.length) {
 				try {
 					await Orders.update({ status: 2, url: response.first().content }, { where: { id: id }, individualHooks: true });
 				} catch (e) {
@@ -68,7 +68,7 @@ module.exports =
 						return message.channel.send(embed);
 					}
 				}
-			} else if (["png", "jpeg", "jpg", "webp"].some(value => response.first().attachments.url.endsWith(value))) {
+			} else if (["png", "jpeg", "jpg", "webp"].some(value => response.first().attachments.first().url.endsWith(value))) {
 				await Orders.update({ status: 2, url: response.first().attachments.first().url }, { where: { id: id }, individualHooks: true });
 			} else {
 				const embed =
@@ -96,11 +96,30 @@ module.exports =
 					delivers: 0,
 					lastCook: Date.now(),
 					lastDeliver: 0,
+					lastCookID: order.get("user"),
+					lastDeliverID: 0,
 				});
 			} else {
-				worker.update({ cooks: worker.cooks + 1, lastCook: Date.now() });
+				worker.update({ cooks: worker.cooks + 1, lastCook: Date.now(), lastCookId: order.get("user") });
 			}
-
+			if (!oworker) {
+				await overall.create({
+					id: message.author.id,
+					cooks: 1,
+					delivers: 0,
+					lastCook: Date.now(),
+					lastDeliver: 0,
+				});
+			} else {
+				oworker.update({ cooks: oworker.cooks + 1, lastCook: Date.now() });
+			}
+			let milestones = {100: "500818730788585482", 250: "500818668972933140", 500: "500818727756103680", 750: "500818673720754178", 1000: "500818665860759563", 1000000: "500818662815694848"}
+			const omember = bot.guilds.get("294619824842080257").members.get(oworker.get("id"))
+			for (m in Object.keys(milestones)) {
+			if (oworker.get("cooks") + oworker.get("delivers") >= m) {
+				omember.addRole(milestones[m])
+			}
+		}
 			client.users.get(order.user).send(`:thumbsup: Your cook, ${client.users.get(order.claimer).username}, just put your ticket in the oven! It should take **3 minutes** to cook!`);
 
 			message.channel.send(`:thumbsup: Alright, you've put \`${order.id}\` into the oven. It'll take **3 minutes** to cook.`);

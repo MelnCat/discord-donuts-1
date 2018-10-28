@@ -22,7 +22,7 @@ module.exports =
 
 				client.channels.get(absenceChannel).send(embed);
 			}
-			const cleaned = message.content.replace("*,", "");
+			const cleaned = args.join(" ").replace("*,", "");
 			if (!args[0]) return message.channel.send(":x: Make sure to include your reason and time! Example: `d!away Oct 20 to Oct 30, Vacation.`");
 			if (cleaned.split(",").length < 2) return message.channel.send("Make sure to include your reason! Example: `d!away Oct 20 to Oct 30, Vacation.`");
 			if (cleaned.split(",").length > 2) return message.channel.send("Please use only one command for the seperation of the date and reason! Try `*,` for commas instead.");

@@ -1,7 +1,7 @@
 const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 
-const { Orders } = require("../../sequelize");
+const { Orders, Op } = require("../../sequelize");
 const { status } = require("../../helpers");
 const { everyone } = require("../../permissions");
 
@@ -11,9 +11,7 @@ module.exports =
 		.setDescription("Lists info about your current order.")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
-			const order = await Orders.findOne({ where: { user: message.author.id } });
-
-			if (!order) {
+			const order = await Orders.findOne({ where: { status: { [Op.lt]: 4 }, user: message.author.id } });			if (!order) {
 				const embed =
 					new DDEmbed(client)
 						.setStyle("white")
@@ -27,10 +25,10 @@ module.exports =
 					new DDEmbed("white")
 						.setTitle("Ticket Status")
 						.setDescription("The status of this ticket.")
-						.addField(":ash: Ticket ID", order.get("id"))
+						.addField(":hash: Ticket ID", order.get("id"))
 						.addField("Donut Description", order.get("description"))
 						.addField(":white_check_mark: Ticket Status", status(order.get("status")))
-						.addField(":computer: Guild Information", `This ticket came from ${client.channels.get(order.get("channel")).guild.name} (${client.channels.get(order.get("channel")).guild.id}) in #${client.channels.get(order.get("chanel")).name} (${order.get("chanel")}).`);
+						.addField(":computer: Guild Information", `This ticket came from ${client.channels.get(order.get("channel")).guild.name} (${client.channels.get(order.get("channel")).guild.id}) in #${client.channels.get(order.get("channel")).name} (${order.get("channel")}).`);
 
 				message.channel.send(embed);
 			}

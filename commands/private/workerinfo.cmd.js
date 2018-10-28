@@ -52,16 +52,53 @@ module.exports =
 
 
 function timeAgoToString(timestamp) {
-	if (timestamp === 0) return "Never";
-	let timeAgo = Date.now() - timestamp;
-	console.log(Date.now(), timestamp, timeAgo);
-	let days = parseInt(timeAgo / (1000 * 60 * 60 * 24));
-
-	timeAgo -= days;
-	let hours = parseInt(timeAgo / (1000 * 60 * 60));
-	timeAgo -= hours;
-	let minutes = parseInt(timeAgo / (1000 * 60));
-
-
-	return `${days} Days, ${hours} Hours, and ${minutes} Minutes Ago.`;
+	let d = Date.now()-timestamp
+	if (timestamp == 0) return "Never"
+	let da = d
+	let times = []
+    
+        times.push(parseInt(Math.floor(da/31536000000)))
+		da = da%31536000000
+    
+	
+        times.push(parseInt(Math.floor(da/2628000000)))
+		da = da%2628000000
+    
+	
+        times.push(parseInt(Math.floor(da/604800000)))
+		da = da%604800000
+    
+	
+        times.push(parseInt(Math.floor(da/86400000)))
+		da = da%86400000
+    
+	
+        times.push(parseInt(Math.floor(da/3600000)))
+		da = da%3600000
+    
+	
+        times.push(parseInt(Math.floor(da/60000)))
+		da = da%60000
+    
+	
+        times.push(parseInt(Math.floor(da/1000)))
+		da = da%1000
+    
+		times.push(da)
+let years = times[0]
+let months = times[1]
+let weeks = times[2]
+let days = times[3]
+let hours = times[4]
+let minutes = times[5]
+let seconds = times[6]
+let milliseconds = times[7]
+let timenames = {0: "years", 1: "months", 2: "weeks", 3: "days", 4: "hours", 5: "minutes", 6: "seconds", 7: "milliseconds"}
+let result = []
+for (let i = 0;i<times.length;i++) {
+	if (!times[i] == 0) {
+		result.push(times[i]+" "+timenames[i])
+	}
+}
+return result.join(", ").replaceLast(", ", " and ")+" ago."
 }
