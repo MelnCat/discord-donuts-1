@@ -1,7 +1,7 @@
 const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 
-const { Blacklist, Orders, Op } = require("../../sequelize");
+const { Orders } = require("../../sequelize");
 
 const { generateID, messageAlert } = require("../../helpers");
 
@@ -15,7 +15,14 @@ module.exports =
 		.setFunction(async(message, args, client) => {
 			if (!args.length) return message.channel.send(":x: Please enter a description");
 
-			const generatedID = generateID(6); // Note that this is actually a 7 char id
+			var generatedID = generateID(6); // Note that this is actually a 7 char id
+
+			var id = await Orders.findOne({ where: { id: generatedID } });
+			while (id) {
+				generatedID = generateID(6);
+				id = await Orders.findOne({ where: { id: generatedID } });
+			}
+
 			console.log(generatedID);
 
 			let description = args.join(" ").trim();
