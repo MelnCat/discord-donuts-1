@@ -1,7 +1,7 @@
 const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 
-const { channels: {absenceChannel} } = require("../../auth.json");
+const { channels: { absenceChannel } } = require("../../auth.json");
 
 const { canCook } = require("../../permissions");
 
@@ -13,9 +13,9 @@ module.exports =
 		.setFunction(async(message, args, client) => {
 			if (args[0] == "end") {
 				if (!client.guilds.get("294619824842080257").members.get(message.author.id).roles.keyArray().includes("501129992994816000")) {
-					return message.channel.send("You are not away!")
+					return message.channel.send("You are not away!");
 				}
-				client.guilds.get("294619824842080257").members.get(message.author.id).roles.remove("501129992994816000")
+				client.guilds.get("294619824842080257").members.get(message.author.id).roles.remove("501129992994816000");
 				message.channel.send("Absence Ended!");
 				const embed =
 				new DDEmbed(client)
@@ -27,7 +27,7 @@ module.exports =
 				client.channels.get(absenceChannel).send(embed);
 			}
 			if (client.guilds.get("294619824842080257").members.get(message.author.id).roles.keyArray().includes("501129992994816000")) {
-				return message.channel.send("You are already away!")
+				return message.channel.send("You are already away!");
 			}
 			const cleaned = args.join(" ").replace("*,", "");
 			if (!args[0]) return message.channel.send(":x: Make sure to include your reason and time! Example: `d!away Oct 20 to Oct 30, Vacation.`");
@@ -42,6 +42,6 @@ module.exports =
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/2708.png");
 
 			client.channels.get(absenceChannel).send(embed);
-			client.guilds.get("294619824842080257").members.get(message.author.id).roles.add("294619824842080257")
+			client.guilds.get("294619824842080257").members.get(message.author.id).roles.add("294619824842080257");
 			return message.reply("Absence sent! Do `d!away end` to end your absence.");
 		});
