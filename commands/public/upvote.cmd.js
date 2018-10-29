@@ -5,17 +5,16 @@ const { everyone } = require("../../permissions");
 
 module.exports =
 	new DDCommand()
-		.setName("donate")
-		.setDescription("The link to donate money.")
+		.setName("upvote")
+		.setDescription("The link to upvote the bot.")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
 			const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")
-					.setTitle("Donate")
-					.setDescription("Want to help us stay running and cook donuts? Support us by donating!")
-					.addField("Patreon", "https://patreon.com/discorddonuts")
-					.addField("PayPal", "https://www.paypal.com/discorddonuts")
+					.setTitle("Upvote")
+					.setDescription("Spread the joy of donuts and upvote us!")
+					.addField("Upvote Link", "https://its-mustard.me/upvote")
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f517.png");
 
 			message.channel.send(embed);
