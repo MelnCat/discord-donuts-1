@@ -69,6 +69,47 @@ const WorkerInfo = sequelize.define("workerInfo", {
 		primaryKey: true,
 		allowNull: false
 	},
+	username: {
+		type: Sequelize.TEXT,
+		allowNull: false,
+	},
+	cooks: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
+	delivers: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
+	lastCook: {
+		type: Sequelize.BIGINT,
+		allowNull: false,
+	},
+	lastDeliver: {
+		type: Sequelize.BIGINT,
+		allowNull: false,
+	},
+	lastCookID: {
+		type: Sequelize.CHAR(18),
+		allowNull: false,
+	},
+	lastDeliverID: {
+		type: Sequelize.CHAR(18),
+		allowNull: false,
+	},
+
+});
+const overall = sequelize.define("overall", {
+	id: {
+		type: Sequelize.CHAR(18),
+		unique: true,
+		primaryKey: true,
+		allowNull: false
+	},
+	username: {
+		type: Sequelize.TEXT,
+		allowNull: false,
+	},
 	cooks: {
 		type: Sequelize.INTEGER,
 		allowNull: false,
@@ -86,12 +127,41 @@ const WorkerInfo = sequelize.define("workerInfo", {
 		allowNull: false,
 	},
 });
-
+const ratings = sequelize.define("ratings", {
+	id: {
+		type: Sequelize.CHAR(18),
+		unique: true,
+		primaryKey: true,
+		allowNull: false
+	},
+	rate1: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
+	rate2: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
+	rate3: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
+	rate4: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
+	rate5: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
+});
 module.exports = {
 	Sequelize,
+	overall,
 	Op,
 	sequelize,
 	Orders,
 	Blacklist,
 	WorkerInfo,
+	ratings,
 };
