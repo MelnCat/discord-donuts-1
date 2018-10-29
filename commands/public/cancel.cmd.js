@@ -24,7 +24,6 @@ module.exports =
 
 				return message.channel.send(embed);
 			} else {
-
 			const embed =
 				new DDEmbed(client)
 					.setStyle("white")

@@ -14,7 +14,7 @@ module.exports =
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
 			const ordersList = await Orders.findAll({ where: { status: { [Op.lt]: 4 }, user: message.author.id }, attributes: ["id", "status", "claimer"] });
-			if (ordersList.length > 0) return message.channel.send("You have an order already!")
+			if (ordersList.length > 0) return message.channel.send("You have an order already!");
 			if (!args.length) return message.channel.send(":x: Please enter a description");
 
 			const generatedID = generateID(6); // Note that this is actually a 7 char id

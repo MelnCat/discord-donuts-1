@@ -13,7 +13,7 @@ module.exports =
 		.setDescription("Lists all available donuts.")
 		.setFunction(async(message, args, client) => {
 			const ordersList = await Orders.findAll({ where: { status: { [Op.lt]: 4 } }, attributes: ["id", "status", "claimer"] });
-			
-			const ordersFormatted = ordersList.map(t => `\n\`${t.id}\` - ${status(t.status)} ${t.status ==2?"by "+client.users.get(t.claimer).tag:""}`).join("") || "";
-			message.channel.send(`Current orders: ${ordersList.length == 0? "\nNone.":ordersFormatted}`);
+
+			const ordersFormatted = ordersList.map(t => `\n\`${t.id}\` - ${status(t.status)} ${t.status == 2 ? `by ${client.users.get(t.claimer).tag}` : ""}`).join("") || "";
+			message.channel.send(`Current orders: ${ordersList.length == 0 ? "\nNone." : ordersFormatted}`);
 		});

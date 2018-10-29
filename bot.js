@@ -53,7 +53,7 @@ client.once("ready", () => {
 	Blacklist.sync();
 	WorkerInfo.sync();
 	overall.sync();
-	ratings.sync()
+	ratings.sync();
 	// Activities
 	const activitiesList = ["Cooking Donuts...", "Donuts!", "Cookin' Donuts", "d!order Donuts", "<3 Donuts", "with Donuts"];
 
@@ -78,7 +78,7 @@ client.on("message", async message => {
 
 	const args = message.content.slice(prefix.length).split(/ +/);
 	const command = args.shift().toLowerCase();
-	
+
 
 	if (!client.commands.has(command)) return;
 	if (!client.getCommand(command).getPermissions(message.member)) return message.reply("You do not have permission to run this command");
@@ -127,11 +127,11 @@ client.on("disconnect", () => {
 
 client.login(token);
 console.log("[Discord] Connecting...");
-String.prototype.replaceLast = function (toReplace, replacement){
+String.prototype.replaceLast = function(toReplace, replacement) {
 	var a = this.split("");
 	a[this.lastIndexOf(toReplace)] = replacement;
-  for (let i = 0; i<toReplace.length-1;i++) {
-  a[this.lastIndexOf(toReplace)+i+1] = "";
+  for (let i = 0; i < toReplace.length - 1; i++) {
+  a[this.lastIndexOf(toReplace) + i + 1] = "";
   }
 	return a.join("");
-  }
+  };
