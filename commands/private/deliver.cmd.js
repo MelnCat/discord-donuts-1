@@ -1,7 +1,7 @@
 const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 
-const { Orders, WorkerInfo , overall} = require("../../sequelize");
+const { Orders, WorkerInfo , overall } = require("../../sequelize");
 const { canCook } = require("../../permissions");
 const { channels: { deliveryChannel } } = require("../../auth.json");
 
@@ -85,11 +85,11 @@ module.exports =
 			} else {
 				oworker.update({ delivers: oworker.delivers + 1, lastDeliver: Date.now() });
 			}
-			let milestones = {100: "500818730788585482", 250: "500818668972933140", 500: "500818727756103680", 750: "500818673720754178", 1000: "500818665860759563", 1000000: "500818662815694848"}
-			const omember = bot.guilds.get("294619824842080257").members.get(oworker.get("id"))
+			let milestones = { 100: "500818730788585482", 250: "500818668972933140", 500: "500818727756103680", 750: "500818673720754178", 1000: "500818665860759563", 1000000: "500818662815694848" };
+			const omember = bot.guilds.get("294619824842080257").members.get(oworker.get("id"));
 			for (m in Object.keys(milestones)) {
 			if (oworker.get("cooks") + oworker.get("delivers") >= m) {
-				omember.addRole(milestones[m])
+				omember.addRole(milestones[m]);
 			}
 		}
 		});
