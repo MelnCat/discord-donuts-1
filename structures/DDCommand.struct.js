@@ -17,12 +17,12 @@ class DDCommand {
 		this.name = name;
 		return this;
 	}
-	
+
 	addAlias(alias) {
 		this.aliases.push(alias);
 		return this;
 	}
-	
+
 	addAliases(...args) {
 		this.aliases = this.aliases.concat(args);
 		return this;
