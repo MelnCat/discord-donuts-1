@@ -1,7 +1,7 @@
 const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 
-const { Orders, WorkerInfo } = require("../../sequelize");
+const { Orders, WorkerInfo , overall} = require("../../sequelize");
 const { canCook } = require("../../permissions");
 const { channels: { deliveryChannel } } = require("../../auth.json");
 
@@ -12,11 +12,11 @@ module.exports =
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
 			if (message.channel.id !== deliveryChannel) return message.channel.send("You can only use this command in the delivery channel");
-			if (!args[1]) message.channel.send("You need to specify an order");
+			if (!args[0]) return message.channel.send("You need to specify an order");
 
 			const order = await Orders.findOne({ where: { id: args.shift() } });
 			const worker = await WorkerInfo.findOne({ where: { id: message.author.id } });
-
+			const oworker = await overall.findOne({ where: { id: message.author.id } });
 			if (!order) {
 				const embed =
 					new DDEmbed(client)
@@ -53,7 +53,7 @@ module.exports =
 					.setStyle("white")
 					.setTitle("Delivery Info")
 					.addField("Ticket Description", order.get("description"))
-					.addField("User Information", `${client.users.get(order.get("user").name)} (${order.get("user")}) in #${client.channels.get(order.get("channel").name)} (${order.get("channel")}).`)
+					.addField("User Information", `${client.users.get(order.get("user")).tag} (${order.get("user")}) in #${client.channels.get(order.get("channel")).name} (${order.get("channel")}).`)
 					.addField("Cook's Image", order.get("url"));
 
 			await message.author.send(orderEmbed);
@@ -62,12 +62,34 @@ module.exports =
 			if (!worker) {
 				await WorkerInfo.create({
 					id: message.author.id,
+					username: message.author.tag,
+					cooks: 0,
+					delivers: 1,
+					lastCook: 0,
+					lastDeliver: Date.now(),
+					lastCookID: 0,
+					lastDeliverID: order.get("user"),
+				});
+			} else {
+				worker.update({ delivers: worker.delivers + 1, lastDeliver: Date.now(), lastDeliverID: order.get("user") });
+			}
+			if (!oworker) {
+				await overall.create({
+					id: message.author.id,
+					username: message.author.tag,
 					cooks: 0,
 					delivers: 1,
 					lastCook: 0,
 					lastDeliver: Date.now(),
 				});
 			} else {
-				worker.update({ delivers: worker.delivers + 1, lastDeliver: Date.now() });
+				oworker.update({ delivers: oworker.delivers + 1, lastDeliver: Date.now() });
 			}
+			let milestones = {100: "500818730788585482", 250: "500818668972933140", 500: "500818727756103680", 750: "500818673720754178", 1000: "500818665860759563", 1000000: "500818662815694848"}
+			const omember = bot.guilds.get("294619824842080257").members.get(oworker.get("id"))
+			for (m in Object.keys(milestones)) {
+			if (oworker.get("cooks") + oworker.get("delivers") >= m) {
+				omember.addRole(milestones[m])
+			}
+		}
 		});
