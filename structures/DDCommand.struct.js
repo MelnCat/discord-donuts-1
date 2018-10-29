@@ -5,7 +5,7 @@ const Discord = require("discord.js");
  */
 class DDCommand {
 	constructor(options) {
-		this.alias = []
+		this.alias = [];
 	}
 	/**
 	 * Sets the name of the command
@@ -17,11 +17,11 @@ class DDCommand {
 		return this;
 	}
 	addAlias(alias) {
-		this.alias.push(alias)
+		this.alias.push(alias);
 		return this;
 	}
 	addAliases() {
-		this.alias.push.apply(this.alias, arguments)
+		this.alias.push.apply(this.alias, arguments);
 		return this;
 	}
 	/**
@@ -80,10 +80,10 @@ class DDCommand {
 		return this.name || new TypeError("A name has not been specified for this command");
 	}
 	getAlias(n) {
-		if (!n) return this.alias || new TypeError("An alias has not been specified for this command")
-		if (isNaN(n)) return new TypeError(`Expected integer, recieved ${typeof n}` )
-		if (!this.alias[n]) return new TypeError("The integer is too high.")
-		return this.alias[n] || new TypeError("An alias has not been specified for this command")
+		if (!n) return this.alias || new TypeError("An alias has not been specified for this command");
+		if (isNaN(n)) return new TypeError(`Expected integer, recieved ${typeof n}`);
+		if (!this.alias[n]) return new TypeError("The integer is too high.");
+		return this.alias[n] || new TypeError("An alias has not been specified for this command");
 	}
 	/**
 	 * Gets the description of the command
