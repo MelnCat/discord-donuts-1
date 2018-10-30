@@ -49,7 +49,7 @@ Orders.afterUpdate(async(order, options) => {
 	});
 });
 
-client.once("ready", () => {
+client.once("ready", async() => {
 	console.log(`[Discord] Connected! (ID: ${client.user.id})`);
 	updateWebsites(client);
 	Orders.sync();
@@ -68,9 +68,9 @@ client.once("ready", () => {
 		}
 	}, 300000);
 
-const { stdout: commit } = await exec("git log --oneline | head -1");
+	const { stdout: commit } = await exec("git log --oneline | head -1");
 
-		messageAlert(client, `Bot restarted, current commit is \`\`\`git ${commit}\`\`\``, testChannel);
+	messageAlert(client, `Bot restarted, current commit is \`\`\`git ${commit}\`\`\``, testChannel);
 });
 
 client.on("message", async message => {
