@@ -21,6 +21,6 @@ module.exports =
 				message.channel.send(embed);
 				return;
 			}
-			message.channel.send("Success!")
+			message.channel.send("Success!");
 			messageAlert(client, args.join(" "));
 		});
