@@ -9,7 +9,7 @@ const { channels: { kitchenChannel, deliveryChannel } } = require("../../auth.js
 module.exports =
 	new DDCommand()
 		.setName("cook")
-		.setAlias("bake")
+		.addAlias("bake")
 		.setDescription("Use this to cook donuts.")
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
