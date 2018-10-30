@@ -33,7 +33,7 @@ module.exports =
 				claimer: null,
 				url: null,
 				ticketMessageID: null
-			}).catch(console.log);
+			});
 
 			const embed =
 				new DDEmbed(client)
