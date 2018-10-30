@@ -69,7 +69,7 @@ client.once("ready", () => {
 
 		const { stdout: commit } = await exec("git log --oneline | head -1");
 
-		messageAlert(client, `Bot restarted, current commit is \`\`\`git ${commit}\`\`\``);
+		messageAlert(client, `Bot restarted, current commit is \`\`\`git ${commit}\`\`\``, testChannel);
 	}, 300000);
 });
 
