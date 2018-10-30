@@ -1,13 +1,16 @@
 process.on("uncaughtException", console.log);
 process.on("unhandledRejection", console.log);
 
+const util = require("util");
+const exec = util.promisify(require("child_process").exec);
+
 const Discord = require("discord.js");
 const glob = require("glob");
 
 const DDClient = require("./structures/DDClient.struct");
 
 const { Orders, Blacklist, WorkerInfo, Op } = require("./sequelize");
-const { token, prefix, channels: { ticketChannel, guildLogChannel } } = require("./auth.json");
+const { token, prefix, channels: { ticketChannel, guildLogChannel, testChannel } } = require("./auth.json");
 const { generateTicket, timeout, updateWebsites, messageAlert } = require("./helpers");
 
 const DDEmbed = require("./structures/DDEmbed.struct");
@@ -63,6 +66,10 @@ client.once("ready", () => {
 		if (await Orders.count({ where: { status: { [Op.lt]: 2 } } }) > 1) {
 			messageAlert(client, "There are [orderCount] order(s) left to claim");
 		}
+
+		const { stdout: commit } = await exec("git log --oneline | head -1");
+
+		messageAlert(client, `Bot restarted, current commit is \`\`\`git ${commit}\`\`\``);
 	}, 300000);
 });
 
