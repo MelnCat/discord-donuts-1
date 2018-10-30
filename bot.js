@@ -66,11 +66,11 @@ client.once("ready", () => {
 		if (await Orders.count({ where: { status: { [Op.lt]: 2 } } }) > 1) {
 			messageAlert(client, "There are [orderCount] order(s) left to claim");
 		}
+	}, 300000);
 
-		const { stdout: commit } = await exec("git log --oneline | head -1");
+const { stdout: commit } = await exec("git log --oneline | head -1");
 
 		messageAlert(client, `Bot restarted, current commit is \`\`\`git ${commit}\`\`\``, testChannel);
-	}, 300000);
 });
 
 client.on("message", async message => {
