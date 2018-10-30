@@ -52,7 +52,7 @@ module.exports =
 
 				return message.channel.send(notInTimeEmbed);
 			}
-			if (!response.first().attachments.array()) {
+			if (!response.first().attachments.array().length) {
 				try {
 					await Orders.update({ status: 2, url: response.first().content }, { where: { id: id }, individualHooks: true });
 				} catch (e) {
@@ -68,7 +68,7 @@ module.exports =
 						return message.channel.send(embed);
 					}
 				}
-			} else if (["png", "jpeg", "jpg", "webp"].some(value => response.first().attachments.url.endsWith(value))) {
+			} else if (["png", "jpeg", "jpg", "webp"].some(value => response.first().attachments.first().url.endsWith(value))) {
 				await Orders.update({ status: 2, url: response.first().attachments.first().url }, { where: { id: id }, individualHooks: true });
 			} else {
 				const embed =
