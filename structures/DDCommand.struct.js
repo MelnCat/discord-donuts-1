@@ -4,6 +4,10 @@ const Discord = require("discord.js");
  * Class representing a Discord Donuts command
  */
 class DDCommand {
+	constructor() {
+		this.aliases = [];
+		this.name = "";
+	}
 	/**
 	 * Sets the name of the command
 	 * @param { String } name The name of the command
@@ -14,6 +18,15 @@ class DDCommand {
 		return this;
 	}
 
+	addAlias(alias) {
+		this.aliases.push(alias);
+		return this;
+	}
+
+	addAliases(...args) {
+		this.aliases = this.aliases.concat(args);
+		return this;
+	}
 	/**
 	 * Sets the description of the command
 	 * @param { String } description The description of the command
@@ -69,7 +82,9 @@ class DDCommand {
 	getName() {
 		return this.name || new TypeError("A name has not been specified for this command");
 	}
-
+	getAliases() {
+		return this.aliases.length ? this.aliases : new TypeError("An alias has not been specified for this command");
+	}
 	/**
 	 * Gets the description of the command
 	 * @returns { String | TypeError } Either the description, or a TypeError

@@ -12,7 +12,7 @@ module.exports =
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
 			if (message.channel.id !== deliveryChannel) return message.channel.send("You can only use this command in the delivery channel");
-			if (!args[1]) message.channel.send("You need to specify an order");
+			if (!args[0]) return message.channel.send("You need to specify an order");
 
 			const order = await Orders.findOne({ where: { id: args.shift() } });
 			const worker = await WorkerInfo.findOne({ where: { id: message.author.id } });
@@ -53,7 +53,7 @@ module.exports =
 					.setStyle("white")
 					.setTitle("Delivery Info")
 					.addField("Ticket Description", order.get("description"))
-					.addField("User Information", `${client.users.get(order.get("user").name)} (${order.get("user")}) in #${client.channels.get(order.get("channel").name)} (${order.get("channel")}).`)
+					.addField("User Information", `${client.users.get(order.user).tag} (${order.get("user")}) in #${client.channels.get(order.get("channel").name)} (${order.get("channel")}).`)
 					.addField("Cook's Image", order.get("url"));
 
 			await message.author.send(orderEmbed);
