@@ -83,7 +83,7 @@ class DDCommand {
 		return this.name || new TypeError("A name has not been specified for this command");
 	}
 	getAliases() {
-		return this.aliases.length ? this.aliases : new TypeError("An alias has not been specified for this command");
+		return this.aliases;
 	}
 	/**
 	 * Gets the description of the command

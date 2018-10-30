@@ -27,6 +27,10 @@ class DDClient extends Discord.Client {
 			command.setCategory(path.basename(path.dirname(`.${file}`)));
 
 			this.commands.set(command.name, command);
+
+			command.aliases.forEach(alias => {
+				this.commands.set(alias, command);
+			});
 		});
 	}
 
