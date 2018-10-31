@@ -68,7 +68,7 @@ const autoDeliver = async(client, id) => {
 };
 
 const messageAlert = async(client, text, channel = kitchenChannel) => {
-	text = text.replace("[orderCount]", await Orders.count({ where: { status: { [Op.lt]: 2 } } }));
+	text = text.replace("[orderCount]", await Orders.count({ where: { status: { [Op.lt]: 1 } } }));
 	const embed =
 		new DDEmbed(client)
 			.setStyle("colorful")
