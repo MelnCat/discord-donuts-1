@@ -143,5 +143,5 @@ module.exports = {
 	autoDeliver,
 	updateWebsites,
 	messageAlert, 
-checkOrders
+	checkOrders
 };
