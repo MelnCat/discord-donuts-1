@@ -25,7 +25,7 @@ module.exports =
 					.addField(":ash: Ticket ID", order.id)
 					.addField("Donut Description", order.description)
 					.addField(":white_check_mark: Ticket Status", status(order.status))
-					.addField(":computer: Guild Information", `This ticket came from ${client.channels.get(order.channel).guild.name} (${client.channels.get(order.channel).guild.id}) in #${client.channels.get(order.chanel).name} (${order.channel}).`);
+					.addField(":computer: Guild Information", `This ticket came from ${client.channels.get(order.channel).guild.name} (${client.channels.get(order.channel).guild.id}) in #${client.channels.get(order.channel).name} (${order.channel}).`);
 
 			message.channel.send(embed);
 		});
