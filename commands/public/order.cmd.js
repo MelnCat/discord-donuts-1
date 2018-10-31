@@ -46,5 +46,5 @@ module.exports =
 
 			message.channel.send(embed);
 
-			return messageAlert("An order has been placed, there are now [orderCount] order(s) to claim");
+			return messageAlert(client, "An order has been placed, there are now [orderCount] order(s) to claim");
 		});
