@@ -18,7 +18,7 @@ const DDEmbed = require("./structures/DDEmbed.struct");
 const client = new DDClient({ shardCount: 2 });
 
 Orders.beforeCreate(async order => {
-	const orderMsg = await client.channels(ticketChannel).send(generateTicket(client, order));
+	const orderMsg = await client.channels.get(ticketChannel).send(generateTicket(client, order));
 	order.ticketMessageID = orderMsg.id;
 });
 
