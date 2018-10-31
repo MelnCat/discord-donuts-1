@@ -2,8 +2,8 @@ const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 
 const { Orders, Op } = require("../../sequelize");
-
 const { everyone } = require("../../permissions");
+const { messageAlert } = require("../../helpers");
 
 module.exports =
 	new DDCommand()
@@ -32,5 +32,6 @@ module.exports =
 					.setDescription("Order cancelled!")
 					.setThumbnail("https://mbtskoudsalg.com/images/trash-can-emoji-png-5.png");
 
-			message.channel.send(embed);
+			messageAlert(":cry: An order has been cancelled, there are now [orderCount] orders left");
+			return message.channel.send(embed);
 		});

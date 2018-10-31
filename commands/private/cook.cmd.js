@@ -2,7 +2,7 @@ const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 
 const { Orders, WorkerInfo } = require("../../sequelize");
-const { timeout, autoDeliver } = require("../../helpers");
+const { timeout, autoDeliver, messageAlert } = require("../../helpers");
 const { canCook } = require("../../permissions");
 const { channels: { kitchenChannel, deliveryChannel } } = require("../../auth.json");
 
@@ -107,6 +107,8 @@ module.exports =
 			message.channel.send(`:thumbsup: Alright, you've put \`${order.id}\` into the oven. It'll take **3 minutes** to cook.`);
 
 			await timeout(180000);
+
+			messageAlert("Another order has been cooked and there are now [orderCount] orders left");
 
 			await client.users.get(order.user).send("Your donut has finished cooking and will be delivered shortly.");
 
