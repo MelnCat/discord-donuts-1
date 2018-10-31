@@ -39,11 +39,20 @@ const Orders = sequelize.define("orders", {
 	claimer: Sequelize.CHAR(18),
 	url: {
 		type: Sequelize.TEXT,
-		validate: {
-			isUrl: true,
-		},
 	},
 	ticketMessageID: Sequelize.TEXT,
+	timeleft: {
+		type: Sequelize.INTEGER,
+		allowNull: false
+	},
+	cookTimeLeft: {
+		type: Sequelize.INTEGER,
+		allowNull: false
+	},
+	deliveryTimeLeft: {
+		type: Sequelize.INTEGER,
+		allowNull: false
+	}
 });
 
 const Blacklist = sequelize.define("blacklist", {
@@ -62,36 +71,10 @@ const Blacklist = sequelize.define("blacklist", {
 	},
 });
 
-const WorkerInfo = sequelize.define("workerInfo", {
-	id: {
-		type: Sequelize.CHAR(18),
-		unique: true,
-		primaryKey: true,
-		allowNull: false
-	},
-	cooks: {
-		type: Sequelize.INTEGER,
-		allowNull: false,
-	},
-	delivers: {
-		type: Sequelize.INTEGER,
-		allowNull: false,
-	},
-	lastCook: {
-		type: Sequelize.BIGINT,
-		allowNull: false,
-	},
-	lastDeliver: {
-		type: Sequelize.BIGINT,
-		allowNull: false,
-	},
-});
-
 module.exports = {
 	Sequelize,
 	Op,
 	sequelize,
 	Orders,
-	Blacklist,
-	WorkerInfo,
+	Blacklist
 };

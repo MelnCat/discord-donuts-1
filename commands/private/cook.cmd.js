@@ -54,16 +54,4 @@ module.exports =
 			client.users.get(order.user).send(`:thumbsup: Your cook, ${client.users.get(order.claimer).tag}, just put your ticket in the oven! It should take **3 minutes** to cook!`);
 
 			message.channel.send(`:thumbsup: Alright, you've put \`${order.id}\` into the oven. It'll take **3 minutes** to cook.`);
-
-			await timeout(180000);
-
-			await client.users.get(order.user).send("Your donut has finished cooking and will be delivered shortly.");
-
-			await client.channels.get(deliveryChannel).send(`${client.users.get(order.claimer)}, ticket \`${order.id}\` has completed cooking and is ready to be delivered!`);
-
-			await Orders.update({ status: 3 }, { where: { id: args[0] }, individualHooks: true });
-
-			await timeout(180000);
-
-			autoDeliver(client, args[0]);
 		});

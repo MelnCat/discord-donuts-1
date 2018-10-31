@@ -32,7 +32,10 @@ module.exports =
 				status: 0,
 				claimer: null,
 				url: null,
-				ticketMessageID: null
+				ticketMessageID: null,
+				timeLeft: 20,
+				cookTimeLeft: 3,
+				deliverTimeLeft: 3
 			});
 
 			const embed =

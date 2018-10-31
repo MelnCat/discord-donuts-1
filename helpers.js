@@ -5,7 +5,7 @@ const DDEmbed = require("./structures/DDEmbed.struct");
 const { Orders, Op } = require("./sequelize");
 
 const {
-	channels: { kitchenChannel },
+	channels: { kitchenChannel, deliveryChannel },
 	botlists: {
 		discordbotsToken,
 		discordpwToken,
@@ -102,6 +102,37 @@ const updateWebsites = client => {
 		.send({ guilds: serverCount })
 		.then(console.log("[Discord] Updated Listcord stats."))
 		.catch(e => console.log("[Discord] ", e.body));
+};
+
+const checkOrders = client => {
+	setInterval(async() => {
+		const cookingOrders = await Orders.findAll({ where: { status: { [Op.lt]: 5 } } });
+		cookingOrders.forEach(async order => {
+			if (order.status < 2) {
+				if (order.timeLeft < 1) {
+					await order.update({ status: 6 });
+					return client.users.get(order.user).send("Your order has expired, please try again");
+				}
+
+				await order.decrement("timeLeft", { by: 1 });
+			} else if (order.status === 2) {
+				if (order.cookTimeLeft < 1) {
+					await order.update({ status: 3 });
+					await client.users.get(order.user).send("Your order has been cooked. It will be delivered in a few minutes");
+					return client.channels.get(deliveryChannel).send(`${client.users.get(order.claimer)}, ticket \`${order.id}\` has completed cooking and is ready to be delivered!`);
+				}
+
+				await order.decrement("cookTimeLeft", { by: 1 });
+			} else if (order.status === 3) {
+				if (order.deliveryTimeLeft < 1) {
+					await autoDeliver(client, order.id);
+					return order.update({ status: 4 });
+				}
+
+				await order.decrement("deliveryTimeLeft", { by: 1 });
+			}
+		});
+	}, 60000);
 };
 
 module.exports = {
