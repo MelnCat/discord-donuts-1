@@ -80,7 +80,7 @@ client.on("message", async message => {
 
 	if (await Blacklist.findById(message.author.id)) return message.channel.send("I apologize, but you've been blacklisted from this bot!");
 	if (await Blacklist.findById(message.guild.id)) {
-		message.channel.send.send("I apologize, but your server has been blacklisted from Discord Donuts.");
+		await message.channel.send("I apologize, but your server has been blacklisted from Discord Donuts.");
 		return message.guild.leave();
 	}
 
