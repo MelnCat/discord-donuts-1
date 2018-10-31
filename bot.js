@@ -35,7 +35,6 @@ client.once("ready", async() => {
 	updateWebsites(client);
 	Orders.sync();
 	Blacklist.sync();
-	WorkerInfo.sync();
 
 	// Activities
 	const activitiesList = ["Cooking Donuts...", "Donuts!", "Cookin' Donuts", "d!order Donuts", "<3 Donuts", "with Donuts"];
