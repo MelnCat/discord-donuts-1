@@ -10,7 +10,7 @@ module.exports =
 		.setDescription("Use this unblacklist a guild.")
 		.setPermissions(isBotOwner)
 		.setFunction(async(message, args, client) => {
-			if (!args[0].match(/^[0-9]{18}$/) return message.reply("That doesn't look like an id");
+			if (!args[0].match(/^[0-9]{18}$/)) return message.reply("That doesn't look like an id");
 
 			await Blacklist.destroy({ where: { id: args.shift() } });
 
