@@ -108,7 +108,7 @@ const checkOrders = client => {
 	setInterval(async() => {
 		const cookingOrders = await Orders.findAll({ where: { status: { [Op.lt]: 5 } } });
 		cookingOrders.forEach(async order => {
-			if (order.status < 2) {
+			if (order.status < 1) {
 				if (order.timeLeft < 1) {
 					await order.update({ status: 6 });
 					return client.users.get(order.user).send("Your order has expired, please try again");
