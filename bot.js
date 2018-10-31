@@ -11,42 +11,23 @@ const DDClient = require("./structures/DDClient.struct");
 
 const { Orders, Blacklist, WorkerInfo, Op } = require("./sequelize");
 const { token, prefix, channels: { ticketChannel, guildLogChannel, testChannel } } = require("./auth.json");
-const { generateTicket, timeout, updateWebsites, messageAlert } = require("./helpers");
+const { generateTicket, timeout, updateWebsites, messageAlert, checkOrders } = require("./helpers");
 
 const DDEmbed = require("./structures/DDEmbed.struct");
 
 const client = new DDClient({ shardCount: 2 });
 
 Orders.beforeCreate(async order => {
-	if (order.get("ticketMessageID")) return;
-
-	const orderMsg = await client.api.channels(ticketChannel).messages.post({
-		data: {
-			embed: generateTicket(client, order)._apiTransform(),
-		},
-	});
+	const orderMsg = await client.channels(ticketChannel).send(generateTicket(client, order));
 	order.ticketMessageID = orderMsg.id;
 });
 
-Orders.afterCreate((order, options) => {
-	timeout(20 * 60 * 1000).then(async() => {
-		await order.update({ status: 6 });
-		await client.users.get(order.get("user")).send("It has been 20 minutes, and therefore your order has been deleted.");
-	});
-});
-
 Orders.afterUpdate(async(order, options) => {
-	if (!order.get("ticketMessageID")) return;
+	if (!order.ticketMessageID) return;
 
-	if (!await client.channels.get(ticketChannel)) return;
+	if (order.status > 4) return client.channels.get(ticketChannel).messages.get(order.ticketMessageID);
 
-	if (order.status > 4) return client.channels.get(ticketChannel).messages.get(order.ticketMessageID).delete();
-
-	client.api.channels(ticketChannel).messages(order.get("ticketMessageID")).patch({
-		data: {
-			embed: generateTicket(client, order)._apiTransform(),
-		},
-	});
+	client.api.channels.get(ticketChannel).messages.get(order.ticketMessageID).update(generateTicket(client, order));
 });
 
 client.once("ready", async() => {
@@ -67,6 +48,8 @@ client.once("ready", async() => {
 			messageAlert(client, "There are [orderCount] order(s) left to claim");
 		}
 	}, 300000);
+
+	checkOrders(client);
 
 	const { stdout: commit } = await exec("git log --oneline | head -1");
 
@@ -94,7 +77,7 @@ client.on("message", async message => {
 		await client.getCommand(command).runFunction(message, args, client);
 	} catch (e) {
 		console.log(e);
-		message.reply(`An error occurred!\n\`\`\`\n${e.toString()}\n\`\`\``);
+		message.reply(`An error occurred!\n\`\`\`\n${e.stack}\n\`\`\``);
 	}
 });
 
