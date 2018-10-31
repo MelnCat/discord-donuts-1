@@ -15,7 +15,6 @@ module.exports =
 					.setTitle("Number of servers")
 					.setDescription("Information on the number of servers of this bot.")
 					.addField("Total servers", client.guilds.size)
-					// TODO: maybe add shard stuff :shrug:
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f4ca.png");
 			message.channel.send(embed);
 		});
