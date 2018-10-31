@@ -108,7 +108,7 @@ module.exports =
 
 			await timeout(180000);
 
-			messageAlert("Another order has been cooked and there are now [orderCount] orders left");
+			messageAlert(client, "Another order has been cooked and there are now [orderCount] orders left");
 
 			await client.users.get(order.user).send("Your donut has finished cooking and will be delivered shortly.");
 
