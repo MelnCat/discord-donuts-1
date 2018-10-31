@@ -26,7 +26,7 @@ module.exports =
 			let description = args.join(" ").trim();
 			if (!description.toLowerCase().endsWith("donut")) description += " donut";
 
-			Orders.create({
+			await Orders.create({
 				id: generatedID,
 				user: message.author.id,
 				description: description,
@@ -44,7 +44,7 @@ module.exports =
 					.setDescription(`:ticket: Ticket Placed! Your ticketID: \`${generatedID}\``)
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3ab.png");
 
-			message.channel.send(embed);
+			await message.channel.send(embed);
 
 			return messageAlert(client, "An order has been placed, there are now [orderCount] order(s) to claim");
 		});
