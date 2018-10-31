@@ -41,7 +41,7 @@ const Orders = sequelize.define("orders", {
 		type: Sequelize.TEXT,
 	},
 	ticketMessageID: Sequelize.TEXT,
-	timeleft: {
+	timeLeft: {
 		type: Sequelize.INTEGER,
 		allowNull: false
 	},

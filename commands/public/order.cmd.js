@@ -35,7 +35,7 @@ module.exports =
 				ticketMessageID: null,
 				timeLeft: 20,
 				cookTimeLeft: 3,
-				deliverTimeLeft: 3
+				deliveryTimeLeft: 3
 			});
 
 			const embed =
