@@ -10,20 +10,9 @@ module.exports =
 		.setDescription("Use this unblacklist a guild.")
 		.setPermissions(isBotOwner)
 		.setFunction(async(message, args, client) => {
-			try {
-				await Blacklist.destroy({ where: { id: args.shift() } });
-			} catch (e) {
-				console.log(e);
+			if (!args[0].match(/^[0-9]{18}$/) return message.reply("That doesn't look like an id");
 
-				const embed =
-					new DDEmbed(client)
-						.setStyle("white")
-						.setTitle("Unblacklist")
-						.setDescription("Error!")
-						.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
-
-				message.channel.send(embed);
-			}
+			await Blacklist.destroy({ where: { id: args.shift() } });
 
 			const embed =
 				new DDEmbed(client)
