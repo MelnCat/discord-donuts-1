@@ -12,7 +12,8 @@ module.exports =
 		.setPermissions(canCook)
 		.setDescription("Lists all available donuts.")
 		.setFunction(async(message, args, client) => {
-			const ordersList = await Orders.findAll({ where: { status: { [Op.lt]: 4 } }, attributes: ["id", "status", "claimer"] });
+			const ordersList = await Orders.findAll({ where: { status: { [Op.lt]: 4 } } });
 			const ordersFormatted = ordersList.map(t => `\n\`${t.id}\` - ${status(t.status)} ${t.status == 2 ? `by ${client.users.get(t.claimer).tag}` : ""}`).join("") || "";
+
 			message.channel.send(`Current orders: ${ordersList.length == 0 ? "\nNone." : ordersFormatted}`);
 		});

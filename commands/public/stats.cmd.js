@@ -10,7 +10,7 @@ module.exports =
 		.setName("stats")
 		.setDescription("Info about the bots servers and shards.")
 		.setPermissions(everyone)
-		.setFunction(async(message, args, client) => {
+		.setFunction((message, args, client) => {
 			const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")

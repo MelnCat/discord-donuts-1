@@ -12,7 +12,6 @@ module.exports =
 				.setStyle("colorful");
 			client.commands.forEach(command => {
 				if (!(command instanceof DDCommand)) return;
-				console.log(command);
 				if (!command.getPermissions(message.member)) return;
 				try {
 					embed.addField(command.getName(), command.getDescription());
@@ -26,5 +25,5 @@ module.exports =
 					embed.addField(command.getName(), command.getDescription());
 				}
 			});
-			return message.author.send(embed);
+			message.author.send(embed);
 		});

@@ -11,7 +11,7 @@ module.exports =
 		.setDescription("Feedback on the bot.")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
-			if (!args[0]) return message.channel.send(":x: Make sure to include what you'd like to say!");
+			if (!args[0]) return message.channel.send("Please provide your feedback");
 
 			const embed =
 				new DDEmbed(client)
@@ -22,5 +22,5 @@ module.exports =
 
 			await client.channels.get(feedbackChannel).send(embed);
 
-			return message.reply("Thank you for giving us your feedback! We seriously appreciate it.");
+			message.reply("Thank you for giving us your feedback! We seriously appreciate it.");
 		});

@@ -7,31 +7,20 @@ const { canCook } = require("../../permissions");
 module.exports =
 	new DDCommand()
 		.setName("delticket")
-		.setDescription("Delete unworthy tickets, with a reason.")
+		.setDescription("Delete tickets.")
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
-			if (!args) {
-				const embed =
-					new DDEmbed(client)
-						.setStyle("white")
-						.setTitle("Delete Ticket")
-						.setDescription("Please enter an order id.")
-						.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
+			if (!args[0]) return message.reply("Please provide an id");
+			if (!args[0].match(/^0[a-zA-Z0-9]{6}/)) return message.reply("That doesn't look like a valid id");
+			if (!args[1]) return message.reply("Please provide a reason");
 
-				return message.channel.send(embed);
-			}
+			const order = await Orders.findById(args[0]);
 
-			const deletedOrdersCount = await Orders.update({ status: 5 }, { where: { id: args.shift(), status: { [Op.lt]: 5 } }, individualHooks: true });
-			if (deletedOrdersCount[0] < 1) {
-				const embed =
-					new DDEmbed(client)
-						.setStyle("white")
-						.setTitle("Delete Ticket")
-						.setDescription("Couldn't find that order!")
-						.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
+			if (!order) return message.reply("Couldn't find that order");
+			if (order.status === 4) return message.reply("That order has been delivered");
+			if (order.status > 4) return message.reply("That order has already been deleted");
 
-				return message.channel.send(embed);
-			}
+			await order.update({ status: 5 });
 
 			const embed =
 				new DDEmbed(client)

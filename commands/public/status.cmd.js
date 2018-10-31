@@ -13,25 +13,16 @@ module.exports =
 		.setFunction(async(message, args, client) => {
 			const order = await Orders.findOne({ where: { user: message.author.id } });
 
-			if (!order) {
-				const embed =
-					new DDEmbed(client)
-						.setStyle("white")
-						.setTitle("Order Status")
-						.setDescription("You do not have an order currently")
-						.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
+			if (!order) return message.reply("You do not currently have a donut");
 
-				return message.channel.send(embed);
-			} else {
-				const embed =
-					new DDEmbed("white")
-						.setTitle("Ticket Status")
-						.setDescription("The status of this ticket.")
-						.addField(":ash: Ticket ID", order.get("id"))
-						.addField("Donut Description", order.get("description"))
-						.addField(":white_check_mark: Ticket Status", status(order.get("status")))
-						.addField(":computer: Guild Information", `This ticket came from ${client.channels.get(order.get("channel")).guild.name} (${client.channels.get(order.get("channel")).guild.id}) in #${client.channels.get(order.get("chanel")).name} (${order.get("chanel")}).`);
+			const embed =
+				new DDEmbed("white")
+					.setTitle("Ticket Status")
+					.setDescription("The status of this ticket.")
+					.addField(":ash: Ticket ID", order.id)
+					.addField("Donut Description", order.decription)
+					.addField(":white_check_mark: Ticket Status", status(order.status))
+					.addField(":computer: Guild Information", `This ticket came from ${client.channels.get(order.channel).guild.name} (${client.channels.get(order.channel).guild.id}) in #${client.channels.get(order.channel).name} (${order.chanel}).`);
 
-				message.channel.send(embed);
-			}
+			message.channel.send(embed);
 		});

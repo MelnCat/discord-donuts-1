@@ -13,15 +13,13 @@ module.exports =
 		.setDescription("Order your donuts here.")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
-			if (!args.length) return message.channel.send(":x: Please enter a description");
+			if (!args[0]) return message.channel.send("Please provide a description");
 
 			if (await Orders.count({ where: { user: message.author.id } })) return message.reply("You already have an order");
 
 			let generatedID;
 			do generatedID = generateID(6);
 			while (await Orders.findById(generatedID));
-
-			console.log(generatedID);
 
 			let description = args.join(" ").trim();
 			if (!description.toLowerCase().endsWith("donut")) description += " donut";
@@ -46,5 +44,5 @@ module.exports =
 
 			await message.channel.send(embed);
 
-			return messageAlert(client, "An order has been placed, there are now [orderCount] order(s) to claim");
+			messageAlert(client, "An order has been placed, there are now [orderCount] order(s) to claim");
 		});

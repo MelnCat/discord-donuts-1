@@ -16,5 +16,6 @@ module.exports =
 					.setDescription("The ping for the websocket.")
 					.addField("Ping", `:ping_pong: Pong! Took \`${message.client.ping.toFixed(0)}ms\`!`)
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
+
 			message.channel.send(embed);
 		});

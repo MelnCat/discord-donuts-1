@@ -11,27 +11,21 @@ module.exports =
 		.setDescription("Lists info about a specific order.")
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
-			const order = await Orders.findOne({ where: { id: args.shift() } });
+			if (!args[0]) return message.reply("Please provide an id");
+			if (!args[0].match(/^0[a-zA-Z0-9]{6}$/)) return message.reply("That doesn't look like a valid id");
 
-			if (!order) {
-				const embed =
-					new DDEmbed(client)
-						.setStyle("white")
-						.setTitle("Order Status")
-						.setDescription("Couldn't find that order.")
-						.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
+			const order = await Orders.findById(args[0]);
 
-				return message.channel.send(embed);
-			} else {
-				const embed =
-					new DDEmbed("white")
-						.setTitle("Ticket Status")
-						.setDescription("The status of this ticket.")
-						.addField(":ash: Ticket ID", order.get("id"))
-						.addField("Donut Description", order.get("description"))
-						.addField(":white_check_mark: Ticket Status", status(order.get("status")))
-						.addField(":computer: Guild Information", `This ticket came from ${client.channels.get(order.get("channel")).guild.name} (${client.channels.get(order.get("channel")).guild.id}) in #${client.channels.get(order.get("chanel")).name} (${order.get("chanel")}).`);
+			if (!order) return message.reply("That order doesn't exist");
 
-				message.channel.send(embed);
-			}
+			const embed =
+				new DDEmbed("white")
+					.setTitle("Ticket Status")
+					.setDescription("The status of this ticket.")
+					.addField(":ash: Ticket ID", order.id)
+					.addField("Donut Description", order.description)
+					.addField(":white_check_mark: Ticket Status", status(order.status))
+					.addField(":computer: Guild Information", `This ticket came from ${client.channels.get(order.channel).guild.name} (${client.channels.get(order.channel).guild.id}) in #${client.channels.get(order.chanel).name} (${order.channel}).`);
+
+			message.channel.send(embed);
 		});

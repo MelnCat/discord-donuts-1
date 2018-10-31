@@ -11,19 +11,11 @@ module.exports =
 		.setDescription("Cancel an order.")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
-			const deletedOrdersCount = await Orders.update({ status: 6 }, { where: { user: message.author.id, status: { [Op.lt]: 5 } }, individualHooks: true });
+			const order = Orders.findOne({ where: { user: message.author.id } });
 
-			if (deletedOrdersCount[0] < 1) {
-				const embed =
-					new DDEmbed(client)
-						.setStyle("white")
-						.setTitle("Couldn't Cancel Your Order")
-						.setDescription("Your order couldn't be canceled.")
-						.addField("Reason", "You don't have any orders to cancel.")
-						.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
+			if (!order) return message.reply("You do not have an order to cancel");
 
-				return message.channel.send(embed);
-			}
+			await order.delete();
 
 			const embed =
 				new DDEmbed(client)
@@ -32,6 +24,7 @@ module.exports =
 					.setDescription("Order cancelled!")
 					.setThumbnail("https://mbtskoudsalg.com/images/trash-can-emoji-png-5.png");
 
+			message.channel.send(embed);
+
 			messageAlert(client, ":cry: An order has been cancelled, there are now [orderCount] orders left");
-			return message.channel.send(embed);
 		});

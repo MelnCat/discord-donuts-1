@@ -11,8 +11,8 @@ module.exports =
 		.setFunction(async(message, args, client) => {
 			try {
 				const result = await sequelize.query(args.join(" "));
-				await message.channel.send(JSON.stringify(result[0]));
+				await message.channel.send(JSON.stringify(result[0]), { code: "json" });
 			} catch (e) {
-				await message.channel.send(e.message);
+				await message.channel.send(e.message, { code: true });
 			}
 		});

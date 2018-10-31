@@ -3,6 +3,7 @@ const DDCommand = require("../../structures/DDCommand.struct");
 
 const { Orders } = require("../../sequelize");
 const { canCook } = require("../../permissions");
+const { messageAlert } = require("../../helpers");
 const { channels: { kitchenChannel } } = require("../../auth.json");
 
 module.exports =
@@ -12,24 +13,18 @@ module.exports =
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
 			if (!canCook(message.member)) return;
-			if (message.channel.id !== kitchenChannel) return message.channel.send("You can only run this command in the kitchen");
-			if (!args[0]) return "Make sure to include the Ticket ID!";
+			if (message.channel.id !== kitchenChannel) return message.reply("You can only run this command in the kitchen");
 
-			const order = await Orders.findOne({ where: { id: args.shift(), claimer: null } });
-			if (!order) {
-				const embed =
-					new DDEmbed(client)
-						.setStyle("white")
-						.setTitle("Claim")
-						.setDescription("Couldn't find that order or it has already been claimed.")
-						.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
+			if (!args[0]) return message.reply("Please provide an id to claim");
+			if (!args[0].match(/^0[a-zA-Z0-9]{6}$/)) return message.reply("That doesn't look like a valid id");
 
-				return message.channel.send(embed);
-			}
+			const order = await Orders.findById(args.shift());
+			if (!order) return message.reply("I couldn't find that order");
+			if (order.claimer != null) return message.reply("This order has already been claimed");
 
 			await order.update({ status: 1, claimer: message.author.id });
 
-			await client.users.get(order.get("user")).send(`Guess what? Your ticket has now been claimed by **${message.author.username}**! It should be cooked shortly.`);
+			await client.users.get(order.user).send(`Guess what? Your ticket has now been claimed by **${message.author.tag}**! It should be cooked shortly.`);
 
 			const embed =
 				new DDEmbed(client)
@@ -38,6 +33,8 @@ module.exports =
 					.setDescription("You have claimed the order.")
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/2705.png");
 
-			message.channel.send(embed);
+			await message.channel.send(embed);
+
+			messageAlert(client, "An order has just been claimed, there are now [orderCount] orders left");
 		});
 

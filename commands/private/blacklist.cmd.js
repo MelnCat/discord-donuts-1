@@ -10,9 +10,11 @@ module.exports =
 		.setDescription("Blacklist a user or a guild, with a reason.")
 		.setPermissions(isBotOwner)
 		.setFunction(async(message, args, client) => {
+			if (!args[0]) return message.reply("Please provide an id to blacklist");
 			if (!args[0].match(/^[0-9]{18}$/)) return message.reply("That doesn't look like a valid id");
-			if (!args[1]) return message.reply("Please provide a reason")
-				await Blacklist.create({ id: args.shift(), reason: args.shift() });
+			if (!args[1]) return message.reply("Please provide a reason");
+
+			await Blacklist.create({ id: args.shift(), reason: args.shift() });
 
 			const embed =
 				new DDEmbed(client)

@@ -11,9 +11,8 @@ module.exports =
 		.setDescription("Give virtual tips.")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
-			if (!args[0]) return message.channel.send(":x: Make sure to include what you tipped!");
-
-			if (isNaN(args[0])) return message.channel.send(`:x: ${args[0]} is not a number!`);
+			if (!args[0]) return message.channel.send("Please provide an amount to tip");
+			if (isNaN(args[0])) return message.channel.send("That doesn't look like a number");
 
 			const embed =
 				new DDEmbed(client)

@@ -11,7 +11,7 @@ module.exports =
 		.setPermissions(isBotOwner)
 		.setFunction(async(message, args, client) => {
 			const deletedOrders = await Orders.destroy({ where: {} });
-			if (deletedOrders) {
+			if (deletedOrders > 0) {
 				const doneEmbed =
 					new DDEmbed(client)
 						.setStyle("white")
@@ -21,14 +21,6 @@ module.exports =
 
 				return message.channel.send(doneEmbed);
 			}
-
-			const embed =
-				new DDEmbed(client)
-					.setStyle("white")
-					.setTitle("Clear")
-					.setDescription("An error occured!")
-					.setThumbnail("https://images.emojiterra.com/twitter/512px/274c.png");
-
-			message.channel.send(embed);
+			if (deletedOrders === 0) return message.channel.send("There are no orders to delete");
 		});
 
