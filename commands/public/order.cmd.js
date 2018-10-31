@@ -15,7 +15,7 @@ module.exports =
 		.setFunction(async(message, args, client) => {
 			if (!args.length) return message.channel.send(":x: Please enter a description");
 
-			if (await Orders.count({ where: { user: message.author.id } })) message.reply("You already have an order");
+			if (await Orders.count({ where: { user: message.author.id } })) return message.reply("You already have an order");
 
 			let generatedID;
 			do generatedID = generateID(6);
