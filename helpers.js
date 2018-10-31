@@ -142,5 +142,6 @@ module.exports = {
 	timeout,
 	autoDeliver,
 	updateWebsites,
-	messageAlert
+	messageAlert, 
+checkOrders
 };
