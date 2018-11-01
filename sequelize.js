@@ -71,10 +71,22 @@ const Blacklist = sequelize.define("blacklist", {
 	},
 });
 
+const PrecookedDonuts = sequelize.define("precookedDonuts", {
+	name: {
+		type: Sequelize.TEXT,
+		allowNull: false
+	},
+	url: {
+		type: Sequelize.TEXT
+		allowNull: false
+	}
+});
+
 module.exports = {
 	Sequelize,
 	Op,
 	sequelize,
 	Orders,
-	Blacklist
+	Blacklist,
+	PrecookedDonuts
 };
