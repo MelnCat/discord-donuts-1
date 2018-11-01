@@ -20,7 +20,7 @@ module.exports =
 
 			const embed =
 				new DDEmbed(client)
-.setStyle("white")
+					.setStyle("white")
 					.setTitle("Ticket Status")
 					.setDescription("The status of this ticket.")
 					.addField(":hash: Ticket ID", order.id)

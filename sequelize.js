@@ -77,7 +77,7 @@ const PrecookedDonuts = sequelize.define("precookedDonuts", {
 		allowNull: false
 	},
 	url: {
-		type: Sequelize.TEXT
+		type: Sequelize.TEXT,
 		allowNull: false
 	}
 });
