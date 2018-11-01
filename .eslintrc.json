@@ -46,7 +46,7 @@
     "wrap-iife": "error",
     "yoda": "error",
     "no-label-var": "error",
-    "no-shadow": "error",
+    "no-shadow": ["error", { "allow": ["response"] }],
     "no-undef-init": "error",
     "callback-return": "error",
     "handle-callback-err": "error",
