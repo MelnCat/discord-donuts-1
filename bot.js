@@ -25,9 +25,9 @@ Orders.beforeCreate(async order => {
 Orders.afterUpdate(async(order, options) => {
 	if (!order.ticketMessageID) return;
 
-	if (order.status > 4) return client.channels.get(ticketChannel).messages.get(order.ticketMessageID);
+	if (order.status > 4) return client.channels.get(ticketChannel).messages.fetch(order.ticketMessageID);
 
-	client.api.channels.get(ticketChannel).messages.get(order.ticketMessageID).update(generateTicket(client, order));
+	client.channels.get(ticketChannel).messages.fetch(order.ticketMessageID).edit(generateTicket(client, order));
 });
 
 client.once("ready", async() => {

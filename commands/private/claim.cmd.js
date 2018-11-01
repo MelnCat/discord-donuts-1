@@ -35,6 +35,6 @@ module.exports =
 
 			await message.channel.send(embed);
 
-			messageAlert(client, "An order has just been claimed, there are now [orderCount] orders left");
+			await messageAlert(client, "An order has just been claimed, there are now [orderCount] orders left");
 		});
 
