@@ -27,7 +27,7 @@ module.exports =
 
 			let url;
 
-			const precookedDonuts = PrecookedDonuts.findAll({ where: { name: order.description } });
+			const precookedDonuts = await PrecookedDonuts.findAll({ where: { name: order.description } });
 			if (precookedDonuts.length > 0) {
 				const randomDonut = precookedDonuts[Math.floor(Math.random() * precookedDonuts.length)];
 				message.reply(`I found a precooked donut for you. Reply yes to use it, or no to use your own. \n ${randomDonut.url}`);
@@ -47,7 +47,7 @@ module.exports =
 						.setTitle("Cook")
 						.setDescription("The next message you send will be set as the order's image");
 
-				message.channel.send(urlEmbed);
+				await message.channel.send(urlEmbed);
 
 				const response = await message.channel.awaitMessages(
 					m => m.author.id === order.claimer,
@@ -82,6 +82,6 @@ module.exports =
 				.setDescription("Your donut will take 3 minutes to cook.")
 				.setThumbnail("https://images.emojiterra.com/twitter/512px/2705.png");
 
-			message.channel.send(cookEmbed);
-			client.users.get(order.user).send(`:thumbsup: Your cook, ${client.users.get(order.claimer).tag}, just put your ticket in the oven! It should take **3 minutes** to cook!`);
+			await message.channel.send(cookEmbed);
+			await client.users.get(order.user).send(`:thumbsup: Your cook, ${client.users.get(order.claimer).tag}, just put your ticket in the oven! It should take **3 minutes** to cook!`);
 		});

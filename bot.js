@@ -9,7 +9,7 @@ const glob = require("glob");
 
 const DDClient = require("./structures/DDClient.struct");
 
-const { Orders, Blacklist, WorkerInfo, Op } = require("./sequelize");
+const { Orders, Blacklist, WorkerInfo, PrecookedDonuts, Op } = require("./sequelize");
 const { token, prefix, channels: { ticketChannel, guildLogChannel, testChannel } } = require("./auth.json");
 const { generateTicket, timeout, updateWebsites, messageAlert, checkOrders } = require("./helpers");
 
@@ -35,6 +35,7 @@ client.once("ready", async() => {
 	updateWebsites(client);
 	Orders.sync();
 	Blacklist.sync();
+	PrecookedDonuts.sync();
 
 	// Activities
 	const activitiesList = ["Cooking Donuts...", "Donuts!", "Cookin' Donuts", "d!order Donuts", "<3 Donuts", "with Donuts"];
