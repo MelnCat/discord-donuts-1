@@ -19,10 +19,11 @@ module.exports =
 			if (!order) return message.reply("That order doesn't exist");
 
 			const embed =
-				new DDEmbed("white")
+				new DDEmbed(client)
+.setStyle("white")
 					.setTitle("Ticket Status")
 					.setDescription("The status of this ticket.")
-					.addField(":ash: Ticket ID", order.id)
+					.addField(":hash: Ticket ID", order.id)
 					.addField("Donut Description", order.description)
 					.addField(":white_check_mark: Ticket Status", status(order.status))
 					.addField(":computer: Guild Information", `This ticket came from ${client.channels.get(order.channel).guild.name} (${client.channels.get(order.channel).guild.id}) in #${client.channels.get(order.channel).name} (${order.channel}).`);
