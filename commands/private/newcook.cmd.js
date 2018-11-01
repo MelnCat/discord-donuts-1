@@ -18,7 +18,7 @@ module.exports =
 			if (!args[0]) return message.reply("Please provide an id to cook");
 			if (!args[0].match(/^0[a-zA-Z0-9]{6}$/)) return message.reply("Please provide a valid id");
 
-			const order = Orders.findById(args[0]);
+			const order = await Orders.findById(args[0]);
 			if (!order) return message.reply("That order doesn't exist");
 			if (order.claimer !== message.author.id) return message.reply("You haven't claimed this order");
 
