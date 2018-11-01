@@ -73,7 +73,7 @@ module.exports =
 				}
 			}
 
-			await order.update({ status: 2 });
+			await order.update({ status: 2, url });
 
 			const cookEmbed =
 			new DDEmbed(client)
