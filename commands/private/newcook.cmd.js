@@ -66,7 +66,7 @@ module.exports =
 						m.content.toLowerCase().match(/(yes|no)/),
 						{ max: 1, time: 30000 });
 
-					if (response.first().channel.includes("yes")) {
+					if (response.first().content.includes("yes")) {
 						await PrecookedDonuts.create({ name: order.description.toLowerCase(), url });
 						message.reply("Your donut has been put into the collection. :thumbs_up");
 					}
