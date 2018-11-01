@@ -3,6 +3,7 @@
 	"prefix": "",
 	"employeeRole": "",
 	"botOwners": [""],
+	"pullScript": "",
 	"channels": {
 		"ticketChannel": "",
 		"deliveryChannel": "",
