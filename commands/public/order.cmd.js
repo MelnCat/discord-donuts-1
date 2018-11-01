@@ -1,7 +1,7 @@
 const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 
-const { Orders } = require("../../sequelize");
+const { Orders, Op } = require("../../sequelize");
 
 const { generateID, messageAlert } = require("../../helpers");
 
@@ -15,7 +15,7 @@ module.exports =
 		.setFunction(async(message, args, client) => {
 			if (!args[0]) return message.channel.send("Please provide a description");
 
-			if (await Orders.count({ where: { user: message.author.id } })) return message.reply("You already have an order");
+			if (await Orders.count({ where: { user: message.author.id, status: { [Op.lt]: 4 } } })) return message.reply("You already have an order");
 
 			let generatedID;
 			do generatedID = generateID(6);
