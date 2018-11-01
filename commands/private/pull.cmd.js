@@ -14,7 +14,7 @@ module.exports =
 		.setPermissions(isBotOwner)
 		.setFunction(async(message, args, client) => {
 			await message.reply("Are you sure you would like to pull changes? Type yes to continue.");
-			const responses = await message.channel.awaitMessages(m => m.content === "yes", { max: 1, time: 10000, errors: ["time"] });
+			const responses = await message.channel.awaitMessages(m => m.content === "yes", { max: 1, time: 10000 });
 
 			if (responses.size > 0) return message.channel.send(execFileSync(pullScript), { code: "bash" });
 
