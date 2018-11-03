@@ -12,4 +12,5 @@ module.exports = {
 	isBotOwner,
 	canCook,
 	everyone,
+	canEditGuild,
 };
