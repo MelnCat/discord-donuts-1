@@ -72,7 +72,7 @@ client.on("message", async message => {
 	prefixList.map(x => {
 		if (message.content.startsWith(x)) {
 			messagePrefix = x;
-		} 
+		}
 	});
 	if (await Blacklist.findById(message.author.id)) return message.channel.send("I apologize, but you've been blacklisted from this bot!");
 	if (await Blacklist.findById(message.guild.id)) {
