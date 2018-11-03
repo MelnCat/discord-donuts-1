@@ -13,6 +13,7 @@ module.exports =
 			const gprefixraw = await Prefixes.findOrCreate({ where: { id: message.guild.id }, defaults: { id: message.guild.id, prefix: prefix } });
 			const gprefix = gprefixraw[0];
 			let editing = false;
+			if (!canEditGuild(message.member) && args[0]) message.channel.send("You do not have the `MANAGE_GUILD` permission!");
 			if (canEditGuild(message.member) && args[0]) editing = true;
 			if (editing) {
 				const embed =
@@ -30,7 +31,7 @@ module.exports =
 					new DDEmbed(client)
 						.setStyle("colorful")
 						.setTitle("This guild's prefix")
-						.setDescription(`${message.guild.name}'s prefix is ${gprefix.prefix}!`)
+						.setDescription(`${message.guild.name}'s prefix is "${gprefix.prefix}"!`)
 						.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
 				message.channel.send(embed);
 			}
