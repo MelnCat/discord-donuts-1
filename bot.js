@@ -66,7 +66,7 @@ client.on("message", async message => {
 	} else {
 		gprefixstr = gprefix.prefix;
 	}
-	if (![prefix, `<@${client.id}>`, gprefix].some(x => message.content.startsWith(x)) || message.author.bot) return;
+	if (![`<@${client.id}>`, gprefixstr].some(x => message.content.startsWith(x)) || message.author.bot) return;
 
 	if (await Blacklist.findById(message.author.id)) return message.channel.send("I apologize, but you've been blacklisted from this bot!");
 	if (await Blacklist.findById(message.guild.id)) {
