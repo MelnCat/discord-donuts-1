@@ -12,7 +12,7 @@ module.exports =
 		.setFunction(async(message, args, client) => {
 			const gprefix = Prefixes.findOrCreate({ where: { id: message.guild.id }, defaults: { id: message.guild.id, prefix: prefix } })[0];
 			let editing = false;
-			if (canEditGuild(message.member) || args[0]) editing = true;
+			if (canEditGuild(message.member) && args[0]) editing = true;
 			if (editing) {
 				const embed =
 				new DDEmbed(client)
