@@ -32,4 +32,5 @@ module.exports =
 					.setDescription(`${message.guild.name}\'s prefix is ${gprefix.prefix}!`)
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
 			message.channel.send(embed)
+			}
 		});
