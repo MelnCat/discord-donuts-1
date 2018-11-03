@@ -10,7 +10,8 @@ module.exports =
 		.setDescription("Check or change the guild prefix.")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
-			const gprefix = await Prefixes.findOrCreate({ where: { id: message.guild.id }, defaults: { id: message.guild.id, prefix: prefix } })[0];
+			const gprefixraw = await Prefixes.findOrCreate({ where: { id: message.guild.id }, defaults: { id: message.guild.id, prefix: prefix } });
+			const gprefix = gprefixraw[0]
 			let editing = false;
 			if (canEditGuild(message.member) && args[0]) editing = true;
 			if (editing) {
