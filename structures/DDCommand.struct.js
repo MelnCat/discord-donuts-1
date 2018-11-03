@@ -99,9 +99,8 @@ class DDCommand {
 	 * @returns { PermissionFunction | TypeError }
 	 */
 	getPermissions(member) {
-if (!this.permissions) return new TypeError("No permissions have been set for this command");
-
-		 return this.permissions(member);
+		if (!this.permissions) return new TypeError("No permissions have been set for this command");
+		return this.permissions(member);
 	}
 
 	getCategory() {
