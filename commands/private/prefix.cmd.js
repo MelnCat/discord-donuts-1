@@ -13,7 +13,7 @@ module.exports =
 			const gprefixraw = await Prefixes.findOrCreate({ where: { id: message.guild.id }, defaults: { id: message.guild.id, prefix: prefix } });
 			const gprefix = gprefixraw[0];
 			let editing = false;
-			if ((!canEditGuild(message.member)) && args[0]) message.channel.send("You do not have the `MANAGE_GUILD` permission!")
+			if (!canEditGuild(message.member) && args[0]) message.channel.send("You do not have the `MANAGE_GUILD` permission!");
 			if (canEditGuild(message.member) && args[0]) editing = true;
 			if (editing) {
 				const embed =
