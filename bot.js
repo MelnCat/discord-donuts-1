@@ -9,7 +9,7 @@ const glob = require("glob");
 
 const DDClient = require("./structures/DDClient.struct");
 
-const { Orders, Blacklist, WorkerInfo, PrecookedDonuts, Op } = require("./sequelize");
+const { Orders, Blacklist, WorkerInfo, PrecookedDonuts, Op, Prefixes } = require("./sequelize");
 const { token, prefix, channels: { ticketChannel, guildLogChannel, testChannel } } = require("./auth.json");
 const { generateTicket, timeout, updateWebsites, messageAlert, checkOrders } = require("./helpers");
 
@@ -36,7 +36,7 @@ client.once("ready", async() => {
 	Orders.sync();
 	Blacklist.sync();
 	PrecookedDonuts.sync();
-
+	Prefixes.sync();
 	// Activities
 	const activitiesList = ["Cooking Donuts...", "Donuts!", "Cookin' Donuts", "d!order Donuts", "<3 Donuts", "with Donuts"];
 
@@ -59,7 +59,14 @@ ${commit}\`\`\`
 });
 
 client.on("message", async message => {
-	if (![prefix, `<@${client.id}>`].some(x => message.content.startsWith(x)) || message.author.bot) return;
+	const gprefix = await Prefixes.findById(message.guild.id);
+	let gprefixstr;
+	if (!gprefix) {
+		gprefixstr = prefix;
+	} else {
+		gprefixstr = gprefix.prefix;
+	}
+	if (![`<@${client.id}>`, gprefixstr].some(x => message.content.startsWith(x)) || message.author.bot) return;
 
 	if (await Blacklist.findById(message.author.id)) return message.channel.send("I apologize, but you've been blacklisted from this bot!");
 	if (await Blacklist.findById(message.guild.id)) {
