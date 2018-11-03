@@ -70,7 +70,7 @@ const Blacklist = sequelize.define("blacklist", {
 		allowNull: false,
 	},
 });
-const prefix = sequelize.define("prefix", {
+const Prefixes = sequelize.define("prefixes", {
 	id: {
 		type: Sequelize.CHAR(18),
 		unique: true,
@@ -99,6 +99,6 @@ module.exports = {
 	sequelize,
 	Orders,
 	Blacklist,
-	prefix,
+	Prefixes,
 	PrecookedDonuts
 };
