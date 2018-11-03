@@ -25,41 +25,8 @@ module.exports =
 				];
 				let regex = new RegExp(array.join("|"), "g");
 				com = com.replace(regex, "Censored");
-				message.channel.send({
-					embed: {
-						title: "Evaluation Success!",
-						author: {
-							name: client.user.username,
-							icon_url: client.user.avatarURL,
-						},
-						thumbnail: {
-							url: client.user.avatarURL,
-						},
-						fields: [{
-							name: "Input Value",
-							value: `\`\`\`js\n${toEval}\`\`\``,
-						}, {
-							name: "Output Value",
-							value: `\`\`\`js\n${com}\`\`\``,
-						}],
-					},
-				});
+				mesage.channel.send(`\`\`\`md\n# INPUT\n\n${toEval}\`\`\`\n\n\`\`\`md\n# OUTPUT\n\n${com}\`\`\``);
 			} catch (e) {
-				message.channel.send({
-					embed: {
-						description: "Command execution error, this was due to an error located in your code.",
-						author: {
-							name: client.user.username,
-							icon_url: client.user.avatarURL,
-						},
-						thumbnail: {
-							url: client.user.avatarURL,
-						},
-						fields: [{
-							name: "Error",
-							value: `\`\`\`js\n${e}\`\`\``,
-						}],
-					},
-				});
+				mesage.channel.send(`\`\`\`md\n# OUTPUT\n\n${e}\`\`\``);
 			}
 		});
