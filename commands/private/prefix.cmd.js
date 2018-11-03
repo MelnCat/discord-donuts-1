@@ -16,10 +16,10 @@ module.exports =
 			if (editing) {
 				const embed =
 				  new DDEmbed(client)
-				  	.setStyle("colorful")
-				  	.setTitle("Prefix edited!")
-				  	.setDescription(`Edited this guild\'s prefix!`)
-				  	.addField("Old Prefix", gprefix.prefix)
+					.setStyle("colorful")
+					.setTitle("Prefix changed!")
+					.setDescription(`Changed this guild's prefix!`)
+					.addField("Old Prefix", gprefix.prefix)
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
 				const gprefixnew = await gprefix.update({ prefix: args[0] });
 				embed.addField("New Prefix", gprefixnew.prefix);
@@ -28,7 +28,7 @@ module.exports =
 			const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")
-					.setTitle("This guild\'s prefix")
+					.setTitle("This guild's prefix")
 					.setDescription(`${message.guild.name}\'s prefix is ${gprefix.prefix}!`)
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
 			message.channel.send(embed);
