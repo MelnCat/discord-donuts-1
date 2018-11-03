@@ -61,8 +61,11 @@ ${commit}\`\`\`
 client.on("message", async message => {
 	const gprefix = await Prefixes.findById(message.guild.id);
 	let gprefixstr;
-	if (!gprefix) gprefixstr = prefix;
-	gprefixstr = gprefix.prefix;
+	if (!gprefix) {
+		gprefixstr = prefix;
+	} else {
+		gprefixstr = gprefix.prefix;
+	}
 	if (![prefix, `<@${client.id}>`, gprefix].some(x => message.content.startsWith(x)) || message.author.bot) return;
 
 	if (await Blacklist.findById(message.author.id)) return message.channel.send("I apologize, but you've been blacklisted from this bot!");
