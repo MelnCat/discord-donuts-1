@@ -15,7 +15,7 @@ module.exports =
 			if (canEditGuild(message.member) || args[0]) editing = true;
 			if (editing) {
 				const embed =
-				  new DDEmbed(client)
+				new DDEmbed(client)
 					.setStyle("colorful")
 					.setTitle("Prefix changed!")
 					.setDescription(`Changed this guild's prefix!`)
@@ -25,12 +25,12 @@ module.exports =
 				embed.addField("New Prefix", gprefixnew.prefix);
 				message.channel.send(embed);
 			} else {
-			const embed =
-				new DDEmbed(client)
-					.setStyle("colorful")
-					.setTitle("This guild's prefix")
-					.setDescription(`${message.guild.name}\'s prefix is ${gprefix.prefix}!`)
-					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
-			message.channel.send(embed);
+				const embed =
+					new DDEmbed(client)
+						.setStyle("colorful")
+						.setTitle("This guild's prefix")
+						.setDescription(`${message.guild.name}'s prefix is ${gprefix.prefix}!`)
+						.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
+				message.channel.send(embed);
 			}
 		});
