@@ -60,7 +60,7 @@ ${commit}\`\`\`
 
 client.on("message", async message => {
 	const gprefix = await Prefixes.findById(message.guild.id);
-	let gprefixstr
+	let gprefixstr;
 	if (!gprefix) gprefixstr = prefix;
 	gprefixstr = gprefix.prefix;
 	if (![prefix, `<@${client.id}>`, gprefix].some(x => message.content.startsWith(x)) || message.author.bot) return;
