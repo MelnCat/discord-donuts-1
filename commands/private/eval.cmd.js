@@ -12,8 +12,8 @@ module.exports =
 		.setFunction(async(message, args, client) => {
 			try {
 				let toEval = args.join(" ");
-				if (toEval.includes("token")) return message.channel.send("Nice try with our tokens there :wink:");
-				if (!toEval) return message.channel.send(":x: Include some code? o_O");
+				if (toEval.includes("token")) return message.channel.send("<:no:501906738224562177> You are not authorized to execute this code.");
+				if (!toEval) return message.channel.send("<:no:501906738224562177> Please ensure that you've supplied proper arguments.");
 				let com = await eval(`(async () => \{${toEval}\})()`); // eslint-disable-line no-eval, no-useless-escape
 				if (typeof com !== "string") com = require("util").inspect(com, false, 1);
 				const escapeRegex = input => {
@@ -27,8 +27,7 @@ module.exports =
 				com = com.replace(regex, "Censored");
 				message.channel.send({
 					embed: {
-						title: "Evaluate Javascript Complete!",
-						description: "Evaluation complete!",
+						title: "Evaluation Success!",
 						author: {
 							name: client.user.username,
 							icon_url: client.user.avatarURL,
@@ -37,10 +36,10 @@ module.exports =
 							url: client.user.avatarURL,
 						},
 						fields: [{
-							name: "**Input**",
+							name: "Input Value",
 							value: `\`\`\`js\n${toEval}\`\`\``,
 						}, {
-							name: "**Output**",
+							name: "Output Value",
 							value: `\`\`\`js\n${com}\`\`\``,
 						}],
 					},
@@ -48,8 +47,7 @@ module.exports =
 			} catch (e) {
 				message.channel.send({
 					embed: {
-						title: "Code Error!",
-						description: "There was a error in your code!",
+						description: "Command execution error, this was due to an error located in your code.",
 						author: {
 							name: client.user.username,
 							icon_url: client.user.avatarURL,
@@ -58,7 +56,7 @@ module.exports =
 							url: client.user.avatarURL,
 						},
 						fields: [{
-							name: "**Error**",
+							name: "Error",
 							value: `\`\`\`js\n${e}\`\`\``,
 						}],
 					},
