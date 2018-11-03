@@ -25,8 +25,8 @@ module.exports =
 				];
 				let regex = new RegExp(array.join("|"), "g");
 				com = com.replace(regex, "Censored");
-				mesage.channel.send(`\`\`\`md\n# INPUT\n\n${toEval}\`\`\`\n\n\`\`\`md\n# OUTPUT\n\n${com}\`\`\``);
+				message.channel.send(`\`\`\`md\n# INPUT\n\n${toEval}\`\`\`\n\n\`\`\`md\n# OUTPUT\n\n${com}\`\`\``);
 			} catch (e) {
-				mesage.channel.send(`\`\`\`md\n# OUTPUT\n\n${e}\`\`\``);
+				message.channel.send(`\`\`\`md\n# OUTPUT\n\n${e}\`\`\``);
 			}
 		});
