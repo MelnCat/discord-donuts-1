@@ -60,16 +60,16 @@ ${commit}\`\`\`
 
 client.on("message", async message => {
 	const gprefix = await Prefixes.findById(message.guild.id);
-	let messagePrefix
+	let messagePrefix;
 	let gprefixstr;
 	if (!gprefix) {
 		gprefixstr = prefix;
 	} else {
 		gprefixstr = gprefix.prefix;
 	}
-	const prefixList = [`<@${client.user.id}> `, gprefixstr]
+	const prefixList = [`<@${client.user.id}> `, gprefixstr];
 	if (!prefixList.some(x => message.content.startsWith(x)) || message.author.bot) return;
-	prefixList.map(x => {if (message.content.startsWith(x)) {messagePrefix = x}})
+	prefixList.map(x => { if (message.content.startsWith(x)) { messagePrefix = x; } });
 	if (await Blacklist.findById(message.author.id)) return message.channel.send("I apologize, but you've been blacklisted from this bot!");
 	if (await Blacklist.findById(message.guild.id)) {
 		await message.channel.send("I apologize, but your server has been blacklisted from Discord Donuts.");
