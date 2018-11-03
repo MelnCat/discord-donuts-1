@@ -67,7 +67,7 @@ client.on("message", async message => {
 	} else {
 		gprefixstr = gprefix.prefix;
 	}
-	const prefixList = [`<@${client.user.id}> `, gprefixstr, gprefixstr+" "];
+	const prefixList = [`<@${client.user.id}> `, gprefixstr, `${gprefixstr} `];
 	if (!prefixList.some(x => message.content.startsWith(x)) || message.author.bot) return;
 	prefixList.map(x => {
 		if (message.content.startsWith(x)) {
