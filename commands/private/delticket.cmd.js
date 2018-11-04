@@ -7,6 +7,7 @@ const { canCook } = require("../../permissions");
 module.exports =
 	new DDCommand()
 		.setName("delticket")
+		.addAlias("delorder")
 		.setDescription("Delete tickets.")
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
