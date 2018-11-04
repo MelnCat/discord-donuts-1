@@ -13,20 +13,20 @@ module.exports =
 			if (!args[0]) {
 				user = message.author;
 			} else if (message.mentions.users.first()) {
-				user = message.mentions.users.first()
+				user = message.mentions.users.first();
 			} else if (isNaN(args[0])) {
-				return message.channel.send(`"${args[0]}" is not an id!`)
+				return message.channel.send(`"${args[0]}" is not an id!`);
 			} else if (!client.users.get(args[0])) {
-				user = {id: args[0], tag: "Unknown User", artificial: true}
+				user = { id: args[0], tag: "Unknown User", artificial: true };
 			} else {
-				user = client.users.get(args[0])
+				user = client.users.get(args[0]);
 			}
-			if (!user) return message.channel.send(`Something went wrong.`)
-			const member = client.guilds.get("294619824842080257").members.get(user.id)
-			if (!member) message.channel.send("The person seems to not be in this server.")
-			if (!canCook(member) && !WorkerInfo.findById(user.id)) return message.channel.send("They are not a worker!")
-			const workerraw = WorkerInfo.findOrCreate({where: {id: user.id}, defaults: {id: user.id, cooks: 0, delivers: 0, lastCook: 0, lastDeliver: 0}})
-			const worker = workerraw[0]
+			if (!user) return message.channel.send(`Something went wrong.`);
+			const member = client.guilds.get("294619824842080257").members.get(user.id);
+			if (!member) message.channel.send("The person seems to not be in this server.");
+			if (!canCook(member) && !WorkerInfo.findById(user.id)) return message.channel.send("They are not a worker!");
+			const workerraw = WorkerInfo.findOrCreate({ where: { id: user.id }, defaults: { id: user.id, cooks: 0, delivers: 0, lastCook: 0, lastDeliver: 0 } });
+			const worker = workerraw[0];
 			const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")
@@ -35,5 +35,5 @@ module.exports =
 					.addField("Cooks", `${worker.cooks} cooks`)
 					.addField("Delivers", `${worker.delivers} cooks`)
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
-			message.channel.send(embed)
+			message.channel.send(embed);
 		});
