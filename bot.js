@@ -130,8 +130,8 @@ client.on("disconnect", () => {
 });
 
 client.on("error", err => {
-	console.log()`[Discord] ${err}`);
-})
+	console.log(`[Discord] ${err}`);
+});
 
 client.login(token);
 console.log("[Discord] Connecting...");
