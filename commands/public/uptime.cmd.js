@@ -2,7 +2,7 @@ const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 
 const { everyone } = require("../../permissions");
-const { calcUptime } = require ("../../helpers")
+const { calcUptime } = require("../../helpers");
 module.exports =
 	new DDCommand()
 		.setName("uptime")
