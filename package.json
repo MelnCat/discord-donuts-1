@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": 
+  "dependencies": {
     "axios": "^0.18.0",
     "discord.js": "github:discordjs/discord.js#internal-sharding",
     "glob": "^7.1.3",
