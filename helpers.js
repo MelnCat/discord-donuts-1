@@ -46,7 +46,7 @@ const generateTicket = (client, order) => {
 	const channel = client.channels.get(order.get("channel"));
 	return new DDEmbed(client)
 		.setStyle("white")
-		.setTitle("🎫 New Ticket")
+		.setTitle(" New Ticket")
 		.setDescription(`${user.username}#${user.discriminator} (${user.id}) would like a donut!`)
 		.addField("Donut Description", order.get("description"))
 		.addField(":hash: Ticket ID", order.get("id"))
@@ -117,9 +117,17 @@ const checkOrders = client => {
 				await order.decrement("timeLeft", { by: 1 });
 			} else if (order.status === 2) {
 				if (order.cookTimeLeft < 1) {
+					const user = client.users.get(order.user);
+					const channel = client.channels.get(order.channel);
+					const embed = new DDEmbed(client)
+						.setStyle("white")
+						.setTitle("An order has finished cooking!")
+						.setDescription(`Ticket ${order.id} has completed cooking and is ready to be delivered!`)
+						.addField(":computer: Ticket Information", `This ticket came from ${channel.guild.name} (${channel.guild.id}) in ${channel.name} (${channel.id}).`)
 					await order.update({ status: 3 });
 					await client.users.get(order.user).send("Your order has been cooked. It will be delivered in a few minutes");
-					return client.channels.get(deliveryChannel).send(`${client.users.get(order.claimer)}, ticket \`${order.id}\` has completed cooking and is ready to be delivered!`);
+					client.channels.get(deliveryChannel).send(client.users.get(order.claimer));
+					return client.channels.get(deliveryChannel).send(embed)
 				}
 
 				await order.decrement("cookTimeLeft", { by: 1 });
