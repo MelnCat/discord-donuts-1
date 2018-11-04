@@ -15,7 +15,7 @@ const {
 } = require("./auth.json");
 
 const timeout = delay => new Promise(resolve => setTimeout(resolve, delay));
-const calcUptime= int => {
+const calcUptime = int => {
 				let time = 0;
 				let days = 0;
 				let hrs = 0;
@@ -35,7 +35,7 @@ const calcUptime= int => {
 				}
 				const upText = `${days}${dayText}${hrs} hours, ${min} minutes, ${sec} seconds.`;
 				return upText;
-}
+};
 const generateID = length => {
 	let pos = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234567890";
 	let str = 0;
@@ -167,11 +167,10 @@ const isurl = str => {
 	try {
 		new URL(str);
 		return true;
-	}
-	catch (err) {
+	} catch (err) {
 		return false;
 	}
-}
+};
 
 module.exports = {
 	generateID,
