@@ -15,7 +15,7 @@ module.exports =
 
 			if (!order) return message.reply("You do not have an order to cancel");
 
-			await order.update({status: 7});
+			await order.update({ status: 7 });
 
 			const embed =
 				new DDEmbed(client)
