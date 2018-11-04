@@ -8,7 +8,7 @@ const { channels: { kitchenChannel, deliveryChannel } } = require("../../auth.js
 
 function isurl(str) {
 	try {
-		new URL(string);
+		new URL(str);
 		return true;
 	} catch (err) {
 		return false;
