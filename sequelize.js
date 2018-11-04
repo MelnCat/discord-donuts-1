@@ -55,6 +55,30 @@ const Orders = sequelize.define("orders", {
 	}
 });
 
+const WorkerInfo = sequelize.define("workerinfo", {
+	id: {
+		type: Sequelize.CHAR(18),
+		unique: true,
+		primaryKey: true,
+		allowNull: false,
+	},
+	cooks: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
+	delivers: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
+	lastCook: {
+		type: Sequelize.TEXT,
+		allowNull: false,
+	},
+	lastDeliver: {
+		type: Sequelize.TEXT,
+		allowNull: false,
+	},
+});
 const Blacklist = sequelize.define("blacklist", {
 	id: {
 		type: Sequelize.CHAR(18),
@@ -100,5 +124,6 @@ module.exports = {
 	Orders,
 	Blacklist,
 	Prefixes,
-	PrecookedDonuts
+	PrecookedDonuts,
+	WorkerInfo,
 };
