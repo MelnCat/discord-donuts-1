@@ -7,7 +7,7 @@ module.exports =
 	new DDCommand()
 		.setName("away")
 		.setDescription("Request absence with this command.")
-		.setPermissions(everyone)
+		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
 			message.channel.send("What is your absence reason?")
 			const reasons = await message.channel.awaitMessages(m => m.author.id == message.author.id, { max: 1, time: 10000 });
