@@ -22,7 +22,7 @@ module.exports =
 			while (await Orders.findById(generatedID));
 
 			let description = args.join(" ").trim();
-			if (!description.toLowerCase().endsWith("donut")) description += " donut";
+			if (!description.toLowerCase().includes("donut")) description += " donut";
 
 			await Orders.create({
 				id: generatedID,

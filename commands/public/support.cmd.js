@@ -6,6 +6,7 @@ const { everyone } = require("../../permissions");
 module.exports =
 	new DDCommand()
 		.setName("support")
+		.addAlias("server")
 		.setDescription("The invite for the support server.")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {

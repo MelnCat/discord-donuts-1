@@ -7,7 +7,7 @@ module.exports =
 		.setName("help")
 		.setDescription("Shows help about the bot")
 		.setPermissions(everyone)
-		.setFunction((message, args, client) => {
+		.setFunction(async(message, args, client) => {
 			let embed = new DDEmbed(client)
 				.setStyle("colorful");
 			client.commands.forEach(command => {
@@ -25,5 +25,7 @@ module.exports =
 					embed.addField(command.getName(), command.getDescription());
 				}
 			});
-			message.author.send(embed);
+
+			await message.author.send(embed);
+			await message.reply("Check your DM's for my command list");
 		});

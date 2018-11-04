@@ -6,6 +6,7 @@ const { everyone } = require("../../permissions");
 module.exports =
 	new DDCommand()
 		.setName("donate")
+		.addAliases("patreon", "paypal")
 		.setDescription("The link to donate money.")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {

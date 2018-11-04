@@ -8,6 +8,7 @@ const { everyone } = require("../../permissions");
 module.exports =
 	new DDCommand()
 		.setName("status")
+		.addAliases("myorder", "myticket")
 		.setDescription("Lists info about your current order.")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {

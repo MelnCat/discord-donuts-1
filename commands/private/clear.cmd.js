@@ -7,6 +7,7 @@ const { isBotOwner } = require("../../permissions");
 module.exports =
 	new DDCommand()
 		.setName("clear")
+		.addAliases("ctickets", "corders")
 		.setDescription("Deletes all orders.")
 		.setPermissions(isBotOwner)
 		.setFunction(async(message, args, client) => {

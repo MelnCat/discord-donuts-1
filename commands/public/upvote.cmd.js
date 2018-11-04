@@ -6,6 +6,7 @@ const { everyone } = require("../../permissions");
 module.exports =
 	new DDCommand()
 		.setName("upvote")
+		.addAlias("vote")
 		.setDescription("The link to upvote the bot.")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {

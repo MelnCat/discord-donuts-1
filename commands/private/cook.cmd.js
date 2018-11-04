@@ -1,57 +1,105 @@
 const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 
-const { Orders, WorkerInfo } = require("../../sequelize");
+const { Orders, WorkerInfo, PrecookedDonuts } = require("../../sequelize");
 const { timeout, autoDeliver, messageAlert } = require("../../helpers");
 const { canCook } = require("../../permissions");
 const { channels: { kitchenChannel, deliveryChannel } } = require("../../auth.json");
 
-const isurl = require("isurl");
+function isurl(str) {
+	try {
+		new URL(str);
+		return true;
+	} catch (err) {
+		return false;
+	}
+}
 
 module.exports =
 	new DDCommand()
-		.setName("cook")
-		.addAlias("bake")
+		.setName("newcook")
+		.addAlias("newbake")
 		.setDescription("Use this to cook donuts.")
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
 			if (!args[0]) return message.reply("Please provide an id to cook");
-			if (!args[0].match(/^0[a-zA-Z0-9]{6}$/)) message.reply("Please provide a valid id");
+			if (!args[0].match(/^0[a-zA-Z0-9]{6}$/)) return message.reply("Please provide a valid id");
 
 			const order = await Orders.findById(args[0]);
 			if (!order) return message.reply("That order doesn't exist");
-			if (order.claimer !== message.author.id) return message.reply("You have not claimed that order");
+			if (order.claimer !== message.author.id) return message.reply("You haven't claimed this order");
 
-			if (order.status > 2) return message.channel.send("That order is already cooked");
-			if (order.status === 2) return message.channel.send("That order is currently cooking");
+			if (order.status === 2) return message.reply("That order is currently cooking");
+			if (order.status > 2) return message.reply("That order has already been cooked");
 
-			const urlEmbed =
-				new DDEmbed(client)
-					.setStyle("white")
-					.setTitle("Cook")
-					.setDescription("The next message you send will be set as the order's image");
+			let url;
 
-			message.channel.send(urlEmbed);
+			const precookedDonuts = await PrecookedDonuts.findAll({ where: { name: order.description } });
+			if (precookedDonuts.length > 0) {
+				const randomDonut = precookedDonuts[Math.floor(Math.random() * precookedDonuts.length)];
+				message.reply(`I found a precooked donut for you. Reply yes to use it, or no to use your own. \n ${randomDonut.url}`);
 
-			const response = await message.channel.awaitMessages(m => m.author.id === order.claimer, { max: 1, time: 30000 });
+				const response = await message.channel.awaitMessages(
+					m => m.author.id === order.claimer &&
+					m.content.toLowerCase().match(/(yes|no)/),
+					{ max: 1, time: 30000 });
 
-			if (response.size === 0) message.reply("You did not reply in time");
-			if (response.first().attatchments.size > 0) {
-				if (!isurl(response.first().attatchments.first().url) && !response.first().attatchments.first().url.match(/(png|jpeg|jpg|gif|webp)$/)) return message.reply("That doesn't look like a valid image url");
+				if (response.size && response.first().content.includes("yes")) url = randomDonut.url;
+			}
 
-				await Orders.update({ status: 2, url: response.first().attatchments.first().url }, { where: { id: args[0] }, individualHooks: true });
-			} else if (isurl(response.first().content)) await Orders.update({ status: 2, url: response.first().attatchments.first().url }, { where: { id: args[0] }, individualHooks: true }); // eslint-disable-line curly
+			if (!url) {
+				const urlEmbed =
+					new DDEmbed(client)
+						.setStyle("white")
+						.setTitle("Cook")
+						.setDescription("The next message you send will be set as the order's image");
+
+				await message.channel.send(urlEmbed);
+
+				const response = await message.channel.awaitMessages(
+					m => m.author.id === order.claimer,
+					{ max: 1, time: 30000 });
+
+				if (!response.size) return message.reply("You didn't respond in time, cancelling cook");
+
+				if (isurl(response.first().content.trim())) url = response.first().content.trim();
+				else if (response.first().attachments.size) url = response.first().attachments.first().url;
+				else return message.reply("That doesn't look like an image");
+
+				if (!await PrecookedDonuts.findOne({ where: { name: order.description.toLowerCase(), url } })) {
+					await message.reply(`Would you like to add this image to our precooked collection as a \`${order.description.toLowerCase()}\`?`);
+					const response = await message.channel.awaitMessages(
+						m => m.author.id === order.claimer &&
+						m.content.toLowerCase().match(/(yes|no)/),
+						{ max: 1, time: 30000 });
+
+					if (response.first().content.includes("yes")) {
+						await PrecookedDonuts.create({ name: order.description.toLowerCase(), url });
+						message.reply("Your donut has been put into the collection. :thumbs_up");
+					}
+				}
+			}
+
+			await order.update({ status: 2, url });
 
 			const cookEmbed =
-				new DDEmbed(client)
-					.setStyle("white")
-					.setTitle("Cook")
-					.setDescription("Your donut will take 3 minutes to cook.")
-					.setThumbnail("https://images.emojiterra.com/twitter/512px/2705.png");
+			new DDEmbed(client)
+				.setStyle("white")
+				.setTitle("Cook")
+				.setDescription("Your donut will take 3 minutes to cook.")
+				.setThumbnail("https://images.emojiterra.com/twitter/512px/2705.png");
 
-			message.channel.send(cookEmbed);
-
-			client.users.get(order.user).send(`:thumbsup: Your cook, ${client.users.get(order.claimer).tag}, just put your donut in the oven! It should take **3 minutes** to cook!`);
-
-			message.channel.send(`:thumbsup: Alright, you've put \`${order.id}\` into the oven. It'll take **3 minutes** to cook.`);
+			await message.channel.send(cookEmbed);
+			await client.users.get(order.user).send(`:thumbsup: Your cook, ${client.users.get(order.claimer).tag}, just put your ticket in the oven! It should take **3 minutes** to cook!`);
+			const workerraw = await WorkerInfo.findOrCreate({ where: { id: message.author.id }, defaults: { id: message.author.id, cooks: 0, delivers: 0, lastCook: 0, lastDeliver: 0 } });
+			const worker = workerraw[0];
+			await worker.update({ cooks: worker.cooks + 1, lastCook: Date.now() });
+			let milestones = { 100: "500818730788585482", 250: "500818668972933140", 500: "500818727756103680", 750: "500818673720754178", 1000: "500818665860759563" };
+			const member = client.guilds.get("294619824842080257").members.get(worker.id);
+			for (let i = 0; i < Object.keys(milestones).length; i++) {
+				let m = Object.keys(milestones)[i];
+				if (worker.cooks + worker.delivers >= m) {
+					member.roles.add(milestones[m]);
+				}
+			}
 		});

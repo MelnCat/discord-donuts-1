@@ -22,5 +22,5 @@ module.exports =
 
 			await client.channels.get(feedbackChannel).send(embed);
 
-			message.reply("Thank you for giving us your feedback! We seriously appreciate it.");
+			await message.reply("Thank you for giving us your feedback! We seriously appreciate it.");
 		});

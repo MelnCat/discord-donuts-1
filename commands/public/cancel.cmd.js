@@ -8,6 +8,7 @@ const { messageAlert } = require("../../helpers");
 module.exports =
 	new DDCommand()
 		.setName("cancel")
+		.addAlias("delete")
 		.setDescription("Cancel an order.")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
@@ -24,7 +25,7 @@ module.exports =
 					.setDescription("Order cancelled!")
 					.setThumbnail("https://mbtskoudsalg.com/images/trash-can-emoji-png-5.png");
 
-			message.channel.send(embed);
+			awaitmessage.channel.send(embed);
 
 			messageAlert(client, ":cry: An order has been cancelled, there are now [orderCount] orders left");
 		});

@@ -3,6 +3,7 @@ const DDCommand = require("../../structures/DDCommand.struct");
 
 const { canCook } = require("../../permissions");
 const { WorkerInfo } = require("../../sequelize");
+
 module.exports =
 	new DDCommand()
 		.setName("workerinfo")

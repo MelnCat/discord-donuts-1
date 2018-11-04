@@ -12,7 +12,6 @@ module.exports =
 		.setDescription("Use this to claim donut orders.")
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
-			if (!canCook(message.member)) return;
 			if (message.channel.id !== kitchenChannel) return message.reply("You can only run this command in the kitchen");
 
 			if (!args[0]) return message.reply("Please provide an id to claim");

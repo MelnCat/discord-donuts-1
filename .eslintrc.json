@@ -61,6 +61,7 @@
     "computed-property-spacing": "error",
     "consistent-this": ["error", "$this"],
     "eol-last": "error",
+    "eqeqeq": ["error", "always", {"null": "ignore"}],
     "func-names": "error",
     "func-name-matching": "error",
     "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
