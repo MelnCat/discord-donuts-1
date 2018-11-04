@@ -84,4 +84,15 @@ module.exports =
 
 			await message.channel.send(cookEmbed);
 			await client.users.get(order.user).send(`:thumbsup: Your cook, ${client.users.get(order.claimer).tag}, just put your ticket in the oven! It should take **3 minutes** to cook!`);
-		});
+			const workerraw = await WorkerInfo.findOrCreate({ where: { id: message.author.id }, defaults: { id: message.author.id, cooks: 0, delivers: 0, lastCook: 0, lastDeliver: 0 } });
+			const worker = workerraw[0];
+			await worker.update({ cooks: worker.cooks + 1, lastCook: Date.now() });
+			let milestones = { 100: "500818730788585482", 250: "500818668972933140", 500: "500818727756103680", 750: "500818673720754178", 1000: "500818665860759563" };
+			const member = client.guilds.get("294619824842080257").members.get(worker.id);
+			for (let i = 0; i < Object.keys(milestones).length; i++) {
+				let m = Object.keys(milestones)[i];
+			if (worker.cooks + worker.delivers >= m) {
+				member.roles.add(milestones[m]);
+			}
+		}
+});
