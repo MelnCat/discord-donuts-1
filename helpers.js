@@ -29,11 +29,7 @@ const calcUptime = int => {
 				hrs = temp % 24;
 				temp = Math.floor(temp / 24);
 				days = temp;
-				let dayText = " Days, ";
-				if (days == 1) {
-					dayText = " Days, ";
-				}
-				const upText = `${days}${dayText}${hrs} hours, ${min} minutes, ${sec} seconds.`;
+				const upText = `${days} Days, ${hrs} hours, ${min} minutes, ${sec} seconds.`;
 				return upText;
 };
 const generateID = length => {
