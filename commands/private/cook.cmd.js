@@ -51,7 +51,7 @@ module.exports =
 
 			message.channel.send(cookEmbed);
 
-			client.users.get(order.user).send(`:thumbsup: Your cook, ${client.users.get(order.claimer).tag}, just put your ticket in the oven! It should take **3 minutes** to cook!`);
+			client.users.get(order.user).send(`:thumbsup: Your cook, ${client.users.get(order.claimer).tag}, just put your donut in the oven! It should take **3 minutes** to cook!`);
 
 			message.channel.send(`:thumbsup: Alright, you've put \`${order.id}\` into the oven. It'll take **3 minutes** to cook.`);
 		});
