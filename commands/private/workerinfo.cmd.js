@@ -6,7 +6,7 @@ const { WorkerInfo } = require("../../sequelize");
 module.exports =
 	new DDCommand()
 		.setName("workerinfo")
-		.setDescription("Checks a user\'s or your own stats..")
+		.setDescription("Checks a user's or your own stats..")
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
 			let user;
