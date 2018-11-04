@@ -6,7 +6,14 @@ const { timeout, autoDeliver, messageAlert } = require("../../helpers");
 const { canCook } = require("../../permissions");
 const { channels: { kitchenChannel, deliveryChannel } } = require("../../auth.json");
 
-const isurl = require("isurl");
+function isurl(str) {
+	try {
+		new URL(string);
+		return true;
+	} catch (err) {
+		return false; 
+	}
+};
 
 module.exports =
 	new DDCommand()
