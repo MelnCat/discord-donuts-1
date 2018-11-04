@@ -10,11 +10,15 @@ module.exports =
 		.setFunction(async(message, args, client) => {
 			let embed = new DDEmbed(client)
 				.setStyle("colorful");
+			let added = [];
 			client.commands.forEach(command => {
 				if (!(command instanceof DDCommand)) return;
 				if (!command.getPermissions(message.member)) return;
 				try {
-					embed.addField(command.getName(), command.getDescription());
+					if (!added.includes(command.getName())) {
+						added.push(command.getName());
+						embed.addField(command.getName(), command.getDescription());
+					}
 				} catch (err) {
 					if (!(err instanceof RangeError)) throw err;
 
