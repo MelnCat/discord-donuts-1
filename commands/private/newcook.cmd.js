@@ -11,9 +11,9 @@ function isurl(str) {
 		new URL(string);
 		return true;
 	} catch (err) {
-		return false; 
+		return false;
 	}
-};
+}
 
 module.exports =
 	new DDCommand()
