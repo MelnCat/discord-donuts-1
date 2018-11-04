@@ -123,11 +123,11 @@ const checkOrders = client => {
 						.setStyle("white")
 						.setTitle("An order has finished cooking!")
 						.setDescription(`Ticket ${order.id} has completed cooking and is ready to be delivered!`)
-						.addField(":computer: Ticket Information", `This ticket came from ${channel.guild.name} (${channel.guild.id}) in ${channel.name} (${channel.id}).`)
+						.addField(":computer: Ticket Information", `This ticket came from ${channel.guild.name} (${channel.guild.id}) in ${channel.name} (${channel.id}).`);
 					await order.update({ status: 3 });
 					await client.users.get(order.user).send("Your order has been cooked. It will be delivered in a few minutes");
 					client.channels.get(deliveryChannel).send(client.users.get(order.claimer));
-					return client.channels.get(deliveryChannel).send(embed)
+					return client.channels.get(deliveryChannel).send(embed);
 				}
 
 				await order.decrement("cookTimeLeft", { by: 1 });
