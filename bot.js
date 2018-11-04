@@ -37,6 +37,7 @@ client.once("ready", async() => {
 	Blacklist.sync();
 	PrecookedDonuts.sync();
 	Prefixes.sync();
+	WorkerInfo.sync();
 	// Activities
 	const activitiesList = ["Cooking Donuts...", "Donuts!", "Cookin' Donuts", "d!order Donuts", "<3 Donuts", "with Donuts"];
 
