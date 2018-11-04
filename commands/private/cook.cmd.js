@@ -2,23 +2,14 @@ const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 
 const { Orders, WorkerInfo, PrecookedDonuts } = require("../../sequelize");
-const { timeout, autoDeliver, messageAlert } = require("../../helpers");
+const { timeout, autoDeliver, messageAlert, isurl } = require("../../helpers");
 const { canCook } = require("../../permissions");
 const { channels: { kitchenChannel, deliveryChannel } } = require("../../auth.json");
 
-function isurl(str) {
-	try {
-		new URL(str);
-		return true;
-	} catch (err) {
-		return false;
-	}
-}
-
 module.exports =
 	new DDCommand()
-		.setName("newcook")
-		.addAlias("newbake")
+		.setName("cook")
+		.addAlias("bake")
 		.setDescription("Use this to cook donuts.")
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {

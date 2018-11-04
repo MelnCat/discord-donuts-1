@@ -143,6 +143,16 @@ const checkOrders = client => {
 	}, 60000);
 };
 
+const isurl = str => {
+	try {
+		new URL(str);
+		return true;
+	}
+	catch (err) {
+		return false;
+	}
+}
+
 module.exports = {
 	generateID,
 	status,
@@ -151,5 +161,6 @@ module.exports = {
 	autoDeliver,
 	updateWebsites,
 	messageAlert,
-	checkOrders
+	checkOrders,
+	isurl
 };

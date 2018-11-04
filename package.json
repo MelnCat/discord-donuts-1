@@ -5,20 +5,14 @@
   "main": "index.js",
   "dependencies": {
     "discord.js": "github:discordjs/discord.js#internal-sharding",
-    "embed-creator": "^1.2.4",
     "glob": "^7.1.3",
-    "isurl": "^1.0.0",
-    "mocha": "^5.2.0",
     "mysql2": "^1.6.1",
     "node-superfetch": "^0.1.9",
     "sequelize": "^4.38.0"
   },
-  "devDependencies": {
-    "tap": "^12.0.1"
-  },
   "scripts": {
     "start": "eslint . && node bot.js"
   },
-  "author": "",
+  "author": "Yamboy1",
   "license": "GPL-3.0-only"
 }
