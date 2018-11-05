@@ -12,6 +12,6 @@ module.exports =
          const startTime = Date.now();
          const m = await message.channel.send("Pong!");
          const endTime = Date.now();
-         await m.edit(`Pong! (\`${endTime - startTime}ms\`)`);
+         await m.edit(`Pong! (${endTime - startTime}ms)`);
          return;
       });
