@@ -10,8 +10,8 @@ module.exports =
       .setPermissions(everyone)
       .setFunction(async (message, args, client) => {
          const startTime = Date.now();
-         const m = await message.channel.send("Fetching time stamp values..");
+         const m = await message.channel.send("Pong!");
          const endTime = Date.now();
-         await m.edit(`Message: \`${endTime - startTime}ms\`\nDiscord Heartbeat: \`${Math.round(this.client.ws.ping)}ms\``);
+         await m.edit(`Pong! (\`${endTime - startTime}ms\`)`);
          return;
       });
