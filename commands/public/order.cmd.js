@@ -12,7 +12,7 @@ module.exports =
       .setName("order")
       .setDescription("Order your donuts here.")
       .setPermissions(everyone)
-      .setFunction(async (message, args, client) => {
+      .setFunction(async(message, args, client) => {
          if (!args[0]) return message.channel.send("<:no:501906738224562177> **Please provide a description of your order.**");
          if (await Orders.count({ where: { user: message.author.id, status: { [Op.lt]: 4 } } })) return message.channel.send("<:no:501906738224562177> **Failed to create order; you already have an order created, please try again later.**");
 
@@ -39,6 +39,6 @@ module.exports =
          });
 
          await message.channel.send(`<:yes:501906738119835649> **Successfully placed your order for \`${description}\`. Your ticket ID is \`${generatedID}\`, please wait patiently for your order to be processed.**`);
-         
+
          messageAlert(client, "An order has been placed, there are now [orderCount] order(s) to claim");
       });

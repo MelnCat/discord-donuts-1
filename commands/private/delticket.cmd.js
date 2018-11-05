@@ -10,7 +10,7 @@ module.exports =
       .addAlias("delorder")
       .setDescription("Delete tickets.")
       .setPermissions(canCook)
-      .setFunction(async (message, args, client) => {
+      .setFunction(async(message, args, client) => {
          let reason = args[1];
          if (!args[0]) return message.channel.send("<:no:501906738224562177> **Please provide a valid ID.**");
          if (!args[0].match(/^0[a-zA-Z0-9]{6}/)) return message.channel.send("<:no:501906738224562177> **That isn't a valid ID, please try again.**");
