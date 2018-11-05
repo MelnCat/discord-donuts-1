@@ -14,7 +14,6 @@ module.exports =
       .setPermissions(everyone)
       .setFunction(async (message, args, client) => {
          if (!args[0]) return message.channel.send("<:no:501906738224562177> **Please provide a description of your order.**");
-
          if (await Orders.count({ where: { user: message.author.id, status: { [Op.lt]: 4 } } })) return message.channel.send("<:no:501906738224562177> **Failed to create order; you already have an order created, please try again later.**");
 
          let generatedID;
@@ -22,6 +21,7 @@ module.exports =
          while (await Orders.findById(generatedID));
 
          let description = args.join(" ").trim();
+         if (description.length > 40) return message.channel.send("<:no:501906738224562177> **Your donut description cannot exceed a character count of 40, please try again.**");
          if (!description.toLowerCase().includes("donut")) description += " donut";
 
          await Orders.create({
