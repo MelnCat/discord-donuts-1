@@ -15,6 +15,7 @@ const {
 } = require("./auth.json");
 
 const timeout = delay => new Promise(resolve => setTimeout(resolve, delay));
+
 const calcUptime = int => {
 	let time = 0;
 	let days = 0;
@@ -173,6 +174,7 @@ module.exports = {
 	status,
 	generateTicket,
 	timeout,
+calcUptime,
 	autoDeliver,
 	updateWebsites,
 	messageAlert,

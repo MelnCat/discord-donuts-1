@@ -3,6 +3,7 @@ const DDCommand = require("../../structures/DDCommand.struct");
 
 const { everyone } = require("../../permissions");
 const { calcUptime } = require("../../helpers");
+
 module.exports =
 	new DDCommand()
 		.setName("uptime")
