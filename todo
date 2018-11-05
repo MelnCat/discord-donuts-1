@@ -12,5 +12,5 @@ uptime command should reply with an embed
 
 workerInfo doesn't clear
 
-Not for now, but just noting that these aren't implmented:
-ratings, overallleaderboard, leaderboard, mostactive, leastactive, overallworkerinfo command
+These aren't implmented:
+overallleaderboard, leaderboard, mostactive, leastactive, overallworkerinfo command
