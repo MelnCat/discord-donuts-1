@@ -11,12 +11,12 @@ module.exports =
 		.setDescription("Lists info about a specific order.")
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
-			if (!args[0]) return message.reply("Please provide an id");
-			if (!args[0].match(/^0[a-zA-Z0-9]{6}$/)) return message.reply("That doesn't look like a valid id");
+			if (!args[0]) return message.reply("Please supply a valid ID.");
+			if (!args[0].match(/^0[a-zA-Z0-9]{6}$/)) return message.reply("According to my database, that isn't a valid ID.");
 
 			const order = await Orders.findById(args[0]);
 
-			if (!order) return message.reply("That order doesn't exist");
+			if (!order) return message.reply("That order doesn't exist.");
 
 			const embed =
 				new DDEmbed(client)
