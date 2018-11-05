@@ -19,7 +19,7 @@ module.exports =
          const order = await Orders.findById(args[0]);
 
          if (!order) return message.reply(`<:no:501906738224562177> **Failed to fetch order \`${args[0]}\`, please try again.**`);
-         if (order.status === 4) return message.reply("<:no:501906738224562177> **The order you requested to be deleted was already delivered.");
+         if (order.status === 4) return message.reply("<:no:501906738224562177> **The order you requested to be deleted was already delivered.**");
          if (order.status > 4) return message.reply(`<:no:501906738224562177> **Order \`${args[0]}\` has already been deleted!**`);
 
          await order.update({ status: 5 });
