@@ -13,7 +13,7 @@ module.exports =
       .setFunction(async (message, args, client) => {
          if (!args[0]) return message.channel.send("<:no:501906738224562177> **Please provide a valid ID.**");
          if (!args[0].match(/^0[a-zA-Z0-9]{6}/)) return message.channel.send("<:no:501906738224562177> **That isn't a valid ID, please try again.**");
-         if (!args[1]) return message.reply("<:no:501906738224562177> **Please ensure to supply a reason for deleting this ticket.**");
+         if (!args[1]) return message.channel.send("<:no:501906738224562177> **Please ensure to supply a reason for deleting this ticket.**");
 
          const order = await Orders.findById(args[0]);
 
