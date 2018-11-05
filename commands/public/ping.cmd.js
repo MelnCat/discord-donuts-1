@@ -15,7 +15,6 @@ module.exports =
 				new DDEmbed(client)
 					.setStyle("colorful")
 					.addField("Ping", `Pinging...`)
-					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
 
 			const pingMessage = await message.channel.send(loadingEmbed);
 
@@ -23,7 +22,6 @@ module.exports =
 				new DDEmbed(client)
 					.setStyle("colorful")
 					.addField("Ping", `:ping_pong: Pong! Took \`${Math.round(Date.now() - startTime)} ms\`!`)
-					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
 
 			pingMessage.edit(finishedEmbed);
 		});
