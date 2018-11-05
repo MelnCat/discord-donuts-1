@@ -5,30 +5,22 @@ const { Orders, Op } = require("../../sequelize");
 const { canCook } = require("../../permissions");
 
 module.exports =
-	new DDCommand()
-		.setName("delticket")
-		.addAlias("delorder")
-		.setDescription("Delete tickets.")
-		.setPermissions(canCook)
-		.setFunction(async(message, args, client) => {
-			if (!args[0]) return message.reply("Please provide an id");
-			if (!args[0].match(/^0[a-zA-Z0-9]{6}/)) return message.reply("That doesn't look like a valid id");
-			if (!args[1]) return message.reply("Please provide a reason");
+   new DDCommand()
+      .setName("delticket")
+      .addAlias("delorder")
+      .setDescription("Delete tickets.")
+      .setPermissions(canCook)
+      .setFunction(async (message, args, client) => {
+         if (!args[0]) return message.channel.send("<:no:501906738224562177> **Please provide a valid ID.**");
+         if (!args[0].match(/^0[a-zA-Z0-9]{6}/)) return message.channel.send("<:no:501906738224562177> **That isn't a valid ID, please try again.**");
+         if (!args[1]) return message.reply("<:no:501906738224562177> **Please ensure to supply a reason for deleting this ticket.**");
 
-			const order = await Orders.findById(args[0]);
+         const order = await Orders.findById(args[0]);
 
-			if (!order) return message.reply("Couldn't find that order");
-			if (order.status === 4) return message.reply("That order has been delivered");
-			if (order.status > 4) return message.reply("That order has already been deleted");
+         if (!order) return message.reply(`<:no:501906738224562177> **Failed to fetch order \`${args[0]}\`, please try again.**`);
+         if (order.status === 4) return message.reply("<:no:501906738224562177> **The order you requested to be deleted was already delivered.");
+         if (order.status > 4) return message.reply(`<:no:501906738224562177> **Order \`${args[0]}\` has already been deleted!**`);
 
-			await order.update({ status: 5 });
-
-			const embed =
-				new DDEmbed(client)
-					.setStyle("white")
-					.setTitle("Delete Ticket")
-					.setDescription(`Ticket deleted!`)
-					.setThumbnail("https://mbtskoudsalg.com/images/trash-can-emoji-png-5.png");
-
-			message.channel.send(embed);
-		});
+         await order.update({ status: 5 });
+         await message.channel.send(`<:yes:501906738119835649> **Order \`${args[0]}\` was successfully deleted!**`);
+      });
