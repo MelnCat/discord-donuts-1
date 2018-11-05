@@ -9,7 +9,7 @@ module.exports =
       .setName("eval")
       .setDescription("Runs JavaScript code.")
       .setPermissions(isBotOwner)
-      .setFunction(async (message, args, client) => {
+      .setFunction(async(message, args, client) => {
          try {
             let toEval = args.join(" ");
             if (toEval.includes("token")) return message.channel.send("<:no:501906738224562177> **You are not authorized to execute this code.**");
