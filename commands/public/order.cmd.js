@@ -39,7 +39,6 @@ module.exports =
          });
 
          await message.channel.send(`<:yes:501906738119835649> **Successfully placed your order for \`${description}\`. Your ticket ID is \`${generatedID}\`, please wait patiently for your order to be processed.**`);
-         await message.channel.send(embed);
-
+         
          messageAlert(client, "An order has been placed, there are now [orderCount] order(s) to claim");
       });
