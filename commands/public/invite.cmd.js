@@ -12,7 +12,6 @@ module.exports =
 			const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")
-					.setTitle("Bot Invite Link")
 					.setDescription("The invite link for the support server.")
 					.addField("Bot Invite Link", "https://donuts.its-mustard.me")
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f4e9.png");
