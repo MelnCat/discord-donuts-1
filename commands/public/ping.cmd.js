@@ -14,14 +14,14 @@ module.exports =
 			const loadingEmbed =
 				new DDEmbed(client)
 					.setStyle("colorful")
-					.addField("Ping", `Pinging...`)
+					.setDescription("Pinging..")
 
 			const pingMessage = await message.channel.send(loadingEmbed);
 
 			const finishedEmbed =
 				new DDEmbed(client)
 					.setStyle("colorful")
-					.addField("Ping", `:ping_pong: Pong! Took \`${Math.round(Date.now() - startTime)} ms\`!`)
+					.setDescription(`:ping_pong: Pong! Took \`${Math.round(Date.now() - startTime)} ms\`!`)
 
 			pingMessage.edit(finishedEmbed);
 		});
