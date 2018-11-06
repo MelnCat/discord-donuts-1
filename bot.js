@@ -1,6 +1,3 @@
-process.on("uncaughtException", console.log);
-process.on("unhandledRejection", console.log);
-
 const Sentry = require("@sentry/node");
 Sentry.init({ dsn: "https://a9fa3427c2bf4261991dfa47718ea1f8@sentry.io/1315760" });
 
