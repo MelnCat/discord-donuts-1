@@ -47,4 +47,16 @@ module.exports =
 					.setDescription("I have DMed you the order information")
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f4e9.png");
 			await message.reply(dmEmbed);
+			const workerraw = await WorkerInfo.findOrCreate({ where: { id: message.author.id }, defaults: { id: message.author.id, cooks: 0, delivers: 0, lastCook: 0, lastDeliver: 0, username: message.author.tag } });
+			const worker = workerraw[0];
+			await worker.update({ delivers: worker.delivers + 1, lastDeliver: Date.now() });
+			let milestones = { 100: "500818730788585482", 250: "500818668972933140", 500: "500818727756103680", 750: "500818673720754178", 1000: "500818665860759563" };
+			const member = client.guilds.get("294619824842080257").members.get(worker.id);
+			for (let i = 0; i < Object.keys(milestones).length; i++) {
+				let m = Object.keys(milestones)[i];
+				if (worker.cooks + worker.delivers >= m) {
+					if (member.roles.some(role => role.id == milestones[m])) return;
+					member.roles.add(milestones[m]);
+				}
+			}
 		});

@@ -62,6 +62,38 @@ const WorkerInfo = sequelize.define("workerinfo", {
 		primaryKey: true,
 		allowNull: false,
 	},
+	username: {
+		type: Sequelize.TEXT,
+		allowNull: false,
+	},
+	cooks: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
+	delivers: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
+	lastCook: {
+		type: Sequelize.TEXT,
+		allowNull: false,
+	},
+	lastDeliver: {
+		type: Sequelize.TEXT,
+		allowNull: false,
+	},
+});
+const MonthlyInfo = sequelize.define("monthlyinfo", {
+	id: {
+		type: Sequelize.CHAR(18),
+		unique: true,
+		primaryKey: true,
+		allowNull: false,
+	},
+	username: {
+		type: Sequelize.TEXT,
+		allowNull: false,
+	},
 	cooks: {
 		type: Sequelize.INTEGER,
 		allowNull: false,
