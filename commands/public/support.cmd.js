@@ -13,7 +13,6 @@ module.exports =
 			const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")
-					.setTitle("Support Server Invite")
 					.setDescription("The invite link for the support server.")
 					.addField("Support Server Invite", "https://discord.gg/Kkyk3fM")
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f4e9.png");

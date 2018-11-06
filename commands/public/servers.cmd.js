@@ -9,10 +9,9 @@ module.exports =
 		.setDescription("Info about the bots servers and shards.")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
-			const embed =
+		const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")
-					.setTitle("Number of servers")
 					.setDescription("Information on the number of servers of this bot.")
 					.addField("Total servers", client.guilds.size)
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f4ca.png");
