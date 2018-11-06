@@ -20,7 +20,7 @@ module.exports =
 			const timestart = timestarts.first().content;
 			let tstart;
 			const timestartsplit = timestart.split("-");
-			if (timestartsplit.length != 3) {
+			if (timestartsplit.length !== 3) {
 				return message.channel.send("Your format is incorrect.");
 			}
 			if (timestart.toLowerCase() === "now") {
