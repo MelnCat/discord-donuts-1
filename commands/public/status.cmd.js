@@ -1,7 +1,7 @@
 const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 
-const { Orders } = require("../../sequelize");
+const { Orders, Op } = require("../../sequelize");
 const { status } = require("../../helpers");
 const { everyone } = require("../../permissions");
 
@@ -12,7 +12,7 @@ module.exports =
 		.setDescription("Lists info about your current order.")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
-			const order = await Orders.findOne({ where: { user: message.author.id } });
+			const order = await Orders.findOne({ where: { user: message.author.id, status: { [Op.lt]: 4 } }  });
 
 			if (!order) return message.reply("You do not currently have a donut");
 
