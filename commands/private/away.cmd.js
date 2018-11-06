@@ -13,11 +13,11 @@ module.exports =
 			message.channel.send("What is your absence reason?");
 			const reasons = await message.channel.awaitMessages(m => m.author.id === message.author.id, { max: 1, time: 10000 });
 			if (reasons.size === 0) return message.channel.send("You did not provide me with a reason so I cancelled this session.");
-			const reason = reasons.first();
+			const reason = reasons.first().content;
 			message.channel.send("When will your absence start? Format it as `MM-DD-YYYY` or reply with `now` for today.");
 			const timestarts = await message.channel.awaitMessages(m => m.author.id === message.author.id, { max: 1, time: 15000 });
 			if (timestarts.size === 0) return message.channel.send("You did not provide me with a starting time so I cancelled this session.");
-			const timestart = timestarts.first();
+			const timestart = timestarts.first().content;
 			let tstart;
 			const timestartsplit = timestart.split("-");
 			if (timestart.toLowerCase() === "now") {
@@ -31,9 +31,9 @@ module.exports =
 			message.channel.send("When will your absence end? Format it as `MM-DD-YYYY` or reply with `unknown` for an unknown time.");
 			const timeends = await message.channel.awaitMessages(m => m.author.id === message.author.id, { max: 1, time: 15000 });
 			if (timeends.size === 0) return message.channel.send("You did not provide me with a starting time so I cancelled this session.");
-			const timeend = timestarts.first();
+			const timeend = timeends.first().content;
 			let tend;
-			const timeendsplit = timestart.split("-");
+			const timeendsplit = timeend.split("-");
 			if (timeend.toLowerCase() === "now") {
 				tend = new Date(Date.now());
 			} else if ([timeendsplit[0].length, timeendsplit[1].length, timeendsplit[2].length] === [2, 2, 4]) {
