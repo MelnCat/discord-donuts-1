@@ -60,7 +60,7 @@ ${commit}\`\`\`
 });
 
 client.on("message", async message => {
-	if (message.channel.type == "dm") return message.channel.send("Sorry! Commands only work in servers.")
+	if (message.channel.type == "dm") return message.channel.send("Sorry! Commands only work in servers.");
 	const gprefix = await Prefixes.findById(message.guild.id);
 	let messagePrefix;
 	let gprefixstr;
