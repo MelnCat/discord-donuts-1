@@ -49,15 +49,9 @@ const Orders = sequelize.define("orders", {
 		type: Sequelize.INTEGER,
 		allowNull: false
 	},
-	cookFinishTime: {
-		type: Sequelize.INTEGER,
-	},
 	deliveryTimeLeft: {
 		type: Sequelize.INTEGER,
 		allowNull: false
-	},
-	expireTime: {
-		type: Sequelize.INTEGER,
 	}
 });
 
