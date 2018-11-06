@@ -90,7 +90,7 @@ const messageAlert = async(client, text, channel = kitchenChannel) => {
 	let unclaimed = await Orders.count({ where: { status: { [Op.lt]: 1 } } });
 
 	if (unclaimed % 3 === 0 && client.lastPing !== unclaimed) {
-		if (unclaimed != 0) {
+		if (unclaimed !== 0) {
 			client.channels.get(channel).send(`<@&${employeeRole}>`);
 		}
 		client.lastPing = unclaimed;
