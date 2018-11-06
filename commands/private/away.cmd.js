@@ -35,7 +35,7 @@ module.exports =
 			const timeend = timeends.first().content;
 			let tend;
 			if (timeend.toLowerCase() === "unknown") {
-				tend = "Unknwon";
+				tend = "Unknown";
 			} else if (timeend.match(/^\d{2}-\d{2}-\d{4}$/) !== null) {
 				tend = new Date(timeend);
 			} else {
