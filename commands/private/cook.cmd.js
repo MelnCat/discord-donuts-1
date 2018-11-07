@@ -90,8 +90,9 @@ module.exports =
 			for (let i = 0; i < Object.keys(milestones).length; i++) {
 				let m = Object.keys(milestones)[i];
 				if (worker.cooks + worker.delivers >= m) {
-					if (member.roles.some(role => role.id == milestones[m])) break;
+					if (!member.roles.some(role => role.id === milestones[m])) {
 					member.roles.add(milestones[m]);
+					}
 				}
 			}
 		});
