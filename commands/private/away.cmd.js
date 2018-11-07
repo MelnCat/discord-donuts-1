@@ -55,7 +55,6 @@ module.exports =
 			}
 			if (tend === "Invalid Date") return message.channel.send("Your format or date may be incorrect.");
 				message.channel.send(`Your ending date has been set to ${tend}!`);
-
 			const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")
