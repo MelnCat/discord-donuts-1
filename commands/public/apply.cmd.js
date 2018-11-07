@@ -25,7 +25,7 @@ module.exports =
 			}
 			const questionsold = ["What languages can you speak?", "Why should we hire you as an employee?", "What other experiences do you have in this type of field?", "How could you potentially benefit Discord Donuts?", "How old are you?", "What time zone are you located in?", "Approximately how many hours *could* you contribute to this position?", lastmsg];
 			const responses = [];
-			const questions = questions.map(qu => questionize(qu));
+			const questions = questionsold.map(qu => questionize(qu));
 			questions.map(qe => {
 				responses.push(getMessage(qe));
 			});
