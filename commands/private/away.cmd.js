@@ -10,7 +10,7 @@ module.exports =
 		.setDescription("Request absence with this command.")
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
-			if (args[0].toLowerCase() == "end") {
+			if (args[0].toLowerCase() === "end") {
 				if (!message.member.roles.some(role => role.id === awayRole)) return message.channel.send("You are not away!");
 				const embed =
 				new DDEmbed(client)
