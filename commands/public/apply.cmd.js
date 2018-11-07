@@ -27,7 +27,7 @@ module.exports =
 			const responses = [];
 			const questions = questionsold.map(qu => questionize(qu));
 			for (const question of questions) {
-    				responses.push(await getMessage(question))
+    				responses.push(await getMessage(question));
   			}
 			message.channel.send("This is the end your our application. Thanks for applying! We will get back to you ASAP! Remember to join our server, our invite is https://discord.gg/WJgamKm. Remember that improper or incomplete applications will not be considered, and asking when you're gonna be hired or inquiring about your application in any way before three days of your submission date is against our rules!");
 		});
