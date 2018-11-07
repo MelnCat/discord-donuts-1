@@ -2,6 +2,7 @@
 	"token": "",
 	"prefix": "",
 	"employeeRole": "",
+	"awayRole": "",
 	"botOwners": [""],
 	"pullScript": "",
 	"channels": {
