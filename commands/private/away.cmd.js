@@ -11,16 +11,16 @@ module.exports =
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
 			if (args[0].toLowerCase() == "end") {
-				if (!message.member.roles.some(role => role.id === awayRole)) return message.channel.send("You are not away!")
+				if (!message.member.roles.some(role => role.id === awayRole)) return message.channel.send("You are not away!");
 				const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")
 					.setTitle("Ended Absence")
 					.setDescription(`${message.author.tag} is no longer away.`)
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
-				client.channels.get(absenceChannel).send(embed)
-				message.member.roles.remove(awayRole)
-				message.channel.send("Removed your absence!")
+				client.channels.get(absenceChannel).send(embed);
+				message.member.roles.remove(awayRole);
+				message.channel.send("Removed your absence!");
 			}
 			message.channel.send("What is your absence reason?");
 			const reasons = await message.channel.awaitMessages(m => m.author.id === message.author.id, { max: 1, time: 10000 });
@@ -55,7 +55,7 @@ module.exports =
 			}
 			if (tend === "Invalid Date") return message.channel.send("Your format or date may be incorrect.");
 				message.channel.send(`Your ending date has been set to ${tend}!`);
-			
+
 			const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")
@@ -64,7 +64,7 @@ module.exports =
 					.addField("Time", `${tstart} to ${tend}`)
 					.addField("Reason", `${reason}`)
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
-			client.channels.get(absenceChannel).send(embed)
-			message.member.roles.add(awayRole)
-			message.channel.send("Added absence!")
+			client.channels.get(absenceChannel).send(embed);
+			message.member.roles.add(awayRole);
+			message.channel.send("Added absence!");
 		});
