@@ -111,6 +111,18 @@ const MonthlyInfo = sequelize.define("monthlyinfo", {
 		allowNull: false,
 	},
 });
+const Applications = sequelize.define("applications", {
+	id: {
+		type: Sequelize.CHAR(18),
+		unique: true,
+		primaryKey: true,
+		allowNull: false,
+	},
+	application: {
+		type: Sequelize.TEXT,
+		allowNull: false,
+	},
+});
 const Blacklist = sequelize.define("blacklist", {
 	id: {
 		type: Sequelize.CHAR(18),
