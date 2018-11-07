@@ -10,7 +10,7 @@ module.exports =
 		.setDescription("Request absence with this command.")
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
-			if (args[0].toLowerCase() === "end") {
+			if (args[0] && args[0].toLowerCase() === "end") {
 				if (!message.member.roles.some(role => role.id === awayRole)) return message.channel.send("You are not away!");
 				const embed =
 				new DDEmbed(client)
@@ -20,7 +20,7 @@ module.exports =
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
 				client.channels.get(absenceChannel).send(embed);
 				message.member.roles.remove(awayRole);
-				message.channel.send("Removed your absence!");
+				return message.channel.send("Removed your absence!");
 			}
 			message.channel.send("What is your absence reason?");
 			const reasons = await message.channel.awaitMessages(m => m.author.id === message.author.id, { max: 1, time: 10000 });
