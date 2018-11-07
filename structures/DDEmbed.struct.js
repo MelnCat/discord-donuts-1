@@ -30,8 +30,8 @@ class DDEmbed extends Discord.MessageEmbed {
 	setStyle(style) {
 		if (style === "colorful") {
 			this.setColor(Math.floor(Math.random() * 16777216));
-			this.setFooter(this.client.user.username, this.client.user.avatarURL);
-			this.setAuthor(this.client.user.username, this.client.user.avatarURL);
+			this.setFooter(this.client.user.username, this.client.user.avatarURL());
+			this.setAuthor(this.client.user.username, this.client.user.avatarURL());
 		} else if (style === "white") {
 			this.setColor(0xFFFFFF);
 		} else {
