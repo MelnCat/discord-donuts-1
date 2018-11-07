@@ -23,11 +23,11 @@ module.exports =
 				q++;
 				return `**Question ${q}**: ${text}`;
 			}
-			const questions = ["What languages can you speak?", "Why should we hire you as an employee?", "What other experiences do you have in this type of field?", "How could you potentially benefit Discord Donuts?", "How old are you?", "What time zone are you located in?", "Approximately how many hours *could* you contribute to this position?", lastmsg];
+			const questionsold = ["What languages can you speak?", "Why should we hire you as an employee?", "What other experiences do you have in this type of field?", "How could you potentially benefit Discord Donuts?", "How old are you?", "What time zone are you located in?", "Approximately how many hours *could* you contribute to this position?", lastmsg];
 			const responses = [];
-			questions = questions.map(q => questionize(q));
-			questions.map(q => {
-				responses.push(getMessage(q));
+			const questions = questions.map(qu => questionize(qu));
+			questions.map(qe => {
+				responses.push(getMessage(qe));
 			});
 			message.channel.send("This is the end your our application. Thanks for applying! We will get back to you ASAP! Remember to join our server, our invite is https://discord.gg/WJgamKm. Remember that improper or incomplete applications will not be considered, and asking when you're gonna be hired or inquiring about your application in any way before three days of your submission date is against our rules!");
 			message.channel.send(responses.join("\n")); // for testing
