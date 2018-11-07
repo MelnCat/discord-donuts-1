@@ -25,7 +25,7 @@ module.exports =
 					.setDescription("Order cancelled!")
 					.setThumbnail("https://mbtskoudsalg.com/images/trash-can-emoji-png-5.png");
 
-			awaitmessage.channel.send(embed);
+			await message.channel.send(embed);
 
 			messageAlert(client, ":cry: An order has been cancelled, there are now [orderCount] orders left");
 		});
