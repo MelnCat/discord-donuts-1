@@ -2,7 +2,7 @@ const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 const { channels: { applicationChannel } } = require("../../auth");
 const { everyone } = require("../../permissions");
-const { Applications } = require("./sequelize");
+const { Applications } = require("../../sequelize");
 
 module.exports =
 	new DDCommand()
