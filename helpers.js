@@ -46,7 +46,7 @@ const generateID = length => {
 /* eslint-disable indent, no-mixed-spaces-and-tabs */
 
 const status = code => {
-			 if (code === 0) return "Unclaimed";
+			if (code === 0) return "Unclaimed";
 	else if (code === 1) return "Claimed";
 	else if (code === 2) return "Cooking";
 	else if (code === 3) return "Cooked";

@@ -16,7 +16,7 @@ module.exports =
 			async function getMessage(display) {
 				message.channel.send(display);
 				let v = await message.channel.awaitMessages(m => m.author.id === message.author.id, { max: 1, time: 17000 });
-				if (v.size === 0) return message.channel.send("You did not provide me with a reason so I cancelled this session.");
+				if (v.size === 0) return message.channel.send("You did not provide me with a value so I cancelled this session.");
 				let vv = v.first().content;
 				return vv;
 			}
@@ -27,20 +27,21 @@ module.exports =
 			}
 			const questionsold = ["What languages can you speak?", "Why should we hire you as an employee?", "What other experiences do you have in this type of field?", "How could you potentially benefit Discord Donuts?", "How old are you?", "What time zone are you located in?", "Approximately how many hours *could* you contribute to this position?", lastmsg];
 			const responses = [];
-			const questions = questionsold.map(qu => questionize(qu));
+			client.questions = questionsold.map(qu => questionize(qu));
 			const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")
 					.setTitle(`New Application from ${message.author.tag}!`)
 					.setThumbnail("https://cdn.discordapp.com/attachments/491045091801300992/509907961272074270/news.png");
-			for (let question of questions) {
+			for (let question of client.questions) {
 				let resp = await getMessage(question);
 				responses.push(resp);
-				if (question.length > 255) question = question.substr(0, 254);
-				if (question.length > 255) resp = resp.substr(0, 254);
+				if (question.length > 255) question = `${question.substr(0, 251)}...`;
+				if (question.length > 255) resp = `${resp.substr(0, 251)}...`;
 				embed.addField(question, resp);
 			}
 			message.channel.send("This is the end your our application. Thanks for applying! We will get back to you ASAP! Remember to join our server, our invite is https://discord.gg/WJgamKm. Remember that improper or incomplete applications will not be considered, and asking when you're gonna be hired or inquiring about your application in any way before three days of your submission date is against our rules!");
-			await Applications.create({ id: message.author.id, application: JSON.stringify(responses) });
+			message.author.send(`Thank you for applying. Your application code is \`${message.author.id.substr(0, 5)}\`. Thank you!`);
+			await Applications.create({ id: message.author.id, application: JSON.stringify(responses), code: message.author.id.substr(0, 5) });
 			await client.channels.get(applicationChannel).send(embed);
 		});

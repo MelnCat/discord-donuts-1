@@ -122,6 +122,10 @@ const Applications = sequelize.define("applications", {
 		type: Sequelize.TEXT,
 		allowNull: false,
 	},
+	code: {
+		type: Sequelize.TEXT,
+		allowNull: false,
+	}
 });
 const Blacklist = sequelize.define("blacklist", {
 	id: {

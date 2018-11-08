@@ -7,10 +7,10 @@ const Discord = require("discord.js");
  */
 class DDEmbed extends Discord.MessageEmbed {
 	/**
-   * Create a DDEmbed
-   * @param { Discord.Client } client The bot client. Used for getting the bots username/avatar
-   * @param { Discord.MessageEmbed | Discord.MessageEmbedOptions } [data] Any extra data, required by Discord.MessageEmbed
-   */
+	* Create a DDEmbed
+	* @param { Discord.Client } client The bot client. Used for getting the bots username/avatar
+	* @param { Discord.MessageEmbed | Discord.MessageEmbedOptions } [data] Any extra data, required by Discord.MessageEmbed
+	*/
 	constructor(client, data) {
 		if (!client) throw new TypeError("Please provide a valid client instance");
 
@@ -22,11 +22,11 @@ class DDEmbed extends Discord.MessageEmbed {
 	}
 
 	/**
-	 * Sets the style of the embed.
-	 * @param { String } style The style of embed. Either "colorful" or "white".
-	 * @returns { DDEmbed } The embed after being modified
-	 * @throws { TypeError } If you provide an unrecognised style
-	 */
+	* Sets the style of the embed.
+	* @param { String } style The style of embed. Either "colorful" or "white".
+	* @returns { DDEmbed } The embed after being modified
+	* @throws { TypeError } If you provide an unrecognised style
+	*/
 	setStyle(style) {
 		if (style === "colorful") {
 			this.setColor(Math.floor(Math.random() * 16777216));
