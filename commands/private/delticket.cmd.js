@@ -5,12 +5,12 @@ const { Orders, Op } = require("../../sequelize");
 const { canCook } = require("../../permissions");
 
 module.exports =
-   new DDCommand()
-	  .setName("delticket")
-	  .addAlias("delorder")
-	  .setDescription("Delete tickets.")
-	  .setPermissions(canCook)
-	  .setFunction(async(message, args, client) => {
+	 new DDCommand()
+		.setName("delticket")
+		.addAlias("delorder")
+		.setDescription("Delete tickets.")
+		.setPermissions(canCook)
+		.setFunction(async(message, args, client) => {
 		 let reason = args[1];
 		 if (!args[0]) return message.channel.send("<:no:501906738224562177> **Please provide a valid ID.**");
 		 if (!args[0].match(/^0[a-zA-Z0-9]{6}/)) return message.channel.send("<:no:501906738224562177> **That isn't a valid ID, please try again.**");
@@ -24,4 +24,4 @@ module.exports =
 
 		 await order.update({ status: 5 });
 		 await message.channel.send(`<:yes:501906738119835649> **Order \`${args[0]}\` was successfully deleted!**`);
-	  });
+		});

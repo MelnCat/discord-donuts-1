@@ -7,10 +7,10 @@ const Discord = require("discord.js");
  */
 class DDEmbed extends Discord.MessageEmbed {
 	/**
-   * Create a DDEmbed
-   * @param { Discord.Client } client The bot client. Used for getting the bots username/avatar
-   * @param { Discord.MessageEmbed | Discord.MessageEmbedOptions } [data] Any extra data, required by Discord.MessageEmbed
-   */
+	 * Create a DDEmbed
+	 * @param { Discord.Client } client The bot client. Used for getting the bots username/avatar
+	 * @param { Discord.MessageEmbed | Discord.MessageEmbedOptions } [data] Any extra data, required by Discord.MessageEmbed
+	 */
 	constructor(client, data) {
 		if (!client) throw new TypeError("Please provide a valid client instance");
 
