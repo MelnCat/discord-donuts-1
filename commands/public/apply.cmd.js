@@ -36,8 +36,8 @@ module.exports =
 			for (let question of client.questions) {
 				let resp = await getMessage(question);
 				responses.push(resp);
-				if (question.length > 255) question = question.substr(0, 251)+"..."
-				if (question.length > 255) resp = resp.substr(0, 251)+"..."
+				if (question.length > 255) question = `${question.substr(0, 251)}...`;
+				if (question.length > 255) resp = `${resp.substr(0, 251)}...`;
 				embed.addField(question, resp);
 			}
 			message.channel.send("This is the end your our application. Thanks for applying! We will get back to you ASAP! Remember to join our server, our invite is https://discord.gg/WJgamKm. Remember that improper or incomplete applications will not be considered, and asking when you're gonna be hired or inquiring about your application in any way before three days of your submission date is against our rules!");
