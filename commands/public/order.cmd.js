@@ -9,36 +9,36 @@ const { everyone } = require("../../permissions");
 
 module.exports =
    new DDCommand()
-      .setName("order")
-      .setDescription("Order your donuts here.")
-      .setPermissions(everyone)
-      .setFunction(async(message, args, client) => {
-         if (!args[0]) return message.channel.send("<:no:501906738224562177> **Please provide a description of your order.**");
-         if (await Orders.count({ where: { user: message.author.id, status: { [Op.lt]: 4 } } })) return message.channel.send("<:no:501906738224562177> **Failed to create order; you already have an order created, please try again later.**");
+	  .setName("order")
+	  .setDescription("Order your donuts here.")
+	  .setPermissions(everyone)
+	  .setFunction(async(message, args, client) => {
+		 if (!args[0]) return message.channel.send("<:no:501906738224562177> **Please provide a description of your order.**");
+		 if (await Orders.count({ where: { user: message.author.id, status: { [Op.lt]: 4 } } })) return message.channel.send("<:no:501906738224562177> **Failed to create order; you already have an order created, please try again later.**");
 
-         let generatedID;
-         do generatedID = generateID(6);
-         while (await Orders.findById(generatedID));
+		 let generatedID;
+		 do generatedID = generateID(6);
+		 while (await Orders.findById(generatedID));
 
-         let description = args.join(" ").trim();
-         if (description.length > 40) return message.channel.send("<:no:501906738224562177> **Your donut description cannot exceed a character count of 40, please try again.**");
-         if (!description.toLowerCase().includes("donut")) description += " donut";
+		 let description = args.join(" ").trim();
+		 if (description.length > 40) return message.channel.send("<:no:501906738224562177> **Your donut description cannot exceed a character count of 40, please try again.**");
+		 if (!description.toLowerCase().includes("donut")) description += " donut";
 
-         await Orders.create({
-            id: generatedID,
-            user: message.author.id,
-            description: description,
-            channel: message.channel.id,
-            status: 0,
-            claimer: null,
-            url: null,
-            ticketMessageID: null,
-            timeLeft: 20,
-            cookTimeLeft: 3,
-            deliveryTimeLeft: 3
-         });
+		 await Orders.create({
+			id: generatedID,
+			user: message.author.id,
+			description: description,
+			channel: message.channel.id,
+			status: 0,
+			claimer: null,
+			url: null,
+			ticketMessageID: null,
+			timeLeft: 20,
+			cookTimeLeft: 3,
+			deliveryTimeLeft: 3
+		 });
 
-         await message.channel.send(`<:yes:501906738119835649> **Successfully placed your order for \`${description}\`. Your ticket ID is \`${generatedID}\`, please wait patiently for your order to be processed.**`);
+		 await message.channel.send(`<:yes:501906738119835649> **Successfully placed your order for \`${description}\`. Your ticket ID is \`${generatedID}\`, please wait patiently for your order to be processed.**`);
 
-         messageAlert(client, "An order has been placed, there are now [orderCount] order(s) to claim");
-      });
+		 messageAlert(client, "An order has been placed, there are now [orderCount] order(s) to claim");
+	  });
