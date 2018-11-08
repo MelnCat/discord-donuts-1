@@ -11,7 +11,8 @@
 		"feedbackChannel": "",
 		"tipChannel": "",
 		"testChannel": "",
-		"guildLogChannel": ""
+		"guildLogChannel": "",
+		"applicationChannel": ""
 	},
 	"db": {
 		"dbHostname": "",

@@ -170,4 +170,5 @@ module.exports = {
 	Prefixes,
 	PrecookedDonuts,
 	WorkerInfo,
+	Applications,
 };
