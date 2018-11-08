@@ -33,9 +33,11 @@ module.exports =
 					.setStyle("colorful")
 					.setTitle(`New Application from ${message.author.tag}!`)
 					.setThumbnail("https://cdn.discordapp.com/attachments/491045091801300992/509907961272074270/news.png");
-			for (const question of questions) {
-				const resp = await getMessage(question);
+			for (let question of questions) {
+				let resp = await getMessage(question);
 				responses.push(resp);
+				if (question.length > 255) question = question.substr(0, 254);
+				if (question.length > 255) resp = resp.substr(0, 254);
 				embed.addField(question, resp);
 			}
 			message.channel.send("This is the end your our application. Thanks for applying! We will get back to you ASAP! Remember to join our server, our invite is https://discord.gg/WJgamKm. Remember that improper or incomplete applications will not be considered, and asking when you're gonna be hired or inquiring about your application in any way before three days of your submission date is against our rules!");
