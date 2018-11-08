@@ -22,11 +22,13 @@ module.exports =
 				return reactions.indexOf(col.first().emoji.name);
 			}
 			if (!await Applications.findById(message.author.id)) return message.channel.send("<:no:501906738224562177> You do not have an application.");
-			const questions = client.questions.splice(0, client.questions.length - 1);
+            let qu = client.questions
+            qu.splice(0, client.questions.length - 1);
+            const questions = qu
 			const app = await Applications.findById(message.author.id);
 			if (!args[0]) return message.channel.send("Please specify which value you want to change. Example: `d!editapply 5 15`");
 			if (!args[1]) return message.channel.send("Please specify what you want to change the value into. Example: `d!editapply 5 15`");
-			const content = args.splice(1, args.length).join(" ");
+			const content = args.join(" ")
 			const apparray = JSON.parse(app.application);
 			const change = stringSimilarity.findBestMatch(content, questions).bestMatch.target;
 			const index = questions.indexOf(change);
