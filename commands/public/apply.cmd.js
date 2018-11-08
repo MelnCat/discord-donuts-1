@@ -16,7 +16,7 @@ module.exports =
 			async function getMessage(display) {
 				message.channel.send(display);
 				let v = await message.channel.awaitMessages(m => m.author.id === message.author.id, { max: 1, time: 17000 });
-				if (v.size === 0) return message.channel.send("You did not provide me with a reason so I cancelled this session.");
+				if (v.size === 0) return message.channel.send("You did not provide me with a value so I cancelled this session.");
 				let vv = v.first().content;
 				return vv;
 			}
@@ -27,13 +27,13 @@ module.exports =
 			}
 			const questionsold = ["What languages can you speak?", "Why should we hire you as an employee?", "What other experiences do you have in this type of field?", "How could you potentially benefit Discord Donuts?", "How old are you?", "What time zone are you located in?", "Approximately how many hours *could* you contribute to this position?", lastmsg];
 			const responses = [];
-			const questions = questionsold.map(qu => questionize(qu));
+			client.questions = questionsold.map(qu => questionize(qu));
 			const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")
 					.setTitle(`New Application from ${message.author.tag}!`)
 					.setThumbnail("https://cdn.discordapp.com/attachments/491045091801300992/509907961272074270/news.png");
-			for (let question of questions) {
+			for (let question of client.questions) {
 				let resp = await getMessage(question);
 				responses.push(resp);
 				if (question.length > 255) question = question.substr(0, 251)+"..."
