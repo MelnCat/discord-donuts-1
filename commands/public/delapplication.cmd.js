@@ -12,10 +12,17 @@ module.exports =
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
 			if (!await Applications.findById(message.author.id)) return message.channel.send("<:no:501906738224562177> You do not have an application.");
+<<<<<<< HEAD
 			const questions = client.questions.splice(0, client.questions.length-1)
 			const app = await Applications.findById(message.author.id)
 			await app.destroy()
 			const embed =
+=======
+            const questions = client.questions.splice(0, client.questions.length - 1);
+            const app = await Applications.findById(message.author.id);
+            await app.destroy();
+            const embed =
+>>>>>>> 4b310f29fd04854f483bfd36e33992d3f87147ab
 				new DDEmbed(client)
 					.setStyle("colorful")
 					.setTitle(`Deleted Application from ${message.author.tag}!`)
