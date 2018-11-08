@@ -34,7 +34,7 @@ module.exports =
 			if (sel === 0) return message.channel.send("Ok, I cancelled this session!");
 			let updated = apparray;
 			updated[index] = content;
-			app.update({application: JSON.stringify(updated)});
+			app.update({ application: JSON.stringify(updated) });
 			const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")
@@ -43,5 +43,5 @@ module.exports =
 					.setDescription("They have edited their application.")
 					.addField(change, content);
             await client.channels.get(applicationChannel).send(embed);
-            message.channel.send(`You have changed question "${change}"'s answer to "${content}"!`)
+            message.channel.send(`You have changed question "${change}"'s answer to "${content}"!`);
 		});
