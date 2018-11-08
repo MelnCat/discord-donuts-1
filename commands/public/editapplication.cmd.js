@@ -34,7 +34,7 @@ module.exports =
 			if (sel === 0) return message.channel.send("Ok, I cancelled this session!")
 			let updated = apparray
 			updated[index] = content
-			app.update({application: updated})
+			app.update({application: JSON.stringify(updated)})
 			const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")
@@ -42,5 +42,6 @@ module.exports =
 					.setThumbnail("https://cdn.discordapp.com/attachments/491045091801300992/509907961272074270/news.png")
 					.setDescription("They have edited their application.")
 					.addField(change, content);
-			await client.channels.get(applicationChannel).send(embed);
+            await client.channels.get(applicationChannel).send(embed);
+            message.channel.send(`You have changed question "${change}"'s answer to "${content}"!`)
 		});
