@@ -11,11 +11,14 @@ module.exports =
 		.setDescription("Checks the overall leaderboard..")
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
+			function ret(a) {
+				return a;
+			}
 			let sel = args[2] ? args[2] : "all";
 			if (args[2] && !["all", "cooks", "delivers"].includes(sel)) return message.channel.send("The filter must be 'cooks', 'delivers' or 'all'.");
-			let order = { "all": ['id', 'DESC'], "cooks": [['cooks', 'DESC']], "delivers": [['delivers', 'DESC']] };
+			let order = { "all": [['cooks', 'DESC'], ['delivers', 'DESC']], "cooks": [['cooks', 'DESC']], "delivers": [['delivers', 'DESC']] };
 			let start = !isNaN(args[0]) ? Number(args[0]) - 1 : 0;
-			const ordered = await WorkerInfo.findAll({ order: [order] });
+			const ordered = await WorkerInfo.findAll({ order: ret(...order) });
 			const mapped = ordered.map(x => [x.cooks, x.delivers, client.users.get(x.id) ? client.users.get(x.id).tag : x.username]);
 			let end = !isNaN(args[1]) ? Number(args[1]) - 1 : ordered.length < 10 ? ordered.length : 9;
 			if (start > end || start > ordered.length || end > ordered.length) {

@@ -1,7 +1,7 @@
 const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 const { channels: { applicationChannel } } = require("../../auth");
-const { everyone } = require("../../permissions");
+const { everyone, canCook } = require("../../permissions");
 const { Applications } = require("../../sequelize");
 
 module.exports =
@@ -10,13 +10,14 @@ module.exports =
 		.setDescription("Apply for employee!")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
+			if (canCook(message.member)) return message.channel.send("You are already a worker!");
 			if (await Applications.findById(message.author.id)) return message.channel.send("<:no:501906738224562177> You already have an application.");
 			const lastmsg = "Last but not least, please ensure that you comply with the following:\nDo you recognize by penalty of perjury that all information presented is 100% genuine, that you stated the truth and nothing but the truth, and that we can hold you accountable? Do you acknowledge that you have read your obligations accurately and thoroughly and will be held responsible for your efforts, notwithstanding of the situation and/or outcome? Do you agree already be following, to continue following and sustain Discord's Terms of Service (found at https://discordapp.com/tos), Community Guidelines (found at https://discordapp.com/guidelines) and the rules of our Discord server; and are amenable to face the consequences to the highest extent if you are affirmed guilty of unlawful actions, per these three documents?";
 			message.channel.send("Thank you for applying! We will take you through a couple of questions. Please read through the whole application clearly and answer all the questions to the best of your ability. Take your time.\n**PREREQUISITES**:\nPlease be in our server, not be banned from our server and/or blacklisted from the bot in any previous or current occasion (with exceptions) and have a clean/somewhat clean record.");
 			async function getMessage(display) {
-				message.channel.send(display);
+				message.author.send(display);
 				let v = await message.channel.awaitMessages(m => m.author.id === message.author.id, { max: 1, time: 17000 });
-				if (v.size === 0) return message.channel.send("You did not provide me with a value so I cancelled this session.");
+				if (v.size === 0) return message.author.send("You did not provide me with a value so I cancelled this session.");
 				let vv = v.first().content;
 				return vv;
 			}
@@ -32,6 +33,7 @@ module.exports =
 				new DDEmbed(client)
 					.setStyle("colorful")
 					.setTitle(`New Application from ${message.author.tag}!`)
+					.setDescription(`Application code: \`${message.author.id.substr(8, 15)}\``)
 					.setThumbnail("https://cdn.discordapp.com/attachments/491045091801300992/509907961272074270/news.png");
 			for (let question of client.questions) {
 				let resp = await getMessage(question);
