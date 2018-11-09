@@ -37,7 +37,7 @@ client.on("guildMemberUpdate", async(memberold, member) => {
 					.setStyle("white")
 					.setTitle("Cancel")
 					.setDescription(`New worker! ${member.user.tag}`);
-					client.channels.get(kitchenChannel).send(embed);
+		client.channels.get(kitchenChannel).send(embed);
 	}
 });
 client.once("ready", async() => {
