@@ -61,11 +61,11 @@ const WorkerInfo = sequelize.define("workerinfo", {
 		unique: true,
 		primaryKey: true,
 		allowNull: false,
-	},/*
+	},
 	username: {
 		type: Sequelize.TEXT,
 		allowNull: false,
-	},*/
+	},
 	cooks: {
 		type: Sequelize.INTEGER,
 		allowNull: false,
