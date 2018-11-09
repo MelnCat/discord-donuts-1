@@ -10,7 +10,7 @@ const glob = require("glob");
 const DDClient = require("./structures/DDClient.struct");
 
 const { Applications, Orders, Blacklist, WorkerInfo, PrecookedDonuts, Op, Prefixes } = require("./sequelize");
-const { token, prefix, channels: { ticketChannel, guildLogChannel, testChannel } } = require("./auth.json");
+const { employeeRole, token, prefix, channels: { kitchenChannel, ticketChannel, guildLogChannel, testChannel } } = require("./auth.json");
 const { generateTicket, timeout, updateWebsites, messageAlert, checkOrders } = require("./helpers");
 
 const DDEmbed = require("./structures/DDEmbed.struct");
@@ -29,7 +29,17 @@ Orders.afterUpdate(async(order, options) => {
 
 	(await client.channels.get(ticketChannel).messages.fetch(order.ticketMessageID)).edit(generateTicket(client, order));
 });
-
+client.on("guildMemberUpdate", async(memberold, member) => {
+	if (member.guild.id !== client.channels.get(ticketChannel).guild.id) return
+	if (!memberold.roles.has(employeeRole) && member.roles.has(employeeRole)) {
+		const embed =
+				new DDEmbed(client)
+					.setStyle("white")
+					.setTitle("Cancel")
+					.setDescription("New worker! "+member.user.tag)		
+					client.channels.get(kitchenChannel).send(embed)
+	}
+});
 client.once("ready", async() => {
 	console.log(`[Discord] Connected! (ID: ${client.user.id})`);
 	updateWebsites(client);
