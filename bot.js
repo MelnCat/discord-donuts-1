@@ -37,7 +37,7 @@ client.on("guildMemberUpdate", async(memberold, member) => {
 					.setStyle("white")
 					.setTitle("Cancel")
 					.setDescription(`New worker! ${member.user.tag}`);
-					client.channels.get(kitchenChannel).send(embed);
+		client.channels.get(kitchenChannel).send(embed);
 	}
 });
 client.once("ready", async() => {
@@ -71,7 +71,7 @@ ${commit}\`\`\`
 });
 
 client.on("message", async message => {
-	if (message.channel.type == "dm" && !message.author.bot) return message.channel.send("Sorry! Commands only work in servers.");
+	if (message.channel.type == "dm" && !message.author.bot && message.content.startsWith(prefix)) return message.channel.send("Sorry! Commands only work in servers.");
 	const gprefix = await Prefixes.findById(message.guild.id);
 	let messagePrefix;
 	let gprefixstr;
