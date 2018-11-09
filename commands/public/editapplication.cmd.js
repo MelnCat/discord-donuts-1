@@ -30,7 +30,8 @@ module.exports =
 			if (!args[1]) return message.channel.send("Please specify what you want to change the value into. Example: `d!editapply 5 15`");
 			const content = args.join(" ");
 			const apparray = JSON.parse(app.application);
-			const change = stringSimilarity.findBestMatch(content, questions).bestMatch.target;
+			const change = questions[Number(content)];
+			if (!change) return message.channel.send("Please specify a valid number!");
 			const index = questions.indexOf(change);
 			const sel = await getReactions(`Do you want to change "${change}" to "${content}"?`, ["❌", "✅"]);
 			if (sel === 0) return message.channel.send("Ok, I cancelled this session!");
