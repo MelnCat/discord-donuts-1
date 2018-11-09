@@ -13,7 +13,7 @@ module.exports =
 		.setFunction(async(message, args, client) => {
 			let sel = args[2]?args[2]:"all"
 			if (args[2] && !["all", "cooks", "delivers"].includes(sel)) return message.channel.send("The filter must be 'cooks', 'delivers' or 'all'.")
-			let order = {"all": [['cooks', 'DESC'], ['delivers', 'DESC']], "cooks": [['cooks', 'DESC']], "delivers": [['delivers', 'DESC']]}[sel]
+			let order = {"all": [["cooks", "DESC"], ["delivers", "DESC"]], "cooks": [["cooks", "DESC"]], "delivers": [["delivers", "DESC"]]}[sel]
 			let start = !isNaN(args[0])?Number(args[0])-1:0
 			const ordered = await WorkerInfo.findAll({order: order});
 			const mapped = ordered.map(x=>[x.cooks, x.delivers, client.users.get(x.id)?client.users.get(x.id).tag:x.username]);
