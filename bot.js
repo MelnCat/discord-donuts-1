@@ -30,14 +30,14 @@ Orders.afterUpdate(async(order, options) => {
 	(await client.channels.get(ticketChannel).messages.fetch(order.ticketMessageID)).edit(generateTicket(client, order));
 });
 client.on("guildMemberUpdate", async(memberold, member) => {
-	if (member.guild.id !== client.channels.get(ticketChannel).guild.id) return
+	if (member.guild.id !== client.channels.get(ticketChannel).guild.id) return;
 	if (!memberold.roles.has(employeeRole) && member.roles.has(employeeRole)) {
 		const embed =
 				new DDEmbed(client)
 					.setStyle("white")
 					.setTitle("Cancel")
-					.setDescription("New worker! "+member.user.tag)		
-					client.channels.get(kitchenChannel).send(embed)
+					.setDescription(`New worker! ${member.user.tag}`);
+					client.channels.get(kitchenChannel).send(embed);
 	}
 });
 client.once("ready", async() => {
