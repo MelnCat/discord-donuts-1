@@ -17,7 +17,7 @@ module.exports =
 			let order = {"all": "cooks + delivers", "cooks": "cooks", "delivers": "delivers"}[sel]
 			let start = !isNaN(args[0])?Number(args[0])-1:0
 			//const ordered = await WorkerInfo.findAll({order: order});
-			const ordered = await sequelize.query("SELECT * FROM `workerinfos` ORDER BY "+order+" DESC", { type: sequelize.QueryTypes.SELECT});
+			const ordered = await sequelize.query("SELECT * FROM `workerinfos` ORDER BY "+order+" DESC", { type: sequelize.QueryTypes.SELECT, model: WorkerInfo});
 			const mapped = ordered.map(x=>[x.cooks, x.delivers, client.users.get(x.id)?client.users.get(x.id).tag:x.username]);
 			let end =  !isNaN(args[1])?Number(args[1]):ordered.length<10?ordered.length:9
 			if (start > end || start > ordered.length || end > ordered.length ) {
