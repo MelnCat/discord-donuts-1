@@ -12,7 +12,20 @@ module.exports =
 			let embed = new DDEmbed(client)
 				.setStyle("colorful");
 			let added = [];
-			console.log(client.commands.array().filter((val, index, arr) => arr.indexOf(val) === index).map(x => x.name));
+			const uniqueCommands = client.commands.array()
+				.filter((val, index, arr) => arr.indexOf(val) === index)
+
+			chunk(25)(uniqueCommands).forEach(section => {
+				const embed = new DDEmbed(client);
+				section.forEach(command => {
+					if (!(command instaceof DDCommand)) return;
+					if (!command.getPermissions(message.member)) return;
+
+					embed.addField(command.getName(), command.getDescription());
+				});
+				message.author.send(embed);
+			});
+
 			/*
 			const chunked = chunk(25)(client.commands.array());
 			chunked.forEach(section => {
