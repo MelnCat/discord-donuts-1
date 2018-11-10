@@ -1,7 +1,7 @@
 const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 
-const { Orders, WorkerInfo } = require("../../sequelize");
+const { Orders, WorkerInfo, MonthlyInfo } = require("../../sequelize");
 const { canCook } = require("../../permissions");
 const { channels: { deliveryChannel } } = require("../../auth.json");
 
@@ -52,6 +52,9 @@ module.exports =
 			await worker.update({ delivers: worker.delivers + 1, lastDeliver: Date.now() });
 			let milestones = { 100: "500818730788585482", 250: "500818668972933140", 500: "500818727756103680", 750: "500818673720754178", 1000: "500818665860759563" };
 			const member = client.guilds.get("294619824842080257").members.get(worker.id);
+			const monthlyraw = await MonthlyInfo.findOrCreate({ where: { id: message.author.id }, defaults: { id: message.author.id, cooks: 0, delivers: 0, username: message.author.tag } });
+			const monthly = monthlyraw[0];
+			await monthly.update({ delivers: monthly.delivers + 1 });
 			for (let i = 0; i < Object.keys(milestones).length; i++) {
 				let m = Object.keys(milestones)[i];
 				if (worker.cooks + worker.delivers >= m) {
