@@ -12,10 +12,10 @@ module.exports =
 			const uniqueCommands = client.commands.array()
 				.filter((val, index, arr) => arr.indexOf(val) === index);
 
-			chunk(25)(uniqueCommands).forEach(async (section, index, arr) => {
+			chunk(25)(uniqueCommands).forEach(async(section, index, arr) => {
 				const embed = new DDEmbed(client)
 					.setStyle("colorful")
-					.setTitle(`Discord Donuts Commands (Page ${index+1} of ${arr.length}`)
+					.setTitle(`Discord Donuts Commands (Page ${index + 1} of ${arr.length}`);
 				section.forEach(command => {
 					if (!(command instanceof DDCommand)) return;
 					if (!command.getPermissions(message.member)) return;
