@@ -30,7 +30,7 @@ module.exports =
 					.setStyle("colorful")
 					.setTitle(`The overall worker leaderboard.`)
 					.setDescription(`Showing ${start + 1} to ${end}. Filter: ${sel}.`)
-					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
+					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f4ca.png");
 			sliced.forEach(v => {
 				const i = sliced.indexOf(v);
 				const places = { 0: "🥇", 1: "🥈", 2: "🥉" };

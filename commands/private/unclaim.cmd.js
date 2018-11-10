@@ -26,7 +26,7 @@ module.exports =
 					.setStyle("white")
 					.setTitle("Unclaim")
 					.setDescription("You have unclaimed the order.")
-					.setThumbnail("https://mbtskoudsalg.com/images/trash-can-emoji-png-5.png");
+					.setThumbnail("https://images.emojiterra.com/twitter/512px/2705.png");
 
 			message.channel.send(embed);
 		});

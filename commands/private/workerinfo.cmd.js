@@ -35,6 +35,6 @@ module.exports =
 					.setDescription(`The stats of ${user.tag}.`)
 					.addField("Cooks", `${worker.cooks} cook${worker.cooks !== 1 ? "s" : ""}`)
 					.addField("Delivers", `${worker.delivers} deliver${worker.delivers !== 1 ? "s" : ""}`)
-					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
+					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f4ca.png");
 			message.channel.send(embed);
 		});
