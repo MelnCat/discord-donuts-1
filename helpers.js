@@ -170,7 +170,7 @@ const checkOrders = client => {
 };
 
 const chunk = size => arr => // eslint-disable-line array-body-style
-	 arr.reduceRight((acc, x, index) => {
+	return arr.reduceRight((acc, x, index) => {
 		if ((index + 1) % size === 0) acc.unshift([]);
 		acc[0].push(x);
 		return acc;

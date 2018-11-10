@@ -18,7 +18,7 @@ module.exports =
 					if (!(command instanceof DDCommand)) return;
 					if (!command.getPermissions(message.member)) return;
 
-					embed.addField(`command.getName()${command.getAliases().map(x => `, ${x}`)}`, command.getDescription());
+					embed.addField(`${command.getName()}${command.getAliases().map(x => `, ${x}`)}`, command.getDescription());
 				});
 				await message.author.send(embed);
 			});
