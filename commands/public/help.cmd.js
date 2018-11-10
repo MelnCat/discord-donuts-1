@@ -9,9 +9,6 @@ module.exports =
 		.setDescription("Shows help about the bot")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
-			let embed = new DDEmbed(client)
-				.setStyle("colorful");
-			let added = [];
 			const uniqueCommands = client.commands.array()
 				.filter((val, index, arr) => arr.indexOf(val) === index);
 
@@ -21,37 +18,10 @@ module.exports =
 					if (!(command instanceof DDCommand)) return;
 					if (!command.getPermissions(message.member)) return;
 
-					embed.addField(command.getName(), command.getDescription());
+					embed.addField(`command.getName()${command.getAliases().map(x => `, ${x}`)}`, command.getDescription());
 				});
-				message.author.send(embed);
+				await message.author.send(embed);
 			});
 
-			/*
-			const chunked = chunk(25)(client.commands.array());
-			chunked.forEach(section => {
-				const embed = new DDEmbed(client);
-				section.forEach
-			})
-			client.commands.forEach(command => {
-				if (!(command instanceof DDCommand)) return;
-				if (!command.getPermissions(message.member)) return;
-				try {
-					if (!added.includes(command.getName())) {
-						added.push(command.getName());
-						embed.addField(command.getName(), command.getDescription());
-					}
-				} catch (err) {
-					if (!(err instanceof RangeError)) throw err;
-
-					message.author.send(embed);
-
-					embed = new DDEmbed(client)
-						.setStyle("colorful");
-					embed.addField(command.getName(), command.getDescription());
-				}
-			});
-
-			await message.author.send(embed);
-			await message.reply("Check your DM's for my command list");
-			*/
+			await message.author.send("Check your DM's for my command list")
 		});
