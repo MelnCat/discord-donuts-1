@@ -13,7 +13,7 @@ module.exports =
 				.setStyle("colorful");
 			let added = [];
 			const uniqueCommands = client.commands.array()
-				.filter((val, index, arr) => arr.indexOf(val) === index)
+				.filter((val, index, arr) => arr.indexOf(val) === index);
 
 			chunk(25)(uniqueCommands).forEach(section => {
 				const embed = new DDEmbed(client);
