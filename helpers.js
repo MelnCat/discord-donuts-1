@@ -104,7 +104,8 @@ const messageAlert = async(client, text, channel = kitchenChannel) => {
 	client.channels.get(channel).send(embed);
 };
 const applicationAlert = async(client, text, channel = applicationChannel) => {
-	text = text.replace("[applicationCount]", await Applications.count({ where: {} }));
+	const apps = await Applications.findAll({ where: {} });
+	text = text.replace("[applicationCount]", apps.length);
 	const embed =
 		new DDEmbed(client)
 			.setStyle("colorful")
@@ -113,7 +114,6 @@ const applicationAlert = async(client, text, channel = applicationChannel) => {
 			.setThumbnail("https://cdn.discordapp.com/attachments/491045091801300992/509907961272074270/news.png");
 	if (await Applications.count({ where: {} }) !== 0) {
 		embed.addField("LIST OF APPLICATIONS", empty);
-		const apps = await Applications.findAll({ where: {} });
 		apps.map(app => {
 			const i = apps.indexOf(app);
 			const tag = client.users.get(app.id)?client.users.get(app.id).tag:"Unknown User"
