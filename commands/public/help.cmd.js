@@ -18,10 +18,10 @@ module.exports =
 					if (!(command instanceof DDCommand)) return;
 					if (!command.getPermissions(message.member)) return;
 
-					embed.addField(`${command.getName()}${command.getAliases().map(x => `, ${x}`)}`, command.getDescription());
+					embed.addField(`${command.getName()}${command.getAliases().map(x => `, ${x}`).join()}`, command.getDescription());
 				});
 				await message.author.send(embed);
 			});
 
-			await message.author.send("Check your DM's for my command list");
+			await message.channel.send("Check your DM's for my command list");
 		});
