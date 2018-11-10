@@ -169,9 +169,16 @@ const checkOrders = client => {
 	}, 60000);
 };
 
+const chunk = size => arr =>
+	arr.reduceRight((acc, x, index) => {
+		if ((index + 1) % size === 0) acc.unshift([]);
+		acc[0].push(x);
+		return acc;
+	}, [[]]);
+
 const isurl = str => {
 	try {
-		new URL(str);
+		new URL(str); // eslint-disable-line no-new
 		return true;
 	} catch (err) {
 		return false;
@@ -183,10 +190,11 @@ module.exports = {
 	status,
 	generateTicket,
 	timeout,
-calcUptime,
+	calcUptime,
 	autoDeliver,
 	updateWebsites,
 	messageAlert,
 	checkOrders,
-	isurl
+	isurl,
+	chunk
 };
