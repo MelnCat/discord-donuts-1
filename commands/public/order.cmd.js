@@ -25,17 +25,17 @@ module.exports =
 				if (!description.toLowerCase().includes("donut")) description += " donut";
 
 				await Orders.create({
-						id: generatedID,
-						user: message.author.id,
-						description: description,
-						channel: message.channel.id,
-						status: 0,
-						claimer: null,
-						url: null,
-						ticketMessageID: null,
-						timeLeft: 20,
-						cookTimeLeft: 3,
-						deliveryTimeLeft: 3
+					id: generatedID,
+					user: message.author.id,
+					description: description,
+					channel: message.channel.id,
+					status: 0,
+					claimer: null,
+					url: null,
+					ticketMessageID: null,
+					timeLeft: 20,
+					cookTimeLeft: 3,
+					deliveryTimeLeft: 3
 				});
 
 				await message.channel.send(`<:yes:501906738119835649> **Successfully placed your order for \`${description}\`. Your ticket ID is \`${generatedID}\`, please wait patiently for your order to be processed.**`);

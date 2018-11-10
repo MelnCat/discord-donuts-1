@@ -39,7 +39,7 @@ module.exports =
 				return message.channel.send("Your format is incorrect.");
 			}
 
-			if (tstart == "Invalid Date") return message.channel.send("Your format or date may be incorrect.");
+			if (tstart === "Invalid Date") return message.channel.send("Your format or date may be incorrect.");
 			message.channel.send(`Your starting date has been set to ${tstart}!`);
 			message.channel.send("When will your absence end? Format it as `MM-DD-YYYY` or reply with `unknown` for an unknown time.");
 			const timeends = await message.channel.awaitMessages(m => m.author.id === message.author.id, { max: 1, time: 15000 });
@@ -54,7 +54,7 @@ module.exports =
 				return message.channel.send("Your format is incorrect.");
 			}
 			if (tend === "Invalid Date") return message.channel.send("Your format or date may be incorrect.");
-				message.channel.send(`Your ending date has been set to ${tend}!`);
+			message.channel.send(`Your ending date has been set to ${tend}!`);
 			const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")

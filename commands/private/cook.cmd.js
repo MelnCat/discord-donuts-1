@@ -91,7 +91,7 @@ module.exports =
 				let m = Object.keys(milestones)[i];
 				if (worker.cooks + worker.delivers >= m) {
 					if (!member.roles.some(role => role.id === milestones[m])) {
-					member.roles.add(milestones[m]);
+						member.roles.add(milestones[m]);
 					}
 				}
 			}

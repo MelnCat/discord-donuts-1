@@ -14,7 +14,7 @@ module.exports =
 			let sel = args[2] ? args[2] : "all";
 			if (args[2] && !["all", "cooks", "delivers"].includes(sel)) return message.channel.send("The filter must be 'cooks', 'delivers' or 'all'.");
 			// let order = {"all": [[sequelize.fn('SUM', sequelize.col('cooks'), sequelize.col('delivers')), "DESC"]], "cooks": [["cooks", "DESC"]], "delivers": [["delivers", "DESC"]]}[sel]
-			let order = { "all": "cooks + delivers", "cooks": "cooks", "delivers": "delivers" }[sel];
+			let order = { all: "cooks + delivers", cooks: "cooks", delivers: "delivers" }[sel];
 			let start = !isNaN(args[0]) ? Number(args[0]) - 1 : 0;
 			// const ordered = await WorkerInfo.findAll({order: order});
 			const ordered = await sequelize.query(`SELECT * FROM \`workerinfos\` ORDER BY ${order} DESC`, { type: sequelize.QueryTypes.SELECT, model: WorkerInfo });

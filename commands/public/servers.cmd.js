@@ -9,7 +9,7 @@ module.exports =
 		.setDescription("Info about the bots servers and shards.")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
-		const embed =
+			const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")
 					.setDescription("Information on the number of servers of this bot.")

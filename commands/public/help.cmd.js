@@ -1,6 +1,7 @@
 const DDCommand = require("../../structures/DDCommand.struct");
 const DDEmbed = require("../../structures/DDEmbed.struct");
 const { everyone } = require("../../permissions.js");
+const { chunk } = require("../../helpers")
 
 module.exports =
 	new DDCommand()
@@ -11,6 +12,13 @@ module.exports =
 			let embed = new DDEmbed(client)
 				.setStyle("colorful");
 			let added = [];
+			console.log(client.commands.filter((val, index, arr) => arr.indexOf(val) === index));
+			/*
+			const chunked = chunk(25)(client.commands.array());
+			chunked.forEach(section => {
+				const embed = new DDEmbed(client);
+				section.forEach
+			})
 			client.commands.forEach(command => {
 				if (!(command instanceof DDCommand)) return;
 				if (!command.getPermissions(message.member)) return;
@@ -32,4 +40,5 @@ module.exports =
 
 			await message.author.send(embed);
 			await message.reply("Check your DM's for my command list");
+			*/
 		});
