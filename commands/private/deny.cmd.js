@@ -2,8 +2,9 @@ const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 
 const { isBotOwner, canCook } = require("../../permissions");
-const { employeeRole } = require("../../auth");
+const { employeeRole, channels: { applicationChannel } } = require("../../auth");
 const { Applications } = require("../../sequelize.js");
+const { applicationAlert } = require("../../helpers.js");
 module.exports =
 	new DDCommand()
 		.setName("deny")
@@ -21,4 +22,5 @@ module.exports =
 			member.send(`Your application has been denied for the following reason: \`${reason}\``);
 			app.destroy({ where: {}, truncate: {} });
 			message.channel.send("I have successfully denied the application!");
+			applicationAlert(client, `${message.author.tag} has denied an application. There are now [applicationCount] applications.`)
 		});

@@ -2,8 +2,8 @@ const snekfetch = require("node-superfetch");
 
 const DDEmbed = require("./structures/DDEmbed.struct");
 
-const { Orders, Op } = require("./sequelize");
-
+const { Orders, Op, Applications } = require("./sequelize");
+const empty = "​"
 const { employeeRole } = require("./auth.json");
 const {
 	channels: { kitchenChannel, deliveryChannel },
@@ -103,7 +103,23 @@ const messageAlert = async(client, text, channel = kitchenChannel) => {
 			.setThumbnail("https://images.emojiterra.com/twitter/512px/2757.png");
 	client.channels.get(channel).send(embed);
 };
-
+const applicationAlert = async(client, text, channel = applicationChannel) => {
+	text = text.replace("[applicationCount]", await Applications.count({ where: {} }));
+	const embed =
+		new DDEmbed(client)
+			.setStyle("colorful")
+			.setTitle("Application Alert")
+			.setDescription(text)
+			.setThumbnail("https://cdn.discordapp.com/attachments/491045091801300992/509907961272074270/news.png");
+	if (await Applications.count({ where: {} }) !== 0) {
+		embed.addField("LIST OF APPLICATIONS", empty);
+		const apps = await Applications.findAll({where: {}});
+		apps.map(app => {
+			embed.addField(client.users.get(app.id), `Code: \`${app.code}\``);
+		});
+	};
+	client.channels.get(channel).send(embed);
+};
 const updateWebsites = client => {
 	const serverCount = client.guilds.size;
 	console.log("[Discord] Updating websites...");
@@ -196,5 +212,6 @@ module.exports = {
 	messageAlert,
 	checkOrders,
 	isurl,
-	chunk
+	chunk,
+	applicationAlert
 };

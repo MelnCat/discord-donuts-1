@@ -20,4 +20,5 @@ module.exports =
 			member.send("Great news! Your application has been accepted. You are now a worker!");
 			app.destroy({ where: {}, truncate: {} });
 			message.channel.send("I have successfully accepted the application!");
+			applicationAlert(client, `${message.author.tag} has accepted an application. There are now [applicationCount] applications.`)
 		});
