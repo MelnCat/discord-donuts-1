@@ -15,7 +15,7 @@ module.exports =
 			chunk(25)(uniqueCommands).forEach(async(section, index, arr) => {
 				const embed = new DDEmbed(client)
 					.setStyle("colorful")
-					.setTitle(`Discord Donuts Commands (Page ${index + 1} of ${arr.length})`);
+					.setTitle(`Discord Donuts Commands (Page ${index + 1} of ${arr.length})`)
 					.setThumbnail("https://images.emojiterra.com/twitter/72px/2754.png")
 				section.forEach(command => {
 					if (!(command instanceof DDCommand)) return;
