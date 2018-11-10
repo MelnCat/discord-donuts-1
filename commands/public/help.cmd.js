@@ -1,7 +1,7 @@
 const DDCommand = require("../../structures/DDCommand.struct");
 const DDEmbed = require("../../structures/DDEmbed.struct");
 const { everyone } = require("../../permissions.js");
-const { chunk } = require("../../helpers")
+const { chunk } = require("../../helpers");
 
 module.exports =
 	new DDCommand()
