@@ -6,7 +6,7 @@ const { Orders, Op, Applications } = require("./sequelize");
 const empty = "​"
 const { employeeRole } = require("./auth.json");
 const {
-	channels: { kitchenChannel, deliveryChannel },
+	channels: { applicationChannel, kitchenChannel, deliveryChannel },
 	botlists: {
 		discordbotsToken,
 		discordpwToken,
