@@ -36,7 +36,7 @@ client.on("guildMemberUpdate", async(memberold, member) => {
 				new DDEmbed(client)
 					.setStyle("colorful")
 					.setTitle("New worker!")
-					.setAuthor(member.user.tag, member.user.avatarURL({size: 2048, format: "png"}))
+					.setAuthor(member.user.tag, member.user.avatarURL({ size: 2048, format: "png" }))
 					.setDescription(`Welcome, ${member.user.tag}! Congratulations on becoming a worker! Check <@#490934504115142678> for the basic commands and do d!help for other commands!`);
 		client.channels.get(kitchenChannel).send(embed);
 	}
@@ -45,7 +45,7 @@ client.on("guildMemberUpdate", async(memberold, member) => {
 				new DDEmbed(client)
 					.setStyle("white")
 					.setTitle("A worker has left...")
-					.setAuthor(memberold.user.tag, memberold.user.avatarURL({size: 2048, format: "png"}))
+					.setAuthor(memberold.user.tag, memberold.user.avatarURL({ size: 2048, format: "png" }))
 					.setDescription(`Goodbye, ${memberold.user.tag}. They are no longer a worker.`);
 		client.channels.get(kitchenChannel).send(embed);
 	}
