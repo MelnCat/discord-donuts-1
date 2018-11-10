@@ -1,7 +1,7 @@
 const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 
-const { Orders, WorkerInfo, PrecookedDonuts } = require("../../sequelize");
+const { Orders, WorkerInfo, MonthlyInfo, PrecookedDonuts } = require("../../sequelize");
 const { timeout, autoDeliver, messageAlert, isurl } = require("../../helpers");
 const { canCook } = require("../../permissions");
 const { channels: { kitchenChannel, deliveryChannel } } = require("../../auth.json");
@@ -85,6 +85,9 @@ module.exports =
 			const workerraw = await WorkerInfo.findOrCreate({ where: { id: message.author.id }, defaults: { id: message.author.id, cooks: 0, delivers: 0, lastCook: 0, lastDeliver: 0, username: message.author.tag } });
 			const worker = workerraw[0];
 			await worker.update({ cooks: worker.cooks + 1, lastCook: Date.now() });
+			const monthlyraw = await MonthlyInfo.findOrCreate({ where: { id: message.author.id }, defaults: { id: message.author.id, cooks: 0, delivers: 0, username: message.author.tag } });
+			const monthly = monthlyraw[0];
+			await monthly.update({ cooks: monthly.cooks + 1 });
 			let milestones = { 100: "500818730788585482", 250: "500818668972933140", 500: "500818727756103680", 750: "500818673720754178", 1000: "500818665860759563" };
 			const member = client.guilds.get("294619824842080257").members.get(worker.id);
 			for (let i = 0; i < Object.keys(milestones).length; i++) {

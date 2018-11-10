@@ -4,6 +4,7 @@ const DDCommand = require("../../structures/DDCommand.struct");
 const { isBotOwner, canCook } = require("../../permissions");
 const { employeeRole } = require("../../auth");
 const { Applications } = require("../../sequelize.js");
+const { applicationAlert } = require("../../helpers.js");
 module.exports =
 	new DDCommand()
 		.setName("accept")
@@ -20,4 +21,5 @@ module.exports =
 			member.send("Great news! Your application has been accepted. You are now a worker!");
 			app.destroy({ where: {}, truncate: {} });
 			message.channel.send("I have successfully accepted the application!");
+			applicationAlert(client, `${message.author.tag} has accepted an application. There are now [applicationCount] applications.`);
 		});

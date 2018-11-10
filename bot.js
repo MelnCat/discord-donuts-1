@@ -9,7 +9,7 @@ const glob = require("glob");
 
 const DDClient = require("./structures/DDClient.struct");
 
-const { Applications, Orders, Blacklist, WorkerInfo, PrecookedDonuts, Op, Prefixes } = require("./sequelize");
+const { MonthlyInfo, Applications, Orders, Blacklist, WorkerInfo, PrecookedDonuts, Op, Prefixes } = require("./sequelize");
 const { employeeRole, token, prefix, channels: { kitchenChannel, ticketChannel, guildLogChannel, testChannel } } = require("./auth.json");
 const { generateTicket, timeout, updateWebsites, messageAlert, checkOrders } = require("./helpers");
 
@@ -34,9 +34,19 @@ client.on("guildMemberUpdate", async(memberold, member) => {
 	if (!memberold.roles.has(employeeRole) && member.roles.has(employeeRole)) {
 		const embed =
 				new DDEmbed(client)
+					.setStyle("colorful")
+					.setTitle("New worker!")
+					.setAuthor(member.user.tag, member.user.avatarURL({size: 2048, format: "png"}))
+					.setDescription(`Welcome, ${member.user.tag}! Congratulations on becoming a worker! Check <@#490934504115142678> for the basic commands and do d!help for other commands!`);
+		client.channels.get(kitchenChannel).send(embed);
+	}
+	if (memberold.roles.has(employeeRole) && !member.roles.has(employeeRole)) {
+		const embed =
+				new DDEmbed(client)
 					.setStyle("white")
-					.setTitle("Cancel")
-					.setDescription(`New worker! ${member.user.tag}`);
+					.setTitle("A worker has left...")
+					.setAuthor(memberold.user.tag, memberold.user.avatarURL({size: 2048, format: "png"}))
+					.setDescription(`Goodbye, ${memberold.user.tag}. They are no longer a worker.`);
 		client.channels.get(kitchenChannel).send(embed);
 	}
 });
@@ -49,6 +59,7 @@ client.once("ready", async() => {
 	Prefixes.sync();
 	WorkerInfo.sync();
 	Applications.sync();
+	MonthlyInfo.sync();
 	// Activities
 	const activitiesList = ["Cooking Donuts...", "Donuts!", "Cookin' Donuts", "d!order Donuts", "<3 Donuts", "with Donuts"];
 
