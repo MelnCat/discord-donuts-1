@@ -15,7 +15,7 @@ module.exports =
 					.setStyle("colorful")
 					.setTitle("Uptime")
 					.setDescription(calcUptime(client.uptime))
-					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
+					.setThumbnail("https://images.emojiterra.com/twitter/512px/23f2.png");
 
 			await message.channel.send(embed);
 		});

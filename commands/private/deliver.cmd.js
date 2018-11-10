@@ -45,7 +45,7 @@ module.exports =
 					.setStyle("white")
 					.setTitle("Deliver")
 					.setDescription("I have DMed you the order information")
-					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f4e9.png");
+					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f4e8.png");
 			await message.reply(dmEmbed);
 			const workerraw = await WorkerInfo.findOrCreate({ where: { id: message.author.id }, defaults: { id: message.author.id, cooks: 0, delivers: 0, lastCook: 0, lastDeliver: 0, username: message.author.tag } });
 			const worker = workerraw[0];
