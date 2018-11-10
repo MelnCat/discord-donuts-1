@@ -115,7 +115,9 @@ const applicationAlert = async(client, text, channel = applicationChannel) => {
 		embed.addField("LIST OF APPLICATIONS", empty);
 		const apps = await Applications.findAll({ where: {} });
 		apps.map(app => {
-			embed.addField(client.users.get(app.id), `Code: \`${app.code}\``);
+			const i = apps.indexOf(app);
+			const tag = client.users.get(app.id)?client.users.get(app.id).tag:"Unknown User"
+			embed.addField(`[${i}] ${tag}`, `Application Code: \`${app.code}\``);
 		});
 	}
 	client.channels.get(channel).send(embed);
