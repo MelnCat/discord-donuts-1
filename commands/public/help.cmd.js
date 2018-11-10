@@ -12,7 +12,7 @@ module.exports =
 			let embed = new DDEmbed(client)
 				.setStyle("colorful");
 			let added = [];
-			console.log(client.commands.array().filter((val, index, arr) => arr.indexOf(val) === index));
+			console.log(client.commands.array().filter((val, index, arr) => arr.indexOf(val) === index).map(x => x.name));
 			/*
 			const chunked = chunk(25)(client.commands.array());
 			chunked.forEach(section => {
