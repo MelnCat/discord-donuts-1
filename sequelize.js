@@ -52,6 +52,12 @@ const Orders = sequelize.define("orders", {
 	deliveryTimeLeft: {
 		type: Sequelize.INTEGER,
 		allowNull: false
+	},
+	whenDoneCooking: {
+		type: Sequelize.INTEGER
+	},
+	wheExpire: {
+		type: Sequelize.INTEGER
 	}
 });
 
@@ -175,4 +181,5 @@ module.exports = {
 	PrecookedDonuts,
 	WorkerInfo,
 	Applications,
+	MonthlyInfo,
 };
