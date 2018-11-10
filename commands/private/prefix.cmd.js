@@ -22,7 +22,7 @@ module.exports =
 					.setTitle("Prefix changed!")
 					.setDescription(`Changed this guild's prefix!`)
 					.addField("Old Prefix", gprefix.prefix)
-					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
+					.setThumbnail("https://images.emojiterra.com/twitter/512px/fe0f.png");
 				const gprefixnew = await gprefix.update({ prefix: args[0] });
 				embed.addField("New Prefix", gprefixnew.prefix);
 				message.channel.send(embed);
@@ -32,7 +32,7 @@ module.exports =
 						.setStyle("colorful")
 						.setTitle("This guild's prefix")
 						.setDescription(`${message.guild.name}'s prefix is "${gprefix.prefix}"!`)
-						.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
+						.setThumbnail("https://images.emojiterra.com/twitter/512px/fe0f.png");
 				message.channel.send(embed);
 			}
 		});

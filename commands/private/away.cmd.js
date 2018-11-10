@@ -17,7 +17,7 @@ module.exports =
 					.setStyle("colorful")
 					.setTitle("Ended Absence")
 					.setDescription(`${message.author.tag} is no longer away.`)
-					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
+					.setThumbnail("https://images.emojiterra.com/twitter/512px/fe0f.png");
 				client.channels.get(absenceChannel).send(embed);
 				message.member.roles.remove(awayRole);
 				return message.channel.send("Removed your absence!");

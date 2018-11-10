@@ -23,7 +23,7 @@ module.exports =
 					.setStyle("white")
 					.setTitle("Cancel")
 					.setDescription("Order cancelled!")
-					.setThumbnail("https://mbtskoudsalg.com/images/trash-can-emoji-png-5.png");
+					.setThumbnail("https://images.emojiterra.com/twitter/512px/2705.png");
 
 			await message.channel.send(embed);
 

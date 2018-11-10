@@ -6,7 +6,7 @@ const { everyone } = require("../../permissions");
 module.exports =
 	new DDCommand()
 		.setName("ping")
-		.setDescription("Fetches time stamp values.")
+		.setDescription("Fetching timestamp values.")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
 			const startTime = Date.now();

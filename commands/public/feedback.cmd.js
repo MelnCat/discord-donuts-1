@@ -18,7 +18,7 @@ module.exports =
 					.setStyle("white")
 					.setTitle(`New feedback from ${message.author.tag} (${message.author.id})`)
 					.setDescription(args.join(" "))
-					.setThumbnail("https://images.emojiterra.com/google/android-pie/128px/1f4ad.png");
+					.setThumbnail("https://images.emojiterra.com/twitter/72px/1f4ad.png");
 
 			await client.channels.get(feedbackChannel).send(embed);
 

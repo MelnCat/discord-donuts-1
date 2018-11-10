@@ -19,8 +19,8 @@ module.exports =
 				new DDEmbed(client)
 					.setStyle("colorful")
 					.setTitle(`Deleted Application from ${message.author.tag}!`)
-					.setThumbnail("https://cdn.discordapp.com/attachments/491045091801300992/509907961272074270/news.png")
-					.setDescription("They have deleted their application.");
+					.setThumbnail("https://mbtskoudsalg.com/images/trash-can-emoji-png-5.png")
+					.setDescription("You have deleted their application.");
 			message.channel.send("We've removed your application!");
 			await client.channels.get(applicationChannel).send(embed);
 		});
