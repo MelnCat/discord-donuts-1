@@ -12,7 +12,7 @@ module.exports =
 			const uniqueCommands = client.commands.array()
 				.filter((val, index, arr) => arr.indexOf(val) === index);
 
-			chunk(25)(uniqueCommands).forEach(section => {
+			chunk(25)(uniqueCommands).forEach(async section => {
 				const embed = new DDEmbed(client);
 				section.forEach(command => {
 					if (!(command instanceof DDCommand)) return;
@@ -23,5 +23,5 @@ module.exports =
 				await message.author.send(embed);
 			});
 
-			await message.author.send("Check your DM's for my command list")
+			await message.author.send("Check your DM's for my command list");
 		});
