@@ -22,5 +22,5 @@ module.exports =
 			member.send(`Your application has been denied for the following reason: \`${reason}\``);
 			app.destroy({ where: {}, truncate: {} });
 			message.channel.send("I have successfully denied the application!");
-			applicationAlert(client, `${message.author.tag} has denied an application. There are now [applicationCount] applications.`)
+			applicationAlert(client, `${message.author.tag} has denied an application. There are now [applicationCount] applications.`);
 		});

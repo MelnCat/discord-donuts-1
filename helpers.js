@@ -3,7 +3,7 @@ const snekfetch = require("node-superfetch");
 const DDEmbed = require("./structures/DDEmbed.struct");
 
 const { Orders, Op, Applications } = require("./sequelize");
-const empty = "​"
+const empty = "​";
 const { employeeRole } = require("./auth.json");
 const {
 	channels: { applicationChannel, kitchenChannel, deliveryChannel },
@@ -113,11 +113,11 @@ const applicationAlert = async(client, text, channel = applicationChannel) => {
 			.setThumbnail("https://cdn.discordapp.com/attachments/491045091801300992/509907961272074270/news.png");
 	if (await Applications.count({ where: {} }) !== 0) {
 		embed.addField("LIST OF APPLICATIONS", empty);
-		const apps = await Applications.findAll({where: {}});
+		const apps = await Applications.findAll({ where: {} });
 		apps.map(app => {
 			embed.addField(client.users.get(app.id), `Code: \`${app.code}\``);
 		});
-	};
+	}
 	client.channels.get(channel).send(embed);
 };
 const updateWebsites = client => {
