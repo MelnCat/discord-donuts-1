@@ -18,7 +18,7 @@ module.exports =
 			chunk(25)(uniqueCommands).forEach(section => {
 				const embed = new DDEmbed(client);
 				section.forEach(command => {
-					if (!(command instaceof DDCommand)) return;
+					if (!(command instanceof DDCommand)) return;
 					if (!command.getPermissions(message.member)) return;
 
 					embed.addField(command.getName(), command.getDescription());
