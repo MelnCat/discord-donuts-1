@@ -169,13 +169,13 @@ const checkOrders = client => {
 	}, 60000);
 };
 
-const chunk = size => arr => { // eslint-disable-line array-body-style
-	return arr.reduceRight((acc, x, index) => {
+const chunk = size => arr => // eslint-disable-line array-body-style
+	 arr.reduceRight((acc, x, index) => {
 		if ((index + 1) % size === 0) acc.unshift([]);
 		acc[0].push(x);
 		return acc;
-	}, [[]]);
-};
+	}, [[]])
+;
 
 const isurl = str => {
 	try {
