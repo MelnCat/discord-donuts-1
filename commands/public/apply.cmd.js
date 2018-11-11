@@ -18,7 +18,10 @@ module.exports =
 			async function getMessage(display) {
 				message.author.send(display);
 				let v = await message.author.dmChannel.awaitMessages(m => m.author.id === message.author.id, { max: 1, time: 17000 });
-				if (v.size === 0) return message.author.send("You did not provide me with a value so I cancelled this session.");
+				if (v.size === 0) {
+					message.author.send("You did not provide me with a value so I cancelled this session.");
+					return false;
+				}
 				let vv = v.first().content;
 				return vv;
 			}
@@ -38,6 +41,7 @@ module.exports =
 					.setThumbnail("https://cdn.discordapp.com/attachments/491045091801300992/509907961272074270/news.png");
 			for (let question of client.questions) {
 				let resp = await getMessage(question);
+				if (resp === false) return;
 				responses.push(resp);
 				if (question.length > 255) question = `${question.substr(0, 251)}...`;
 				if (question.length > 255) resp = `${resp.substr(0, 251)}...`;
