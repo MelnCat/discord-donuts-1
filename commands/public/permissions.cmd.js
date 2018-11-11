@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 const DDCommand = require("../../structures/DDCommand.struct");
 const DDEmbed = require("../../structures/DDEmbed.struct");
-
+const { chunk } = require("../../helpers");
 const { everyone } = require("../../permissions");
 const botperm = require("../../permissions");
 module.exports =
