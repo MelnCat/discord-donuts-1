@@ -67,7 +67,7 @@ client.once("ready", async() => {
 		let index = Math.floor((Math.random() * (activitiesList.length - 1)) + 1);
 		client.user.setActivity(activitiesList[index]);
 
-		if (await Orders.count({ where: { status: { [Op.lt]: 2 } } }) > 1) {
+		if (await Orders.count({ where: { status: { [Op.lt]: 1 } } }) > 1) {
 			messageAlert(client, "There are [orderCount] order(s) left to claim");
 		}
 	}, 300000);
