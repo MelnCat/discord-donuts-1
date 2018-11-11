@@ -114,26 +114,26 @@ const getInput = async(message, display) => {
 	}
 	let vv = v.first().content;
 	return vv;
-}
+};
 const getReactions = async(message, display, reactions) => {
 	const userid = message.author.id;
 	const channel = message.channel;
 	const filter = (reaction, user) => reactions.includes(reaction.emoji.name) && user.id === userid;
 	let reactMessage = await channel.send(display);
 	for (const r of reactions) {
-		if (!client.emojis.find(emoji=>emoji.name===r)) {
+		if (!client.emojis.find(emoji => emoji.name === r)) {
 			reactMessage.react(r);
 		} else {
-			reactMessage.react(client.emojis.find(emoji=>emoji.name===r));
+			reactMessage.react(client.emojis.find(emoji => emoji.name === r));
 		}
 	}
 	const col = await reactMessage.awaitReactions(filter, { time: 15000, max: 1 });
 	if (!col.size) {
 		message.channel.send("You did not react to the message so I ended this session.");
-		return false
+		return false;
 	}
-	return col.first().emoji.name
-}
+	return col.first().emoji.name;
+};
 const applicationAlert = async(client, text, channel = applicationChannel) => {
 	const apps = await Applications.findAll({ where: {} });
 	text = text.replace("[applicationCount]", apps.length);
