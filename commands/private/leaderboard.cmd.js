@@ -26,10 +26,10 @@ module.exports =
 			let order = { all: "cooks + delivers", cooks: "cooks", delivers: "delivers" }[sel];
 			let start = !isNaN(args[0]) ? Number(args[0]) - 1 : 0;
 			// const ordered = await WorkerInfo.findAll({order: order});
-			const ordered = await sequelize.query(`SELECT * FROM \`${type}\` ORDER BY ${order} DESC`, { type: sequelize.QueryTypes.SELECT, model: WorkerInfo });
+			const ordered = await sequelize.query(`SELECT * FROM \`${type}\` ORDER BY ${order} DESC`, { type: sequelize.QueryTypes.SELECT, model: mod });
 			const mapped = ordered.map(x => [x.cooks, x.delivers, client.users.get(x.id) ? client.users.get(x.id).tag : x.username, x.id]);
 			let end = !isNaN(args[1]) ? Number(args[1]) : ordered.length < 10 ? ordered.length : 9;
-			if (start > end || start > ordered.length || end > ordered.length) {
+			if (start-1 > end || start > ordered.length || end > ordered.length) {
 				return message.channel.send("Selection not in range.");
 			}
 			if (end - start > 19) return message.channel.send("Please make the number of results less than 20.");
@@ -41,7 +41,7 @@ module.exports =
 					.setDescription(`Showing ${start + 1} to ${end}. Filter: ${sel}.`)
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3c6.png");
 			sliced.forEach(v => {
-				const i = sliced.indexOf(v);
+				const i = mapped.indexOf(v);
 				const places = { 0: "🥇", 1: "🥈", 2: "🥉" };
 				const pre = places[i] ? places[i] : "";
 				const isAuthor = v[3] === message.author.id;
