@@ -12,22 +12,23 @@ module.exports =
 		.setDescription("Checks your own permissions.")
 		.setPermissions(everyone)
 		.setFunction((message, args, client) => {
-			const perm = Object.keys(Discord.Permissions.FLAGS)
+			const perm = Object.keys(Discord.Permissions.FLAGS);
 			const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")
 					.setTitle("Permissions")
-					.setDescription("Your permissions.")
+					.setDescription("Your permissions.");
 			perm.map(p => {
-				const lg = message.member.permissions.has(p)?"✅":"❎"
+				const lg = message.member.permissions.has(p) ? "✅" : "❎";
 				const txt = p.replace("_", "").charAt(0).toUpperCase() + p.replace("_", "").substr(1);
-				embed.addField(txt, lg, true)
+				embed.addField(txt, lg, true);
 			});
 			Object.keys(botperm).map(bp => {
-				const fun = botperm(bp)
-				const lg = fun(message.member)?"✅":"❎"
-				const txt = bp.replace(/([A-Z])/g, " $1").toLowerCase().charAt(0).toUpperCase() + bp.replace(/([A-Z])/g, " $1").toLowerCase().substr(1);
-				embed.addField(txt, lg, true)
-			})
+				const fun = botperm(bp);
+				const lg = fun(message.member) ? "✅" : "❎";
+				const txt = bp.replace(/([A-Z])/g, " $1").toLowerCase().charAt(0)
+.toUpperCase() + bp.replace(/([A-Z])/g, " $1").toLowerCase().substr(1);
+				embed.addField(txt, lg, true);
+			});
 			message.channel.send(embed);
 		});
