@@ -1,4 +1,4 @@
-const DDEmbed = require("../../structures/DDEmbed.struct");
+const { MessageEmbed } = require("discord.js");
 const DDCommand = require("../../structures/DDCommand.struct");
 
 const { everyone } = require("../../permissions");
@@ -9,13 +9,7 @@ module.exports =
 		.setName("uptime")
 		.setDescription("The bot uptime.")
 		.setPermissions(everyone)
-		.setFunction(async(message, args, client) => {
-			const embed =
-				new DDEmbed(client)
-					.setStyle("colorful")
-					.setTitle("Uptime")
-					.setDescription(calcUptime(client.uptime))
-					.setThumbnail("https://images.emojiterra.com/twitter/512px/23f2.png");
-
+		.setFunction(async (message, args, client) => {
+			const embed = new MessageEmbed().setColor(0x36393E).setDescription(calcUptime(client.uptime)).setFooter(client.user.tag, client.user.displayAvatarURL()).setTimestamp()
 			await message.channel.send(embed);
 		});
