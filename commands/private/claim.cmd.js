@@ -28,7 +28,7 @@ module.exports =
 .setTimestamp();
 			await client.users.get(order.user).send(claimEmbed).catch(e => { });
 
-			const embed = new MessageEmbed().setColor(0x36393E).setDescription(`<:yes:501906738119835649> **Claim successful, please ensure that you provide what the user has requested.**`);
+			const embed = new MessageEmbed().setColor(0x36393E).setDescription(`<:yes:501906738119835649> **Claim successful, please ensure that you provide what the user has requested.**`).setFooter(message.author.tag, message.author.displayAvatarURL());
 			await message.channel.send(embed);
 
 			await messageAlert(client, "An order has just been claimed, there are now [orderCount] orders left");
