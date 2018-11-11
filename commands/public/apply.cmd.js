@@ -48,7 +48,7 @@ module.exports =
 				if (question.length > 255) resp = `${resp.substr(0, 251)}...`;
 				embed.addField(question, resp);
 			}
-			message.author.send("This is the end your our application. Thanks for applying! We will get back to you ASAP! Remember to join our server, our invite is https://discord.gg/WJgamKm. Remember that improper or incomplete applications will not be considered, and asking when you're gonna be hired or inquiring about your application in any way before three days of your submission date is against our rules!");
+			message.author.send("This is the end your our application. Thanks for applying! We will get back to you ASAP! Remember to join our server, our invite is **https://discord.gg/WJgamKm**. Remember that improper or incomplete applications will not be considered, and asking when you're gonna be hired or inquiring about your application in any way before three days of your submission date is against our rules!");
 			message.author.send(`Thank you for applying. Your application code is \`${message.author.id.substr(8, 15)}\`. Thank you!`);
 			await Applications.create({ id: message.author.id, application: JSON.stringify(responses), code: message.author.id.substr(8, 15) });
 			await client.channels.get(applicationChannel).send(embed);
