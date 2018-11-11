@@ -9,6 +9,7 @@ module.exports =
 		.setName("editapplication")
 		.addAliases("editapply", "edit-apply", "edit-application")
 		.setDescription("Edit your application if you have one.")
+		.setHidden(true)
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
 			async function getReactions(display, reactions) {

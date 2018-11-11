@@ -3,6 +3,7 @@ const DDCommand = require("../../structures/DDCommand.struct");
 const { channels: { applicationChannel } } = require("../../auth");
 const { everyone } = require("../../permissions");
 const { Applications } = require("../../sequelize");
+const { applicationAlert } = require("../../helpers.js");
 const stringSimilarity = require("string-similarity");
 module.exports =
 	new DDCommand()
@@ -15,12 +16,6 @@ module.exports =
 			const questions = client.questions.splice(0, client.questions.length - 1);
 			const app = await Applications.findById(message.author.id);
 			await app.destroy();
-			const embed =
-				new DDEmbed(client)
-					.setStyle("colorful")
-					.setTitle(`Deleted Application from ${message.author.tag}!`)
-					.setThumbnail("https://mbtskoudsalg.com/images/trash-can-emoji-png-5.png")
-					.setDescription("You have deleted their application.");
 			message.channel.send("We've removed your application!");
-			await client.channels.get(applicationChannel).send(embed);
+			applicationAlert(client, `${message.author.tag} has cancelled their application. There are now [applicationCount] applications.`);
 		});
