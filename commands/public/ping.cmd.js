@@ -1,4 +1,3 @@
-const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 
 const { everyone } = require("../../permissions");
@@ -10,7 +9,7 @@ module.exports =
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
 			const startTime = Date.now();
-			const m = await message.channel.send("Pong!");
+			const m = await message.channel.send("Fetching responses..");
 			const endTime = Date.now();
-			await m.edit(`Pong! (${endTime - startTime}ms)`);
+			await m.edit(`Latency is \`${endTime - startTime}ms\`. API latency is \`${Math.round(client.ws.ping)}ms\`.`);
 		});
