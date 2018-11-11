@@ -27,8 +27,8 @@ module.exports =
 					const lg = message.member.permissions.has(p) ? "<:yes:501906738119835649>" : "<:no:501906738224562177>";
 					const txt = pretty(p);
 					embed.addField(txt, lg, true);
-				message.channel.send(embed);
 				});
+				message.channel.send(embed);
 			});
 			chunk(25)(Object.keys(botperm)).forEach(async(section, index, arr) => {
 				const embed =
@@ -41,7 +41,7 @@ module.exports =
 					const lg = fun(message.member) ? "<:yes:501906738119835649>" : "<:no:501906738224562177>";
 					const txt = pretty(bp.replace(/([A-Z])/g, " $1").toLowerCase());
 					embed.addField(txt, lg, true);
-				message.channel.send(embed);
 				});
+				message.channel.send(embed);
 			});
 		});
