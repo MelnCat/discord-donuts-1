@@ -1,12 +1,4 @@
-Ping counter for kitchen messages
-
-Remove title from embeds when it's the same as a field title, see the upvote/invite/support commands.
-
-permissions command
-
-uptime command should reply with an embed
-
 workerInfo doesn't clear
 
 These aren't implmented:
-overallleaderboard, leaderboard, mostactive, leastactive, overallworkerinfo command
+monthly leaderboard, mostactive, leastactive, overallworkerinfo command
