@@ -7,6 +7,7 @@ class DDCommand {
 	constructor() {
 		this.aliases = [];
 		this.name = "";
+		this.hide = false;
 	}
 	/**
 	* Sets the name of the command
@@ -15,6 +16,11 @@ class DDCommand {
 	*/
 	setName(name) {
 		this.name = name;
+		return this;
+	}
+
+	setHidden(bool) {
+		this.hide = bool;
 		return this;
 	}
 
@@ -82,6 +88,11 @@ class DDCommand {
 	getName() {
 		return this.name || new TypeError("A name has not been specified for this command");
 	}
+
+	getHidden() {
+		return this.hidden;
+	}
+
 	getAliases() {
 		return this.aliases;
 	}
