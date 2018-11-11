@@ -19,7 +19,7 @@ module.exports =
 					if (!(command instanceof DDCommand)) return;
 					if (command.getHidden()) return;
 					if (!command.getPermissions(message.member)) return;
-					const label = command.getLabel()?`[${command.getLabel()}] `:""
+					const label = command.getLabel() ? `[${command.getLabel()}] ` : "";
 					embed.addField(`${command.getName()}${command.getAliases().map(x => `, ${x}`).join("")}`, `${label}${command.getDescription()}`);
 				});
 				await message.author.send(embed);
