@@ -9,7 +9,7 @@ module.exports =
 		.setName("uptime")
 		.setDescription("The bot uptime.")
 		.setPermissions(everyone)
-		.setFunction(async (message, args, client) => {
+		.setFunction(async(message, args, client) => {
 			const embed = new MessageEmbed().setColor(0x36393E).setDescription(`${calcUptime(client.uptime)}`)
 				.setFooter(client.user.tag, client.user.displayAvatarURL())
 				.setTimestamp();
