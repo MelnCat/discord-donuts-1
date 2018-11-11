@@ -18,7 +18,7 @@ module.exports =
 				type = "monthlyinfos";
 				isMonthly = true;
 				mod = MonthlyInfo;
-				args.shift()
+				args.shift();
 			}
 			let sel = args[2] ? args[2] : "all";
 			if (args[2] && !["all", "cooks", "delivers"].includes(sel)) return message.channel.send("The filter must be 'cooks', 'delivers' or 'all'.");
