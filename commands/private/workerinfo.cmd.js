@@ -12,8 +12,8 @@ module.exports =
 		.setFunction(async(message, args, client) => {
 			let data = WorkerInfo
 			if (args[0] && args[0].includes("month")) {
-			data = MonthlyInfo
-			args.shift()
+				data = MonthlyInfo
+				args.shift()
 			}
 			let user;
 			if (!args[0]) {
