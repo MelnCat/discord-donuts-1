@@ -38,7 +38,7 @@ module.exports =
 			const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")
-					.setTitle(`${user.tag}'s ${isMonthly ? "monthly " : ""}worker stats`)
+					.setTitle(`${user.tag}'s ${isMonthly ? "Monthly " : ""}Worker Stats`)
 					.setDescription(`The stats of ${user.tag}.`)
 					.addField("Cooks", `${worker.cooks} cook${worker.cooks !== 1 ? "s" : ""}`)
 					.addField("Delivers", `${worker.delivers} deliver${worker.delivers !== 1 ? "s" : ""}`)
