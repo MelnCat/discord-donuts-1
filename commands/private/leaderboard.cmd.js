@@ -15,7 +15,7 @@ module.exports =
 			let isMonthly = false;
 			let mod = WorkerInfo;
 			if (args[0] && args[0].toLowerCase().includes("month")) {
-				type = "monthlyinfo";
+				type = "monthlyinfos";
 				isMonthly = true;
 				mod = MonthlyInfo;
 				args.shift();
