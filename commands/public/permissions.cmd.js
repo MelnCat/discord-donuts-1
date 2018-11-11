@@ -37,7 +37,7 @@ module.exports =
 						.setTitle("Permissions")
 						.setDescription("Your bot permissions.");
 				Object.keys(section).map(bp => {
-					const fun = section[bp];
+					const fun = botperm[bp];
 					const lg = fun(message.member) ? "<:yes:501906738119835649>" : "<:no:501906738224562177>";
 					const txt = pretty(bp.replace(/([A-Z])/g, " $1").toLowerCase());
 					embed.addField(txt, lg, true);
