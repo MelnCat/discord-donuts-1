@@ -38,7 +38,7 @@ module.exports =
 				new DDEmbed(client)
 					.setStyle("colorful")
 					.setTitle(`The ${isMonthly ? "monthly" : "overall"} worker leaderboard.`)
-					.setDescription(`Showing ${start + 1} to ${end}. Filter: ${sel}.`)
+					.setDescription(`Showing ${start + 1} to ${end}. ${ordered.length} total. Filter: ${sel}.`)
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3c6.png");
 			sliced.forEach(v => {
 				const i = mapped.indexOf(v);
