@@ -9,6 +9,7 @@ module.exports =
 	new DDCommand()
 		.setName("permissions")
 		.addAliases("perms", "perm")
+		.setLabel("WIP")
 		.setDescription("Checks your own permissions.")
 		.setPermissions(everyone)
 		.setFunction((message, args, client) => {

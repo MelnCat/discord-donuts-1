@@ -17,7 +17,7 @@ module.exports =
 			const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")
-					.setTitle(`Application List'`)
+					.setTitle(`Application List`)
 					.setDescription(`A list of all the applications.`)
 					.setThumbnail("https://cdn.discordapp.com/attachments/491045091801300992/509907961272074270/news.png");
 			if (await Applications.count({ where: {} }) !== 0) {
