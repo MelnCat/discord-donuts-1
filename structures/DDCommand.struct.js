@@ -7,7 +7,7 @@ class DDCommand {
 	constructor() {
 		this.aliases = [];
 		this.name = "";
-		this.hide = false;
+		this.hidden = false;
 		this.label = "";
 	}
 	/**
@@ -25,7 +25,7 @@ class DDCommand {
 		return this;
 	}
 	setHidden(bool) {
-		this.hide = bool;
+		this.hidden = bool;
 		return this;
 	}
 
