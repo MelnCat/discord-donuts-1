@@ -83,12 +83,12 @@ ${commit}\`\`\`
 
 client.on("message", async message => {
 	if (new Date().getDate() !== 1) {
-		client.reset = false
+		client.reset = false;
 	} else if (!client.reset) {
-		client.reset = true
-		MonthlyInfo.destroy({ where: {}, truncate: true })
+		client.reset = true;
+		MonthlyInfo.destroy({ where: {}, truncate: true });
 		MonthlyInfo.sync();
-		await messageAlert(client, "You know what time it is! The **MONTHLY RESET**!! Good job everyone! Now it's time for another month. All monthly data has been reset.")
+		await messageAlert(client, "You know what time it is! The **MONTHLY RESET**!! Good job everyone! Now it's time for another month. All monthly data has been reset.");
 	}
 	if (message.channel.type === "dm") return;
 	const gprefix = await Prefixes.findById(message.guild.id);
