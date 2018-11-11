@@ -17,21 +17,31 @@ module.exports =
 				return [...h].map((x,i) =>!i?x.toUpperCase():x).join("")
 			}
 			const perm = Object.keys(Discord.Permissions.FLAGS);
-			const embed =
-				new DDEmbed(client)
-					.setStyle("colorful")
-					.setTitle("Permissions")
-					.setDescription("Your permissions.");
-			perm.map(p => {
-				const lg = message.member.permissions.has(p) ? "<:yes:501906738119835649>" : "<:no:501906738224562177>";
-				const txt = pretty(p)
-				embed.addField(txt, lg, true);
+			chunk(25)(perm).forEach(async(section, index, arr) => {
+				const embed =
+					new DDEmbed(client)
+						.setStyle("colorful")
+						.setTitle("Permissions")
+						.setDescription("Your permissions.");
+				section.map(p => {
+					const lg = message.member.permissions.has(p) ? "<:yes:501906738119835649>" : "<:no:501906738224562177>";
+					const txt = pretty(p)
+					embed.addField(txt, lg, true);
+				message.channel.send(embed);
+				});
 			});
-			Object.keys(botperm).map(bp => {
-				const fun = botperm[bp];
-				const lg = fun(message.member) ? "<:yes:501906738119835649>" : "<:no:501906738224562177>";
-				const txt = pretty(bp.replace(/([A-Z])/g, " $1").toLowerCase())
-				embed.addField(txt, lg, true);
+			chunk(25)(Object.keys(botperm)).forEach(async(section, index, arr) => {
+				const embed =
+					new DDEmbed(client)
+						.setStyle("colorful")
+						.setTitle("Permissions")
+						.setDescription("Your bot permissions.");
+				Object.keys(section).map(bp => {
+					const fun = section[bp];
+					const lg = fun(message.member) ? "<:yes:501906738119835649>" : "<:no:501906738224562177>";
+					const txt = pretty(bp.replace(/([A-Z])/g, " $1").toLowerCase())
+					embed.addField(txt, lg, true);
+				message.channel.send(embed);
+				});
 			});
-			message.channel.send(embed);
 		});
