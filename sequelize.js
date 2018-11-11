@@ -88,6 +88,14 @@ const WorkerInfo = sequelize.define("workerinfo", {
 		type: Sequelize.TEXT,
 		allowNull: false,
 	},
+	lastCookIds: {
+		type: Sequelize.TEXT,
+		allowNull: false,
+	},
+	lastDeliversIds: {
+		type: Sequelize.TEXT,
+		allowNull: false,
+	},
 });
 const MonthlyInfo = sequelize.define("monthlyinfo", {
 	id: {
@@ -132,6 +140,18 @@ const Applications = sequelize.define("applications", {
 		type: Sequelize.TEXT,
 		allowNull: false,
 	}
+});
+const Ratings = sequelize.define("ratings", {
+	id: {
+		type: Sequelize.CHAR(18),
+		unique: true,
+		primaryKey: true,
+		allowNull: false,
+	},
+	ratings: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
 });
 const Blacklist = sequelize.define("blacklist", {
 	id: {
