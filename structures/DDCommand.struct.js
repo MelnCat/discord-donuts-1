@@ -22,6 +22,7 @@ class DDCommand {
 
 	setLabel(label) {
 		this.label = label;
+		return this;
 	}
 	setHidden(bool) {
 		this.hide = bool;
