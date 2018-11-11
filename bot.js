@@ -60,6 +60,7 @@ client.once("ready", async() => {
 	WorkerInfo.sync();
 	Applications.sync();
 	MonthlyInfo.sync();
+	Ratings.sync();
 	// Activities
 	const activitiesList = ["Cooking Donuts...", "Donuts!", "Cookin' Donuts", "d!order Donuts", "<3 Donuts", "with Donuts"];
 
