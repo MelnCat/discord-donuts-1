@@ -24,7 +24,7 @@ module.exports =
 				embed.addField(txt, lg, true);
 			});
 			Object.keys(botperm).map(bp => {
-				const fun = botperm(bp);
+				const fun = botperm[bp];
 				const lg = fun(message.member) ? "✅" : "❎";
 				const txt = bp.replace(/([A-Z])/g, " $1").toLowerCase().charAt(0)
 .toUpperCase() + bp.replace(/([A-Z])/g, " $1").toLowerCase().substr(1);

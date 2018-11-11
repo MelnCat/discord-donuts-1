@@ -37,7 +37,7 @@ client.on("guildMemberUpdate", async(memberold, member) => {
 					.setStyle("colorful")
 					.setTitle("New worker!")
 					.setAuthor(member.user.tag, member.user.avatarURL({ size: 2048, format: "png" }))
-					.setDescription(`Welcome, ${member.user.tag}! Congratulations on becoming a worker! Check <@#490934504115142678> for the basic commands and do d!help for other commands!`);
+					.setDescription(`Welcome, ${member.user.tag}! Congratulations on becoming a worker! Check <#490934504115142678> for the basic commands and do d!help for other commands!`);
 		client.channels.get(kitchenChannel).send(embed);
 	}
 	if (memberold.roles.has(employeeRole) && !member.roles.has(employeeRole)) {

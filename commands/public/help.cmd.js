@@ -17,6 +17,7 @@ module.exports =
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/2754.png");
 				section.forEach(command => {
 					if (!(command instanceof DDCommand)) return;
+					if (command.getHidden()) return;
 					if (!command.getPermissions(message.member)) return;
 					embed.addField(`${command.getName()}${command.getAliases().map(x => `, ${x}`).join("")}`, command.getDescription());
 				});
