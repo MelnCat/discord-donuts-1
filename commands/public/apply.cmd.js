@@ -17,7 +17,7 @@ module.exports =
 			message.channel.send("I've DMed you the application!");
 			message.author.send("Thank you for applying! We will take you through a couple of questions. Please read through the whole application clearly and answer all the questions to the best of your ability. Take your time.\n**PREREQUISITES**:\nPlease be in our server, not be banned from our server and/or blacklisted from the bot in any previous or current occasion (with exceptions) and have a clean/somewhat clean record.");
 			async function getMessage(display) {
-				message.author.send(display);
+				await message.author.send(display);
 				let v = await message.author.dmChannel.awaitMessages(m => m.author.id === message.author.id, { max: 1, time: 17000 });
 				if (v.size === 0) {
 					message.author.send("You did not provide me with a value so I cancelled this session.");
