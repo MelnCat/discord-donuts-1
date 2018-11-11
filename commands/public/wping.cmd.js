@@ -8,6 +8,6 @@ module.exports =
 		.setName("wping")
 		.setDescription("The webhook ping.")
 		.setPermissions(everyone)
-		.setFunction(async (message, args, client) => {
+		.setFunction(async(message, args, client) => {
 			message.channel.send(`Ping to websocket is \`${Math.round(client.ws.ping)}ms\``);
 		});
