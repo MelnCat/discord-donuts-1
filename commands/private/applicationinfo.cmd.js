@@ -16,7 +16,7 @@ module.exports =
 			if (!args[0]) return message.channel.send("Please specify an application code.");
 			const app = await Applications.findOne({ where: { code: args[0] } });
 			if (!app) return message.channel.send("I couldn't find an application with that code!");
-			const application = await JSON.parse(app.application)
+			const application = await JSON.parse(app.application);
 			const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")
@@ -24,10 +24,10 @@ module.exports =
 					.setDescription(`Application code: \`${app.code}\``)
 					.setThumbnail("https://cdn.discordapp.com/attachments/491045091801300992/509907961272074270/news.png");
 			for (let question of client.questions) {
-				let response = application[client.questions.indexOf(question)]
+				let response = application[client.questions.indexOf(question)];
 				if (question.length > 255) question = `${question.substr(0, 251)}...`;
 				if (question.length > 255) response = `${response.substr(0, 251)}...`;
 				embed.addField(question, response);
 			}
-			message.channel.send(embed)
+			message.channel.send(embed);
 		});

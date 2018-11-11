@@ -30,5 +30,5 @@ module.exports =
 			} else {
 				embed.addField("No applications yet!", empty);
 			}
-			message.channel.send(embed)
+			message.channel.send(embed);
 		});
