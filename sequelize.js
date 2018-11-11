@@ -148,7 +148,23 @@ const Ratings = sequelize.define("ratings", {
 		primaryKey: true,
 		allowNull: false,
 	},
-	ratings: {
+	rate1: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
+	rate2: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
+	rate3: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
+	rate4: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
+	rate5: {
 		type: Sequelize.INTEGER,
 		allowNull: false,
 	},
