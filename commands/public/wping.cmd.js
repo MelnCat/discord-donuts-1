@@ -8,14 +8,6 @@ module.exports =
 		.setName("wping")
 		.setDescription("The webhook ping.")
 		.setPermissions(everyone)
-		.setFunction(async(message, args, client) => {
-			const embed =
-				new DDEmbed(client)
-					.setStyle("colorful")
-					.setTitle("Websocket Ping")
-					.setDescription("The ping for the websocket.")
-					.addField("Ping", `:ping_pong: Pong! Took \`${message.client.ping.toFixed(0)}ms\`!`)
-					.setThumbnail("https://images.emojiterra.com/twitter/512px/1f3d3.png");
-
-			message.channel.send(embed);
+		.setFunction(async (message, args, client) => {
+			message.channel.send(`Ping to websocket is \`${Math.round(client.ws.ping)}ms\``);
 		});
