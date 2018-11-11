@@ -17,13 +17,13 @@ module.exports =
 				args.shift();
 				isMonthly = true;
 			}
-			const sumc = await data.sum("cooks")
-			const sumd = await data.sum("delivers")
-			const sum = sumc + sumd
+			const sumc = await data.sum("cooks");
+			const sumd = await data.sum("delivers");
+			const sum = sumc + sumd;
 			const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")
-					.setTitle(`The Global ${isMonthly?"Monthly ":""}Worker Stats`)
+					.setTitle(`The Global ${isMonthly ? "Monthly " : ""}Worker Stats`)
 					.setDescription(`The global stats.`)
 					.addField("Total Cooks", `${sumc} cooks`)
 					.addField("Average Cooks", `wip`)
