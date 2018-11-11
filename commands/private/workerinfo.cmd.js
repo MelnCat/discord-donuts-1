@@ -11,9 +11,11 @@ module.exports =
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
 			let data = WorkerInfo;
+			let isMonthly = false;
 			if (args[0] && args[0].includes("month")) {
 				data = MonthlyInfo;
 				args.shift();
+				isMonthly = true;
 			}
 			let user;
 			if (!args[0]) {
@@ -36,7 +38,7 @@ module.exports =
 			const embed =
 				new DDEmbed(client)
 					.setStyle("colorful")
-					.setTitle(`${user.tag}'s worker stats`)
+					.setTitle(`${user.tag}'s ${isMonthly ? "monthly " : ""}worker stats`)
 					.setDescription(`The stats of ${user.tag}.`)
 					.addField("Cooks", `${worker.cooks} cook${worker.cooks !== 1 ? "s" : ""}`)
 					.addField("Delivers", `${worker.delivers} deliver${worker.delivers !== 1 ? "s" : ""}`)

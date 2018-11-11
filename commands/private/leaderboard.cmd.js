@@ -29,6 +29,9 @@ module.exports =
 			const ordered = await sequelize.query(`SELECT * FROM \`${type}\` ORDER BY ${order} DESC`, { type: sequelize.QueryTypes.SELECT, model: WorkerInfo });
 			const mapped = ordered.map(x => [x.cooks, x.delivers, client.users.get(x.id) ? client.users.get(x.id).tag : x.username, x.id]);
 			let end = !isNaN(args[1]) ? Number(args[1]) : ordered.length < 10 ? ordered.length : 9;
+			if (args[0] || !args[1]) {
+				end = start + 1;
+			}
 			if (start > end || start > ordered.length || end > ordered.length) {
 				return message.channel.send("Selection not in range.");
 			}

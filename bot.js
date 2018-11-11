@@ -11,7 +11,7 @@ const DDClient = require("./structures/DDClient.struct");
 
 const { MonthlyInfo, Applications, Orders, Blacklist, WorkerInfo, PrecookedDonuts, Op, Prefixes } = require("./sequelize");
 const { employeeRole, token, prefix, channels: { kitchenChannel, ticketChannel, guildLogChannel, testChannel } } = require("./auth.json");
-const { generateTicket, timeout, updateWebsites, messageAlert, checkOrders } = require("./helpers");
+const { generateTicket, timeout, updateWebsites, messageAlert, applicationAlert, checkOrders } = require("./helpers");
 
 const DDEmbed = require("./structures/DDEmbed.struct");
 
@@ -82,6 +82,14 @@ ${commit}\`\`\`
 });
 
 client.on("message", async message => {
+	if (new Date().getDate() !== 1) {
+		client.reset = false;
+	} else if (!client.reset) {
+		client.reset = true;
+		MonthlyInfo.destroy({ where: {}, truncate: true });
+		MonthlyInfo.sync();
+		await messageAlert(client, "You know what time it is! The **MONTHLY RESET**!! Good job everyone! Now it's time for another month. All monthly data has been reset.");
+	}
 	if (message.channel.type === "dm") return;
 	const gprefix = await Prefixes.findById(message.guild.id);
 	let messagePrefix;
