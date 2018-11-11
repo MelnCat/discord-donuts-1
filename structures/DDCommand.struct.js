@@ -8,6 +8,7 @@ class DDCommand {
 		this.aliases = [];
 		this.name = "";
 		this.hide = false;
+		this.label = "";
 	}
 	/**
 	* Sets the name of the command
@@ -19,6 +20,9 @@ class DDCommand {
 		return this;
 	}
 
+	setLabel(label) {
+		this.label = label;
+	}
 	setHidden(bool) {
 		this.hide = bool;
 		return this;
@@ -96,6 +100,11 @@ class DDCommand {
 	getAliases() {
 		return this.aliases;
 	}
+
+	getLabel() {
+		return this.label;
+	}
+
 	/**
 	* Gets the description of the command
 	* @returns { String | TypeError } Either the description, or a TypeError

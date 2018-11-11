@@ -19,10 +19,11 @@ module.exports =
 					if (!(command instanceof DDCommand)) return;
 					if (command.getHidden()) return;
 					if (!command.getPermissions(message.member)) return;
-					embed.addField(`${command.getName()}${command.getAliases().map(x => `, ${x}`).join("")}`, command.getDescription());
+					const label = command.getLabel() ? `[${command.getLabel()}] ` : "";
+					embed.addField(`${command.getName()}${command.getAliases().map(x => `, ${x}`).join("")}`, `${label}${command.getDescription()}`);
 				});
 				await message.author.send(embed);
 			});
 
-			await message.channel.send("Check your DM's for my command list");
+			await message.channel.send("Check your DM's for my command list!");
 		});
