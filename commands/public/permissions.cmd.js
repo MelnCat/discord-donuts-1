@@ -25,7 +25,7 @@ module.exports =
 						.setDescription("Your permissions.");
 				section.map(p => {
 					const lg = message.member.permissions.has(p) ? "<:yes:501906738119835649>" : "<:no:501906738224562177>";
-					const txt = pretty(p)
+					const txt = pretty(p);
 					embed.addField(txt, lg, true);
 				message.channel.send(embed);
 				});
@@ -39,7 +39,7 @@ module.exports =
 				Object.keys(section).map(bp => {
 					const fun = section[bp];
 					const lg = fun(message.member) ? "<:yes:501906738119835649>" : "<:no:501906738224562177>";
-					const txt = pretty(bp.replace(/([A-Z])/g, " $1").toLowerCase())
+					const txt = pretty(bp.replace(/([A-Z])/g, " $1").toLowerCase());
 					embed.addField(txt, lg, true);
 				message.channel.send(embed);
 				});
