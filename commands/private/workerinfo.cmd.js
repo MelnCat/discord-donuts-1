@@ -10,7 +10,7 @@ module.exports =
 		.setDescription("Checks a user's or your own stats..")
 		.setPermissions(canCook)
 		.setFunction(async(message, args, client) => {
-			let data = WorkerInfo
+			let data = WorkerInfo;
 			if (args[0] && args[0].includes("month")) {
 				data = MonthlyInfo
 				args.shift()
