@@ -28,7 +28,7 @@ module.exports =
 .setTimestamp();
 			await client.users.get(order.user).send(claimEmbed).catch(e => { });
 
-			const embed = new MessageEmbed().setColor(0x36393E).setDescription(`<:yes:501906738119835649> **Order \`${args[0]}\` has been claimed by ${message.author}!**`)
+			const embed = new MessageEmbed().setColor(0x36393E).setDescription(`<:yes:501906738119835649> **Order \`${args[1]}\` has been claimed by ${message.author}!**`)
 .setFooter(message.author.tag, message.author.displayAvatarURL())
 .setTimestamp();
 			await message.channel.send(embed);
