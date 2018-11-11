@@ -51,7 +51,7 @@ module.exports =
 			const worker = workerraw[0];
 			const r = JSON.parse(worker.lastDeliverIds);
 			r.push(order.user);
-			const rr = JSON.stringify(r)
+			const rr = JSON.stringify(r);
 			await worker.update({ delivers: worker.delivers + 1, lastDeliver: Date.now(), lastDeliverIds: rr });
 			let milestones = { 100: "500818730788585482", 250: "500818668972933140", 500: "500818727756103680", 750: "500818673720754178", 1000: "500818665860759563" };
 			const member = client.guilds.get("294619824842080257").members.get(worker.id);

@@ -82,12 +82,12 @@ module.exports =
 
 			await message.channel.send(cookEmbed);
 			await client.users.get(order.user).send(`:thumbsup: Your cook, ${client.users.get(order.claimer).tag}, just put your order into the oven! It should take **3 minutes** to cook!`);
-			const workerraw = await WorkerInfo.findOrCreate({ where: { id: message.author.id }, defaults: { id: message.author.id, cooks: 0, delivers: 0, lastCook: 0, lastDeliver: 0, username: message.author.tag, lastCookIds: "[]", lastDeliverIds: "[]"} });
+			const workerraw = await WorkerInfo.findOrCreate({ where: { id: message.author.id }, defaults: { id: message.author.id, cooks: 0, delivers: 0, lastCook: 0, lastDeliver: 0, username: message.author.tag, lastCookIds: "[]", lastDeliverIds: "[]" } });
 			const worker = workerraw[0];
 			const r = JSON.parse(worker.lastCookIds);
 			r.push(order.user);
-			const rr = JSON.stringify(r)
-			await worker.update({ cooks: worker.cooks + 1, lastCook: Date.now(), lastCookIds: rr});
+			const rr = JSON.stringify(r);
+			await worker.update({ cooks: worker.cooks + 1, lastCook: Date.now(), lastCookIds: rr });
 			const monthlyraw = await MonthlyInfo.findOrCreate({ where: { id: message.author.id }, defaults: { id: message.author.id, cooks: 0, delivers: 0, username: message.author.tag } });
 			const monthly = monthlyraw[0];
 			await monthly.update({ cooks: monthly.cooks + 1 });
