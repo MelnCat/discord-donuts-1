@@ -36,7 +36,7 @@ module.exports =
 				if (!description.toLowerCase().includes("donut")) description += " donut";
 				if (selections.oid) {
 					generatedID = String(selections.oid);
-				};
+				}
 				await Orders.create({
 					id: generatedID,
 					user: message.author.id,
