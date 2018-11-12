@@ -22,9 +22,10 @@ module.exports =
 
 				let description = args.join(" ").trim();
 				let reg = /\[.+\]/;
-				let matched = a.match(reg);
+				let matched = description.match(reg);
 				let selections = {}
 				if (matched) {
+					let m = matched[0]
 					try {
 						selections = JSON.parse(b.replace("[", "{").replace("]", "}").replace(/[a-zA-Z]/g, n => {
 							return `"${n}"`
