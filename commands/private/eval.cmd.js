@@ -38,7 +38,7 @@ module.exports =
 			} catch (e) {
 				let isErrHigh = e.stack.length > 1987;
 				if (logToConsole) {
-					console.log(com)
+					console.log(e.stack)
 				} else {
 					message.channel.send(`\`\`\`js\n${e.stack.substr(0, 1987)}${isErrHigh?"...":""}\`\`\``);
 				}
