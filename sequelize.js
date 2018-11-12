@@ -92,7 +92,7 @@ const WorkerInfo = sequelize.define("workerinfo", {
 		type: Sequelize.TEXT,
 		allowNull: false,
 	},
-	lastDeliversIds: {
+	lastDeliverIds: {
 		type: Sequelize.TEXT,
 		allowNull: false,
 	},
