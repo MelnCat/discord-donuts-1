@@ -115,7 +115,10 @@ const getInput = async(message, display) => {
 	let vv = v.first().content;
 	return vv;
 };
-const getReactions = async(message, display, reactions) => {
+const pause = (ms) => {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
+const getReactions = async(client, message, display, reactions) => {
 	const userid = message.author.id;
 	const channel = message.channel;
 	const filter = (reaction, user) => reactions.includes(reaction.emoji.name) && user.id === userid;
@@ -247,5 +250,6 @@ module.exports = {
 	chunk,
 	applicationAlert,
 	getInput,
-	getReactions
+	getReactions,
+	pause
 };

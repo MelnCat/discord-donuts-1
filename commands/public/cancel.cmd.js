@@ -26,6 +26,6 @@ module.exports =
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/2705.png");
 
 			await message.channel.send(embed);
-
+			(await client.channels.get(ticketChannel).messages.fetch(order.ticketMessageID)).delete();
 			messageAlert(client, ":cry: An order has been cancelled, there are now [orderCount] orders left");
 		});
