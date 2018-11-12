@@ -18,7 +18,7 @@ module.exports =
 			if (!app) return message.channel.send("I couldn't find an application with that code!");
 			const member = client.guilds.get("294619824842080257").members.get(app.id);
 			if (!member) return message.channel.send("The user who applied is not in the server!");
-			if (canCook(member)) return message.channel.send("The user who applied is already a worker!");
+			if (canCook(client, member)) return message.channel.send("The user who applied is already a worker!");
 			member.send(`Your application has been denied for the following reason: \`${reason.join(" ")}\``);
 			app.destroy({ where: {}, truncate: {} });
 			message.channel.send("I have successfully denied the application!");

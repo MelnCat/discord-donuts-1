@@ -16,7 +16,7 @@ module.exports =
 			if (!app) return message.channel.send("I couldn't find an application with that code!");
 			const member = client.guilds.get("294619824842080257").members.get(app.id);
 			if (!member) return message.channel.send("The user who applied is not in the server!");
-			if (canCook(member)) return message.channel.send("The user who applied is already a worker!");
+			if (canCook(client, member)) return message.channel.send("The user who applied is already a worker!");
 			member.roles.add(employeeRole);
 			member.send("Great news! Your application has been accepted. You are now a worker!");
 			app.destroy({ where: {}, truncate: {} });

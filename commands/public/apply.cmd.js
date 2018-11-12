@@ -10,7 +10,7 @@ module.exports =
 		.setDescription("Apply for employee!")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {
-			if (canCook(message.member)) return message.channel.send("You are already a worker!");
+			if (canCook(client, message.member)) return message.channel.send("You are already a worker!");
 			if (await Applications.findById(message.author.id)) return message.channel.send("<:no:501906738224562177> **You already have an active application.**");
 			message.author.createDM();
 			const lastmsg = "Last but not least, please ensure that you comply with the following:\nDo you recognize by penalty of perjury that all information presented is 100% genuine, that you stated the truth and nothing but the truth, and that we can hold you accountable? Do you acknowledge that you have read your obligations accurately and thoroughly and will be held responsible for your efforts, notwithstanding of the situation and/or outcome? Do you agree already be following, to continue following and sustain Discord's Terms of Service (found at https://discordapp.com/tos), Community Guidelines (found at https://discordapp.com/guidelines) and the rules of our Discord server; and are amenable to face the consequences to the highest extent if you are affirmed guilty of unlawful actions, per these three documents?";
