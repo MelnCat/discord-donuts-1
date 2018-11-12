@@ -17,12 +17,8 @@ class DDClient extends Discord.Client {
 		this.commands = new Discord.Collection();
 		const commandFiles = glob.sync("./commands/**/*.cmd.js");
 
-		console.log(commandFiles);
-
 		commandFiles.forEach(file => {
 			const command = require(`.${file}`);
-
-			console.log(command);
 
 			command.setCategory(path.basename(path.dirname(`.${file}`)));
 
