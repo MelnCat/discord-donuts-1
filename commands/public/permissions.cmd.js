@@ -15,7 +15,7 @@ module.exports =
 		.setFunction((message, args, client) => {
 			function pretty(t) {
 				let h = t.toLowerCase().split("_").join(" ");
-				return [...h].map((x,i) => !i ? x.toUpperCase() : x).join("");
+				return [...h].map((x, i) => !i ? x.toUpperCase() : x).join("");
 			}
 			const perm = Object.keys(Discord.Permissions.FLAGS);
 			chunk(25)(perm).forEach(async(section, index, arr) => {
