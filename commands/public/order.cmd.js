@@ -23,23 +23,23 @@ module.exports =
 				let description = args.join(" ").trim();
 				let reg = /\[.+\]/;
 				let matched = description.match(reg);
-				let selections = {}
+				let selections = {};
 				if (matched) {
-					let m = matched[0]
+					let m = matched[0];
 					try {
 						selections = JSON.parse(m.replace("[", "{").replace("]", "}").replace(/[a-zA-Z]/g, n => {
-							return `"${n}"`
+							return `"${n}"`;
 						})
-						)
-					} catch(err) {
-						console.log(err)
+						);
+					} catch (err) {
+						console.log(err);
 					}
 				}
 				if (description.length > 40) return message.channel.send("<:no:501906738224562177> **Your donut description cannot exceed a character count of 40, please try again.**");
 				if (!description.toLowerCase().includes("donut")) description += " donut";
 				if (selections.oid) {
-					generatedID = String(selections.oid)
-				}
+					generatedID = String(selections.oid);
+				};
 				await Orders.create({
 					id: generatedID,
 					user: message.author.id,
