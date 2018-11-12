@@ -1,4 +1,4 @@
-const snekfetch = require("node-superfetch");
+const { post } = require("node-superfetch");
 
 const DDEmbed = require("./structures/DDEmbed.struct");
 
@@ -154,29 +154,28 @@ const applicationAlert = async(client, text, channel = applicationChannel) => {
 	client.channels.get(channel).send(embed);
 };
 const updateWebsites = client => {
-	const serverCount = client.guilds.size;
 	console.log("[Discord] Updating websites...");
-	snekfetch.post(`https://discordbots.org/api/bots/335637950044045314/stats`)
+	post(`https://discordbots.org/api/bots/335637950044045314/stats`)
 		.set("Authorization", discordbotsToken)
-		.send({ server_count: serverCount })
+		.send({ server_count: client.guilds.size })
 		.then(console.log("[Discord] Updated discordbots.org stats."))
 		.catch(e => console.log("[Discord] ", e.body));
-	snekfetch.post(`https://bots.discord.pw/api/bots/335637950044045314/stats`)
+	post(`https://bots.discord.pw/api/bots/335637950044045314/stats`)
 		.set("Authorization", discordpwToken)
-		.send({ server_count: serverCount })
+		.send({ server_count: client.guilds.sizet })
 		.then(console.log("[Discord] Updated bots.discord.pw stats."))
 		.catch(e => console.log("[Discord] ", e.body));
-	snekfetch.post(`https://bots.discordlist.net/api`)
+	/*post(`https://bots.discordlist.net/api`)
 		.set("Authorization", discordlistToken)
-		.send({ server_count: serverCount })
+		.send({ server_count: client.guilds.size })
 		.then(console.log("[Discord] Updated bots.discordlist.net stats."))
-		.catch(e => console.log("[Discord] ", e.body));
-	snekfetch.post(`https://listcord.com/api/bot/335637950044045314/guilds`)
+		.catch(e => console.log("[Discord] ", e.body));*/
+	/*post(`https://listcord.com/api/bot/335637950044045314/guilds`)
 		.set("Content-Type", "application/json")
 		.set("token", listcordToken)
-		.send({ guilds: serverCount })
+		.send({ guilds: client.guilds.size })
 		.then(console.log("[Discord] Updated Listcord stats."))
-		.catch(e => console.log("[Discord] ", e.body));
+		.catch(e => console.log("[Discord] ", e.body));*/
 };
 
 const checkOrders = client => {
