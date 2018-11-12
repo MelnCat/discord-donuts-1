@@ -226,7 +226,7 @@ const chunk = size => arr =>
 
 const isurl = str => {
 	try {
-		new URL(str); // eslint-disable-line no-new
+		new URL(str); // eslint-disable-line no-new, no-undef
 		return true;
 	} catch (err) {
 		return false;
