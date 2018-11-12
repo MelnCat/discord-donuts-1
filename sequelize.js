@@ -218,4 +218,5 @@ module.exports = {
 	WorkerInfo,
 	Applications,
 	MonthlyInfo,
+	Ratings,
 };
