@@ -4,7 +4,7 @@ const DDCommand = require("../../structures/DDCommand.struct");
 const { Orders, Op } = require("../../sequelize");
 const { everyone } = require("../../permissions");
 const { messageAlert } = require("../../helpers");
-const { channels: { ticketChannel } } = require("./auth.json");
+const { channels: { ticketChannel } } = require("../../auth.json");
 
 module.exports =
 	new DDCommand()
