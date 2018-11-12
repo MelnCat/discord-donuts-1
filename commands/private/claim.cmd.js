@@ -23,13 +23,17 @@ module.exports =
 
 			await order.update({ status: 1, claimer: message.author.id });
 
-			const claimEmbed = new MessageEmbed().setColor(0x36393E).setDescription(`🎫 **Your order has been claimed by \`${message.author.tag}\`!\nPlease wait while they process your order.**`)
-.setFooter(message.author.tag, message.author.displayAvatarURL())
-.setTimestamp();
+			const claimEmbed = new MessageEmbed()
+				.setColor(0x36393E)
+				.setDescription(`🎫 **Your order has been claimed by \`${message.author.tag}\`!\nPlease wait while they process your order.**`)
+				.setFooter(message.author.tag, message.author.displayAvatarURL())
+				.setTimestamp();
 			await client.users.get(order.user).send(claimEmbed).catch(e => { });
 
-			const embed = new MessageEmbed().setColor(0x36393E).setDescription(`<:yes:501906738119835649> **Claim successful, please ensure that you provide what the user has requested.**`)
-.setFooter(message.author.tag, message.author.displayAvatarURL());
+			const embed = new MessageEmbed()
+				.setColor(0x36393E)
+				.setDescription(`<:yes:501906738119835649> **Claim successful, please ensure that you provide what the user has requested.**`)
+				.setFooter(message.author.tag, message.author.displayAvatarURL());
 			await message.channel.send(embed);
 
 			await messageAlert(client, "An order has just been claimed, there are now [orderCount] orders left");
