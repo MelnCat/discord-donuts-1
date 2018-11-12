@@ -33,7 +33,7 @@ module.exports =
 			const member = client.guilds.get("294619824842080257").members.get(user.id);
 			if (!member) message.channel.send("The person seems to not be in this server.");
 			if (!await data.findById(user.id) && member ? !canCook(member) : !await data.findById(user.id)) return message.channel.send("They are not a worker!");
-			const workerraw = isMonthly?await data.findOrCreate({ where: { id: user.id }, defaults: { id: user.id, cooks: 0, delivers: 0, lastCook: 0, lastDeliver: 0, username: user.tag } }):await data.findOrCreate({ where: { id: user.id }, defaults: { id: user.id, cooks: 0, delivers: 0, lastCook: 0, lastDeliver: 0, username: user.tag, lastCookIds: "[]", lastDeliverIds: "[]" } });
+			const workerraw = isMonthly ? await data.findOrCreate({ where: { id: user.id }, defaults: { id: user.id, cooks: 0, delivers: 0, lastCook: 0, lastDeliver: 0, username: user.tag } }) : await data.findOrCreate({ where: { id: user.id }, defaults: { id: user.id, cooks: 0, delivers: 0, lastCook: 0, lastDeliver: 0, username: user.tag, lastCookIds: "[]", lastDeliverIds: "[]" } });
 			const worker = workerraw[0];
 			const embed =
 				new DDEmbed(client)
