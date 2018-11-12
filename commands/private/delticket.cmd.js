@@ -3,7 +3,7 @@ const DDCommand = require("../../structures/DDCommand.struct");
 
 const { Orders, Op } = require("../../sequelize");
 const { canCook } = require("../../permissions");
-
+const { channels: { ticketChannel } } = require("./auth.json");
 module.exports =
 	new DDCommand()
 		.setName("delticket")
