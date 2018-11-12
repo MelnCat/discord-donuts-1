@@ -165,12 +165,12 @@ const updateWebsites = client => {
 		.send({ server_count: client.guilds.sizet })
 		.then(console.log("[Discord] Updated bots.discord.pw stats."))
 		.catch(e => console.log("[Discord] ", e.body));
-	/*post(`https://bots.discordlist.net/api`)
+	/* post(`https://bots.discordlist.net/api`)
 		.set("Authorization", discordlistToken)
 		.send({ server_count: client.guilds.size })
 		.then(console.log("[Discord] Updated bots.discordlist.net stats."))
 		.catch(e => console.log("[Discord] ", e.body));*/
-	/*post(`https://listcord.com/api/bot/335637950044045314/guilds`)
+	/* post(`https://listcord.com/api/bot/335637950044045314/guilds`)
 		.set("Content-Type", "application/json")
 		.set("token", listcordToken)
 		.send({ guilds: client.guilds.size })
