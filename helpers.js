@@ -69,7 +69,7 @@ const generateTicket = (client, order) => {
 		.addField("Donut Description", order.get("description"))
 		.addField(":hash: Ticket ID", order.get("id"))
 		.addField(":computer: Guild Information", `This ticket came from ${channel.guild.name} (${channel.guild.id}) in ${channel.name} (${channel.id}).`)
-		.addField(":white_check_mark: Ticket Status", status(order.get("status")));
+		.addField(":white_check_mark: Ticket Status", `${status(order.get("status"))}${order.get("status") === 1?`by ${client.users.get(order.get("claimer")).tag}`:""}`);
 };
 
 const autoDeliver = async(client, id) => {
