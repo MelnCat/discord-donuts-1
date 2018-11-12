@@ -119,9 +119,9 @@ class DDCommand {
 	* @param { Discord.GuildMember } member The member to test the permissions on
 	* @returns { PermissionFunction | TypeError }
 	*/
-	getPermissions(member) {
+	getPermissions(client, member) {
 		if (!this.permissions) return new TypeError("No permissions have been set for this command");
-		return this.permissions(member);
+		return this.permissions(client, member);
 	}
 
 	getCategory() {

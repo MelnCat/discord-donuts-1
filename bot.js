@@ -117,7 +117,7 @@ client.on("message", async message => {
 	const command = args.shift().toLowerCase();
 
 	if (!client.commands.has(command)) return;
-	if (!client.getCommand(command).getPermissions(message.member)) return message.reply("You do not have permission to run this command");
+	if (!client.getCommand(command).getPermissions(client, message.member)) return message.reply("You do not have permission to run this command");
 
 	try {
 		await client.getCommand(command).runFunction(message, args, client);
