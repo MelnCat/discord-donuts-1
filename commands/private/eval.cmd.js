@@ -31,16 +31,16 @@ module.exports =
 				let regex = new RegExp(array.join("|"), "g");
 				com = com.replace(regex, "Censored");
 				if (logToConsole) {
-					console.log(com)
+					console.log(com);
 				} else {
-					message.channel.send(`\`\`\`js\n${com.substr(0, 1987)}${isOutHigh?"...":""}\`\`\``);
+					message.channel.send(`\`\`\`js\n${com.substr(0, 1987)}${isOutHigh ? "..." : ""}\`\`\``);
 				}
 			} catch (e) {
 				let isErrHigh = e.stack.length > 1987;
 				if (logToConsole) {
-					console.log(e.stack)
+					console.log(e.stack);
 				} else {
-					message.channel.send(`\`\`\`js\n${e.stack.substr(0, 1987)}${isErrHigh?"...":""}\`\`\``);
+					message.channel.send(`\`\`\`js\n${e.stack.substr(0, 1987)}${isErrHigh ? "..." : ""}\`\`\``);
 				}
 			}
 		});
