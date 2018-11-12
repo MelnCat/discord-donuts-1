@@ -115,9 +115,6 @@ const getInput = async(message, display) => {
 	let vv = v.first().content;
 	return vv;
 };
-const pause = (ms) => {
-	return new Promise(resolve => setTimeout(resolve, ms));
-}
 const getReactions = async(client, message, display, reactions) => {
 	const userid = message.author.id;
 	const channel = message.channel;
@@ -251,5 +248,4 @@ module.exports = {
 	applicationAlert,
 	getInput,
 	getReactions,
-	pause
 };
