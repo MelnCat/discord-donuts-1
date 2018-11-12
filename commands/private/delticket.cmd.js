@@ -3,7 +3,7 @@ const DDCommand = require("../../structures/DDCommand.struct");
 
 const { Orders, Op } = require("../../sequelize");
 const { canCook } = require("../../permissions");
-
+const { channels: { ticketChannel } } = require("./auth.json");
 module.exports =
 	new DDCommand()
 		.setName("delticket")
@@ -23,5 +23,6 @@ module.exports =
 			if (order.status > 4) return message.reply(`<:no:501906738224562177> **Order \`${args[0]}\` has already been deleted!**`);
 
 			await order.update({ status: 5 });
+			(await client.channels.get(ticketChannel).messages.fetch(order.ticketMessageID)).delete();
 			await message.channel.send(`<:yes:501906738119835649> **Order \`${args[0]}\` was successfully deleted!**`);
 		});

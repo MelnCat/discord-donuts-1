@@ -3,7 +3,11 @@ const DDCommand = require("../../structures/DDCommand.struct");
 
 const { token } = require("../../auth.json");
 const { isBotOwner } = require("../../permissions");
-
+const sequelize = require("./sequelize");
+const auth = require("./auth.json");
+const helpers = require("./helpers");
+delete auth.token;
+let logToConsole = false;
 module.exports =
 	new DDCommand()
 		.setName("eval")
@@ -23,10 +27,20 @@ module.exports =
 				const array = [
 					escapeRegex(token),
 				];
+				let isOutHigh = com.length > 1987;
 				let regex = new RegExp(array.join("|"), "g");
 				com = com.replace(regex, "Censored");
-				message.channel.send(`\`\`\`js\n${com.substr(0, 1999)}\`\`\``);
+				if (logToConsole) {
+					console.log(com);
+				} else {
+					message.channel.send(`\`\`\`js\n${com.substr(0, 1987)}${isOutHigh ? "..." : ""}\`\`\``);
+				}
 			} catch (e) {
-				message.channel.send(`\`\`\`js\n${e.stack}\`\`\``);
+				let isErrHigh = e.stack.length > 1987;
+				if (logToConsole) {
+					console.log(e.stack);
+				} else {
+					message.channel.send(`\`\`\`js\n${e.stack.substr(0, 1987)}${isErrHigh ? "..." : ""}\`\`\``);
+				}
 			}
 		});

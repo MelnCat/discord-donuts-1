@@ -4,6 +4,7 @@ const DDCommand = require("../../structures/DDCommand.struct");
 const { Orders, Op } = require("../../sequelize");
 const { everyone } = require("../../permissions");
 const { messageAlert } = require("../../helpers");
+const { channels: { ticketChannel } } = require("./auth.json");
 
 module.exports =
 	new DDCommand()
@@ -26,6 +27,6 @@ module.exports =
 					.setThumbnail("https://images.emojiterra.com/twitter/512px/2705.png");
 
 			await message.channel.send(embed);
-
+			(await client.channels.get(ticketChannel).messages.fetch(order.ticketMessageID)).delete();
 			messageAlert(client, ":cry: An order has been cancelled, there are now [orderCount] orders left");
 		});
