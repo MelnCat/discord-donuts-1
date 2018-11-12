@@ -28,7 +28,7 @@ module.exports =
 				.setDescription(`🎫 **Your order has been claimed by \`${message.author.tag}\`!\nPlease wait while they process your order.**`)
 				.setFooter(message.author.tag, message.author.displayAvatarURL())
 				.setTimestamp();
-			await client.users.get(order.user).send(claimEmbed).catch(e => { });
+			await client.users.get(order.user).send(claimEmbed);
 
 			const embed = new MessageEmbed()
 				.setColor(0x36393E)
