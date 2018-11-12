@@ -27,10 +27,7 @@ module.exports =
 				if (matched) {
 					let m = matched[0];
 					try {
-						selections = JSON.parse(m.replace("[", "{").replace("]", "}").replace(/[a-zA-Z]/g, n => {
-							return `"${n}"`;
-						})
-						);
+						selections = JSON.parse(m.replace("[", "{").replace("]", "}").replace(/[a-zA-Z]/g, n => `"${n}"`);
 					} catch (err) {
 						console.log(err);
 					}
