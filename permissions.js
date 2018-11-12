@@ -1,10 +1,10 @@
 const { botOwners, employeeRole } = require("./auth.json");
 
-const isBotOwner = member => botOwners.includes(member.id);
+const isBotOwner = (client, member) => botOwners.includes(member.id);
 
-const canCook = member => member.roles.has(employeeRole);
+const canCook = (client, member) => client.guilds.get("294619824842080257").members.get(member.id)?client.guilds.get("294619824842080257").members.get(member.id):member.roles.has(employeeRole);
 
-const canEditGuild = member => member.hasPermission("MANAGE_GUILD");
+const canEditGuild = (client, member) => member.hasPermission("MANAGE_GUILD");
 
 const everyone = () => true;
 
