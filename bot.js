@@ -10,7 +10,7 @@ const glob = require("glob");
 const DDClient = require("./structures/DDClient.struct");
 
 const { Ratings, MonthlyInfo, Applications, Orders, Blacklist, WorkerInfo, PrecookedDonuts, Op, Prefixes } = require("./sequelize");
-const { employeeRole, token, prefix, channels: { kitchenChannel, ticketChannel, guildLogChannel, testChannel } } = require("./auth.json");
+const { employeeRole, token, prefix, channels: { suggestionChannel, kitchenChannel, ticketChannel, guildLogChannel, testChannel } } = require("./auth.json");
 const { generateTicket, timeout, updateWebsites, messageAlert, applicationAlert, checkOrders } = require("./helpers");
 
 const DDEmbed = require("./structures/DDEmbed.struct");
@@ -83,6 +83,10 @@ ${commit}\`\`\`
 });
 
 client.on("message", async message => {
+	if (message.channel.id === suggestionChannel) {
+		await message.react("501906738119835649")
+		await message.react("501906738224562177")
+	}
 	if (new Date().getDate() !== 1) {
 		client.reset = false;
 	} else if (!client.reset) {
