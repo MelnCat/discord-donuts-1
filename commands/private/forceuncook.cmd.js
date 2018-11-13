@@ -8,9 +8,9 @@ const { channels: { kitchenChannel } } = require("../../auth.json");
 
 module.exports =
 	new DDCommand()
-		.setName("forceunclaim")
-		.addAlias("funclaim")
-		.setDescription("Use this to forcefully unclaim donut orders.")
+		.setName("forceuncook")
+		.addAlias("funcook")
+		.setDescription("Use this to forcefully uncook donut orders.")
 		.setPermissions(isBotAdmin)
 		.setFunction(async(message, args, client) => {
 			if (!args[0]) return message.channel.send("<:no:501906738224562177> **Invalid arguments provided. Please ensure that you've provided an ID to claim.**");
@@ -18,7 +18,7 @@ module.exports =
 
 			const order = await Orders.findById(args.shift());
 			if (!order) return message.channel.send("<:no:501906738224562177> **There was an issue fetching that order, please try again.**");
-			if (order.claimer === null || order.status !== 1) return message.channel.send(`<:no:501906738224562177> **Order \`${order.id}\` is not claimed.**`);
+			if (order.claimer === null || order.status !== 2 || order.status !== 3) return message.channel.send(`<:no:501906738224562177> **Order \`${order.id}\` is not cooking or cooked.**`);
 
 			await order.update({ status: 0, claimer: null });
 

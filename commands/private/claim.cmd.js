@@ -19,7 +19,7 @@ module.exports =
 
 			const order = await Orders.findById(args.shift());
 			if (!order) return message.channel.send("<:no:501906738224562177> **There was an issue fetching that order, please try again.**");
-			if (order.claimer != null || order.status !== 0) return message.channel.send(`<:no:501906738224562177> **Order \`${args[0]}\` has already been claimed.**`);
+			if (order.claimer != null || order.status !== 0) return message.channel.send(`<:no:501906738224562177> **Order \`${order.id}\` has already been claimed.**`);
 
 			await order.update({ status: 1, claimer: message.author.id });
 
