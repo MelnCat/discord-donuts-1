@@ -3,9 +3,9 @@ const DDCommand = require("../../structures/DDCommand.struct");
 
 const { token } = require("../../auth.json");
 const { isBotOwner } = require("../../permissions");
-const sequelize = require("./sequelize");
-const auth = require("./auth.json");
-const helpers = require("./helpers");
+const sequelize = require("../../sequelize");
+const auth = require("../../auth.json");
+const helpers = require("../../helpers");
 delete auth.token;
 let logToConsole = false;
 module.exports =
