@@ -70,7 +70,7 @@ module.exports =
 
 					if (response.first().content.includes("yes")) {
 						await PrecookedDonuts.create({ name: order.description.toLowerCase(), url });
-						message.reply("<:yes:501906738119835649> **Successfully added to your collection.**");
+						message.channel.send("<:yes:501906738119835649> **Successfully added to your collection.**");
 					}
 				}
 			}
