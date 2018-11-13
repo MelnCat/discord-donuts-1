@@ -11,7 +11,7 @@ module.exports =
 		.setName("applicationlist")
 		.addAliases("applist", "app-list")
 		.setDescription("Lists all the current applications.")
-		.setPermissions(isBotOwner)
+		.setPermissions(isBotAdmin)
 		.setFunction(async(message, args, client) => {
 			const apps = await Applications.findAll({ where: {} });
 			const embed =
