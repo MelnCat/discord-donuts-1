@@ -84,8 +84,8 @@ ${commit}\`\`\`
 
 client.on("message", async message => {
 	if (message.channel.id === suggestionChannel) {
-		await message.react("501906738119835649")
-		await message.react("501906738224562177")
+		await message.react("501906738119835649");
+		await message.react("501906738224562177");
 	}
 	if (new Date().getDate() !== 1) {
 		client.reset = false;
