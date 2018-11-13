@@ -11,7 +11,7 @@ module.exports =
 		.setName("applicationinfo")
 		.addAliases("appinfo", "app-info")
 		.setDescription("Checks the info of an application.")
-		.setPermissions(isBotOwner)
+		.setPermissions(isBotAdmin)
 		.setFunction(async(message, args, client) => {
 			if (!args[0]) return message.channel.send("Please specify an application code.");
 			const app = await Applications.findOne({ where: { code: args[0] } });
