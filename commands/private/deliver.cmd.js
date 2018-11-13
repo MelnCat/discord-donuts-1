@@ -3,8 +3,8 @@ const DDCommand = require("../../structures/DDCommand.struct");
 
 const { Orders, WorkerInfo, MonthlyInfo } = require("../../sequelize");
 const { canCook } = require("../../permissions");
-const { channels: { deliveryChannel } } = require("../../auth.json");
-
+const { channels: { deliveryChannel, ticketChannel } } = require("../../auth.json");
+const { timeout } = require("../../helpers")
 module.exports =
 	new DDCommand()
 		.setName("deliver")
@@ -66,4 +66,6 @@ module.exports =
 					}
 				}
 			}
+			await timeout(5000);
+			(await client.channels.get(ticketChannel).messages.fetch(order.ticketMessageID)).delete();
 		});

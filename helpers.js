@@ -70,7 +70,7 @@ const generateTicket = (client, order) => {
 		.addField("🎫 Ticket Description", order.get("description"))
 		.addField("🆔 Ticket ID", order.get("id"))
 		.addField("ℹ Guild Information", `Guild: **${channel.guild.name} (ID:${channel.guild.id})**\nChannel: **${channel.name} (ID:${channel.id})**`)
-		.addField("<:yes:501906738119835649> Ticket Status", `${status(order.get("status"))}${order.get("status") === 1 ? `by ${client.users.get(order.get("claimer")).tag}` : ""}`)
+		.addField("<:yes:501906738119835649> Ticket Status", `${status(order.get("status"))}${order.get("status") === 1 ? ` by ${client.users.get(order.get("claimer")).tag}` : ""}`)
 		.setFooter(user.tag, user.displayAvatarURL())
 };
 
