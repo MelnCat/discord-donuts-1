@@ -6,7 +6,7 @@ const { Orders, Op, Applications } = require("./sequelize");
 const empty = "​";
 const { employeeRole } = require("./auth.json");
 const {
-	channels: { applicationChannel, kitchenChannel, deliveryChannel },
+	channels: { applicationChannel, kitchenChannel, deliveryChannel, ticketChannel },
 	botlists: {
 		discordbotsToken,
 		discordpwToken,
@@ -83,7 +83,7 @@ const autoDeliver = async (client, id) => {
 	const url = finalOrder.get("url");
 
 	channel.send(`${user}, here's your order! I know you love this bot. In case you didn't know, upkeeping a bot takes money. You can help keep us operating and our gears running smooth by being a patron over at https://patreon.com/discorddonuts. If you want to provide feedback, please use d!feedback. If you want to leave a tip, use d!tip. ${url}`);
-
+	(await client.channels.get(ticketChannel).messages.fetch(finalOrder.ticketMessageID)).delete();
 	await finalOrder.update({ status: 4 });
 };
 
