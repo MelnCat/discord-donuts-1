@@ -15,5 +15,5 @@ module.exports =
 			const order = await Orders.findOne({ where: { user: message.author.id, status: { [Op.lt]: 4 } } });
 
 			if (!order) return message.reply("You do not currently have a donut");
-			message.channel.send(generateTicket(order));
+			message.channel.send(generateTicket(client, order));
 		});
