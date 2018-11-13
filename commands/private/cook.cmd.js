@@ -82,7 +82,7 @@ module.exports =
 					.setStyle("blank")
 					.setTitle("Cook Wizard")
 					.setURL("https://discordapp.com/oauth2/authorize?client_id=335637950044045314&scope=bot&permissions=84993")
-					.setDescription("<:yes:501906738119835649> **Your request has been acknowledged. This order will take `3` minutes to cook.")
+					.setDescription("<:yes:501906738119835649> **Your request has been acknowledged. This order will take `3` minutes to cook.**")
 					.setFooter(message.author.tag, message.author.displayAvatarURL())
 
 			const cookedEmbed =
