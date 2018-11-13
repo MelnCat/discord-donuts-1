@@ -46,7 +46,7 @@ const generateID = length => {
 /* eslint-disable indent, no-mixed-spaces-and-tabs */
 
 const status = code => {
-			if (code === 0) return "Unclaimed";
+	if (code === 0) return "Unclaimed";
 	else if (code === 1) return "Claimed";
 	else if (code === 2) return "Cooking";
 	else if (code === 3) return "Cooked";
@@ -63,16 +63,18 @@ const generateTicket = (client, order) => {
 	const user = client.users.get(order.get("user"));
 	const channel = client.channels.get(order.get("channel"));
 	return new DDEmbed(client)
-		.setStyle("white")
-		.setTitle(" New Ticket")
-		.setDescription(`${user.username}#${user.discriminator} (${user.id}) would like a donut!`)
-		.addField("Donut Description", order.get("description"))
-		.addField(":hash: Ticket ID", order.get("id"))
-		.addField(":computer: Guild Information", `This ticket came from ${channel.guild.name} (${channel.guild.id}) in ${channel.name} (${channel.id}).`)
-		.addField(":white_check_mark: Ticket Status", `${status(order.get("status"))}${order.get("status") === 1 ? `by ${client.users.get(order.get("claimer")).tag}` : ""}`);
+		.setStyle("blank")
+		.setTitle("New Ticket")
+		.setURL("https://discordapp.com/oauth2/authorize?client_id=335637950044045314&scope=bot&permissions=84993")
+		.setDescription(`${user.username}#${user.discriminator} (ID:${user.id}) has placed an order!`)
+		.addField("🎫 Ticket Description", order.get("description"))
+		.addField("🆔 Ticket ID", order.get("id"))
+		.addField("ℹ Guild Information", `Guild: **${channel.guild.name} (ID:${channel.guild.id})**\nChannel: **${channel.name} (ID:${channel.id})**`)
+		.addField("<:yes:501906738119835649> Ticket Status", `${status(order.get("status"))}${order.get("status") === 1 ? `by ${client.users.get(order.get("claimer")).tag}` : ""}`)
+		.setFooter(user.tag, user.displayAvatarURL())
 };
 
-const autoDeliver = async(client, id) => {
+const autoDeliver = async (client, id) => {
 	const finalOrder = await Orders.findOne({ where: { id: id, status: 3 } });
 	if (!finalOrder) return;
 
@@ -85,7 +87,7 @@ const autoDeliver = async(client, id) => {
 	await finalOrder.update({ status: 4 });
 };
 
-const messageAlert = async(client, text, channel = kitchenChannel) => {
+const messageAlert = async (client, text, channel = kitchenChannel) => {
 	text = text.replace("[orderCount]", await Orders.count({ where: { status: { [Op.lt]: 1 } } }));
 	let unclaimed = await Orders.count({ where: { status: { [Op.lt]: 1 } } });
 
@@ -103,7 +105,7 @@ const messageAlert = async(client, text, channel = kitchenChannel) => {
 			.setThumbnail("https://images.emojiterra.com/twitter/512px/2757.png");
 	client.channels.get(channel).send(embed);
 };
-const getInput = async(message, display) => {
+const getInput = async (message, display) => {
 	const userid = message.author.id;
 	const channel = message.channel;
 	await channel.send(display);
@@ -115,7 +117,7 @@ const getInput = async(message, display) => {
 	let vv = v.first().content;
 	return vv;
 };
-const getReactions = async(client, message, display, reactions) => {
+const getReactions = async (client, message, display, reactions) => {
 	const userid = message.author.id;
 	const channel = message.channel;
 	const filter = (reaction, user) => reactions.includes(reaction.emoji.name) && user.id === userid;
@@ -134,7 +136,7 @@ const getReactions = async(client, message, display, reactions) => {
 	}
 	return col.first().emoji.name;
 };
-const applicationAlert = async(client, text, channel = applicationChannel) => {
+const applicationAlert = async (client, text, channel = applicationChannel) => {
 	const apps = await Applications.findAll({ where: {} });
 	text = text.replace("[applicationCount]", apps.length);
 	const embed =
@@ -179,7 +181,7 @@ const updateWebsites = client => {
 };
 
 const checkOrders = client => {
-	setInterval(async() => {
+	setInterval(async () => {
 		const cookingOrders = await Orders.findAll({ where: { status: { [Op.lt]: 5 } } });
 		cookingOrders.forEach(async order => {
 			if (order.status < 1) {

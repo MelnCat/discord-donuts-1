@@ -33,6 +33,8 @@ class DDEmbed extends Discord.MessageEmbed {
 			this.setFooter(this.client.user.username, this.client.user.avatarURL());
 		} else if (style === "white") {
 			this.setColor(0xFFFFFF);
+		} else if (style === "blank") {
+			this.setColor(0x36393E)
 		} else {
 			return new TypeError(`Unrecognised style: ${style}`);
 		}
