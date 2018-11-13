@@ -1,7 +1,7 @@
 const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 
-const { isBotOwner, canCook } = require("../../permissions");
+const { isBotAdmin, canCook } = require("../../permissions");
 const { employeeRole, channels: { applicationChannel } } = require("../../auth");
 const { Applications } = require("../../sequelize.js");
 const { applicationAlert } = require("../../helpers.js");
@@ -9,7 +9,7 @@ module.exports =
 	new DDCommand()
 		.setName("deny")
 		.setDescription("Use this to deny applications.")
-		.setPermissions(isBotOwner)
+		.setPermissions(isBotAdmin)
 		.setFunction(async(message, args, client) => {
 			if (!args[0]) return message.channel.send("Please specify an application code.");
 			if (!args[1]) return message.channel.send("Please specify a reason.");

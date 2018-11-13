@@ -8,7 +8,7 @@ const stringSimilarity = require("string-similarity");
 module.exports =
 	new DDCommand()
 		.setName("delapplication")
-		.addAliases("delapply", "del-apply", "del-application", "delete-apply", "deleteapply")
+		.addAlias("delapp")
 		.setDescription("Delete your application if you have one.")
 		.setPermissions(everyone)
 		.setFunction(async(message, args, client) => {

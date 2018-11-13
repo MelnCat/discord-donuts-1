@@ -1,7 +1,7 @@
 const DDEmbed = require("../../structures/DDEmbed.struct");
 const DDCommand = require("../../structures/DDCommand.struct");
 
-const { isBotOwner, canCook } = require("../../permissions");
+const { isBotAdmin, canCook } = require("../../permissions");
 const { employeeRole } = require("../../auth");
 const { Applications } = require("../../sequelize.js");
 const { applicationAlert } = require("../../helpers.js");
